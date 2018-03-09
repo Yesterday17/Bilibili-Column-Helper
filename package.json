@@ -1,21 +1,20 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "bilibili-column-helper",
+  "version": "0.0.0",
+  "description": "Transfers markdown to bilibili column passage. Using Electron & Marked.",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/Yesterday17/Bilibili-Column-Helper",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "bilibili",
+    "column",
+    "markdown"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Yesterday17",
+  "license": "MIT",
   "devDependencies": {
     "electron": "~1.8.2"
   }
