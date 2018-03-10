@@ -1,19 +1,26 @@
-const electron = require('electron')
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const {app, BrowserWindow, ipcMain} = require('electron'),
+  glob = require('glob'),
+  path = require('path'),
+  url = require('url'),
+  request = require('request');
 
-const path = require('path')
-const url = require('url')
+let mainWindow, loginWindow;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow, loginWindow
+let cookies = request.jar();
 
-function createWindow () {
+function initialize() {
+  const files = glob.sync(path.join(__dirname, 'app/js/main/*.js'))
+  files.forEach((file) => {
+    require(file)
+  })
+}
+
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1280, height: 720})
+  mainWindow = new BrowserWindow({
+    width: 1280,
+    height: 720
+  })
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -34,14 +41,18 @@ function createWindow () {
   })
 
   // Login Window
-  loginWindow = new BrowserWindow({parent: mainWindow, width: 640, height: 480});
+  loginWindow = new BrowserWindow({
+    parent: mainWindow,
+    width: 640,
+    height: 480
+  });
   loginWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'app', 'login.html'),
     protocol: 'file:',
     slashes: true
   }));
 
-  loginWindow.on('closed', function(){
+  loginWindow.on('closed', function () {
     loginWindow = null;
   });
   // loginWindow.webContents.openDevTools()
@@ -65,9 +76,19 @@ app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow()
+    createWindow();
   }
 })
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+initialize();
+
+ipcMain.on('get-user-cookies', (event) => {
+  event.sender.send('request-cookies', cookies);
+})
+
+ipcMain.on('set-user-cookies', (event, cookie) => {
+  cookies = cookie;
+})

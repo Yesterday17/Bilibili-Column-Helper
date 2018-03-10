@@ -1,15 +1,13 @@
-const {ipcMain, dialog} = require('electron');
+const {ipcMain, dialog} = require('electron'),
+    upcover = require('../utils/upcover');
 
-ipcMain.on('open-file-dialog', (event) => {
+ipcMain.on('open-file-dialog', (event, cookies) => {
     dialog.showOpenDialog({
-        properties: ['openFile'],
-        filters: [{
-            name: 'Images',
-            extensions: ['jpg', 'png']
-        }]
+        properties: ['openFile']
     }, (file) => {
-        if (files) {
-            event.sender.send('image-chosen', files);
+        if (file) {
+            upcover(file, cookies);
+            event.sender.send('image-chosen', file);
         }
     });
 })
