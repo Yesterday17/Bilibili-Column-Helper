@@ -13,6 +13,7 @@
 
 <body>
   <div class="container-fluid">
+    <button id="upcover" type="button" class="btn btn-primary">上传文件</button>
     <div class="row">
       <div class="col">
         <div class="input-group">
@@ -26,12 +27,12 @@
   </div>
 
   <script>
-    var $ = require("jquery");
+    require("jquery");
     require("popper.js")
     require("bootstrap");
-    require("markdown-it");
 
-    require("./js/index.js");
+    require("./js/main/index.js")
+    require("./js/render/index.js");
   </script>
 </body>
 

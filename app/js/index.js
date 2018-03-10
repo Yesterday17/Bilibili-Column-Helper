@@ -1,7 +1,6 @@
 const md = require('markdown-it')();
-const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const {ipcMain, dialog} = require('electron');
+const fs = require('fs');
 
 onload = function () {
     //
@@ -17,4 +16,16 @@ $('#markdown-input').bind('input propertychange', function () {
     console.log(render);
 
     $('#render-column').replaceWith('<div id"render-column">' + render + '</div>');
+})
+
+$('#upcover').click(function () {
+    dialog.showOpenDialog(this, {
+        properties: ['openFile'],
+        filters: [{
+            name: 'Images',
+            extensions: ['jpg', 'png']
+        }]
+    });
+    console.log(image);
+
 })
