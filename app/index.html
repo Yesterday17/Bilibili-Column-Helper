@@ -15,20 +15,23 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-          <div class="input-group">
-              <textarea id="edit" class="form-control" aria-label="With textarea"></textarea>
-            </div>
+        <div class="input-group">
+          <textarea id="markdown-input" class="form-control" aria-label="With textarea"></textarea>
+        </div>
       </div>
       <div class="col">
-        render-column
+        <div id="render-column">render-column</div>
       </div>
     </div>
   </div>
 
   <script>
-    require("jquery");
+    var $ = require("jquery");
     require("popper.js")
     require("bootstrap");
+    require("markdown-it");
+
+    require("./js/index.js");
   </script>
 </body>
 
