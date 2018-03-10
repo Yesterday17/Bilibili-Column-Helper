@@ -1,16 +1,18 @@
-const {ipcMain, dialog} = require('electron'),
+const {ipcMain, dialog, remote} = require('electron'),
     upcover = require('../utils/upcover');
 
 
 /**
  * Called by ../render/index.js: 17
  */
-ipcMain.on('open-file-dialog', (event, cookies, csrf) => {
+ipcMain.on('open-file-dialog', (event) => {
     dialog.showOpenDialog({
         properties: ['openFile']
     }, (file) => {
         if (file) {
-            upcover.upcover(file[0], cookies, csrf, (req) => {
+            const glob = global.sharedObject;
+
+            upcover.upcover(file[0], glob.cookies, glob.csrf, (req) => {
                 event.sender.send('image-chosen', req);
             });
         }

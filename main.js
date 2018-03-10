@@ -1,11 +1,14 @@
-const {app, BrowserWindow, ipcMain} = require('electron'),
+const {app, BrowserWindow, ipcMain, remote} = require('electron'),
   glob = require('glob'),
   path = require('path'),
   url = require('url');
 
 let mainWindow, loginWindow;
 
-let cookies = '', csrf = '';
+global.sharedObject = {
+  cookies: '',
+  csrf: ''
+};
 
 function initialize() {
   const files = glob.sync(path.join(__dirname, 'app/js/main/*.js'))
@@ -83,12 +86,3 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 initialize();
-
-ipcMain.on('get-user-cookies', (event) => {
-  event.sender.send('request-cookies', cookies, csrf);
-})
-
-ipcMain.on('set-user-cookies', (event, cookie, i_csrf) => {
-  cookies = cookie;
-  csrf = i_csrf;
-})

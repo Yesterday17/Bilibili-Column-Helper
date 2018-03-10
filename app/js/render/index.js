@@ -4,21 +4,14 @@ const $ = require('jquery');
 ////////// Upload with cookies //////////
 
 /**
- * Step 1: Click the button. But in fact, we use it to request cookies.
+ * Step 1: Click the button, open the dialog and choose file.
  */
 $('#upcover').click(() => {
-    ipcRenderer.send('get-user-cookies');
+    ipcRenderer.send('open-file-dialog');
 })
 
 /**
- * Step 2: After getting cookies, open the dialog and choose file.
- */
-ipcRenderer.on('request-cookies', (event, cookies, csrf) => {
-    ipcRenderer.send('open-file-dialog', cookies, csrf);
-})
-
-/**
- * Step 3: The image has been uploaded, and print the addr here.
+ * Step 2: The image has been uploaded, and print the addr here.
  */
 ipcRenderer.on('image-chosen', (event, path) => {
     alert(JSON.stringify(path));

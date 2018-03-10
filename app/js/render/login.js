@@ -1,4 +1,4 @@
-const {ipcRenderer} = require('electron'),
+const {ipcRenderer,remote} = require('electron'),
     request = require('request');
 
 onload = () => {
@@ -19,7 +19,8 @@ onload = () => {
                 jar += ('; ' + request.cookie(cookies[element].name + '=' + cookies[element].value));
             }
 
-            ipcRenderer.send('set-user-cookies', jar.substring(2), csrf);
+            remote.getGlobal('sharedObject').cookies = jar.substring(2);
+            remote.getGlobal('sharedObject').csrf = csrf;
             window.close();
         });
     }
