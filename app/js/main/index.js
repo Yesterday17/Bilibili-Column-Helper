@@ -6,8 +6,9 @@ ipcMain.on('open-file-dialog', (event, cookies) => {
         properties: ['openFile']
     }, (file) => {
         if (file) {
-            upcover(file, cookies);
-            event.sender.send('image-chosen', file);
+            upcover.upcover(file[0], cookies, (req) => {
+                event.sender.send('image-chosen', req);
+            });
         }
     });
 })

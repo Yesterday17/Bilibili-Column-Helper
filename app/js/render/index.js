@@ -13,9 +13,9 @@ $('#upcover').click(() => {
 /**
  * Step 2: After getting cookies, open the dialog and choose file.
  */
-ipcRenderer.on('request-cookies'), (event, cookies) => {
+ipcRenderer.on('request-cookies', (event, cookies) => {
     ipcRenderer.send('open-file-dialog', cookies);
-}
+})
 
 /**
  * Step 3: The image has been uploaded, and print the addr here.

@@ -1,12 +1,11 @@
 const {app, BrowserWindow, ipcMain} = require('electron'),
   glob = require('glob'),
   path = require('path'),
-  url = require('url'),
-  request = require('request');
+  url = require('url');
 
 let mainWindow, loginWindow;
 
-let cookies = request.jar();
+let cookies = '';
 
 function initialize() {
   const files = glob.sync(path.join(__dirname, 'app/js/main/*.js'))

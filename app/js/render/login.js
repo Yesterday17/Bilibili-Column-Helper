@@ -9,13 +9,13 @@ onload = () => {
         webview.getWebContents().session.cookies.get({
             url: 'http://www.bilibili.com'
         }, (err, cookies) => {
-            let jar = request.jar();
+            let jar = '';
 
             for (let element in cookies){
-                jar.setCookie(request.cookie(element.name), element.domain)
+                jar += ('; ' + request.cookie(cookies[element].name + '=' + cookies[element].value));
             }
 
-            ipcRenderer.send('set-user-cookies', cookies);
+            ipcRenderer.send('set-user-cookies', jar.substring(2));
             window.close();
         });
     }
