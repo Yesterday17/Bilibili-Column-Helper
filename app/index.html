@@ -1,15 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Bilibili Column Helper</title>
-    <link rel="stylesheet" href="css/editormd.min.css" />
-  </head>
-  <body>
-    <div id="layout">
-      <div id="test-editormd">
-        <textarea style="display:none;"></textarea>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  <title>Bilibili Column Helper</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <div class="input-group">
+              <textarea class="form-control" aria-label="With textarea"></textarea>
+            </div>
+      </div>
+      <div class="col">
+        render-column
       </div>
     </div>
-  </body>
+  </div>
+
+  <script>
+    require("jquery");
+    require("popper.js")
+    require("bootstrap");
+  </script>
+</body>
+
 </html>
