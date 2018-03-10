@@ -5,7 +5,7 @@ const {app, BrowserWindow, ipcMain} = require('electron'),
 
 let mainWindow, loginWindow;
 
-let cookies = '';
+let cookies = '', csrf = '';
 
 function initialize() {
   const files = glob.sync(path.join(__dirname, 'app/js/main/*.js'))
@@ -85,9 +85,10 @@ app.on('activate', function () {
 initialize();
 
 ipcMain.on('get-user-cookies', (event) => {
-  event.sender.send('request-cookies', cookies);
+  event.sender.send('request-cookies', cookies, csrf);
 })
 
-ipcMain.on('set-user-cookies', (event, cookie) => {
+ipcMain.on('set-user-cookies', (event, cookie, i_csrf) => {
   cookies = cookie;
+  csrf = i_csrf;
 })

@@ -13,8 +13,8 @@ $('#upcover').click(() => {
 /**
  * Step 2: After getting cookies, open the dialog and choose file.
  */
-ipcRenderer.on('request-cookies', (event, cookies) => {
-    ipcRenderer.send('open-file-dialog', cookies);
+ipcRenderer.on('request-cookies', (event, cookies, csrf) => {
+    ipcRenderer.send('open-file-dialog', cookies, csrf);
 })
 
 /**
