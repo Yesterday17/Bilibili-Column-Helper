@@ -9,7 +9,7 @@ const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow, loginWindow
 
 function createWindow () {
   // Create the browser window.
@@ -17,13 +17,13 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname + "/app", 'index.html'),
+    pathname: path.join(__dirname, 'app', 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -32,6 +32,19 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  // Login Window
+  loginWindow = new BrowserWindow({parent: mainWindow, width: 640, height: 480});
+  loginWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'app', 'login.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  loginWindow.on('closed', function(){
+    loginWindow = null;
+  });
+  // loginWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
