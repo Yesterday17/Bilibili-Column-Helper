@@ -22,7 +22,8 @@
     "popper.js": "^1.12.9",
     "bootstrap": "^4.0.0",
     "glob": "^7.1.2",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "markdown-it-implicit-figures": "~0.6.0"
   },
   "dependencies": {}
 }

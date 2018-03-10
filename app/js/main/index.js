@@ -1,20 +1,70 @@
-const {ipcMain, dialog, remote} = require('electron'),
-    upcover = require('../utils/upcover');
+const {
+    ipcMain,
+    dialog,
+    remote,
+    Menu
+} = require('electron'),
+    biliapi = require('../utils/biliapi');
 
 
-/**
- * Called by ../render/index.js: 17
- */
-ipcMain.on('open-file-dialog', (event) => {
+ipcMain.on('image-upload', (event) => {
     dialog.showOpenDialog({
         properties: ['openFile']
     }, (file) => {
         if (file) {
             const glob = global.sharedObject;
 
-            upcover.upcover(file[0], glob.cookies, glob.csrf, (req) => {
-                event.sender.send('image-chosen', req);
+            biliapi.upcover(file[0], glob.cookies, glob.csrf, (response) => {
+                event.sender.send('image-uploaded', JSON.parse(response));
             });
         }
     });
 })
+
+/**
+ * Menu
+ */
+var menuTemplate = [
+    {
+        label: 'Edit',
+        submenu: [{
+                role: 'undo'
+            },
+            {
+                role: 'redo'
+            },
+            {
+                type: 'separator'
+            },
+            {
+                role: 'cut'
+            },
+            {
+                role: 'copy'
+            },
+            {
+                role: 'paste'
+            },
+            {
+                role: 'pasteandmatchstyle'
+            },
+            {
+                role: 'delete'
+            },
+            {
+                role: 'selectall'
+            }
+        ]
+    },
+    {
+        label: 'About',
+        submenu: [{
+            label: 'Visit Repository',
+            click() {
+                require('electron').shell.openExternal('https://github.com/Yesterday17/Bilibili-Column-Helper')
+            }
+        }]
+    }
+];
+const menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);
