@@ -1,10 +1,14 @@
 const $ = require('jquery');
-const { ipcRenderer } = require('electron');
+const {
+    ipcRenderer
+} = require('electron');
 const implicitFigures = require('markdown-it-implicit-figures');
 const marked = require('marked');
 const renderer = require('../utils/renderer');
 
-renderer.initialize({hr: 5});
+renderer.initialize({
+    hr: 5
+});
 
 ////////// Upload with cookies //////////
 
@@ -39,6 +43,32 @@ ipcRenderer.on('image-uploaded', (event, response) => {
 
 $('#markdown-input').bind('input propertychange', () => {
     let text = $('#markdown-input').val(),
-        md = marked(text, {renderer: renderer.getLocalRenderer()});
+        md = marked(text, {
+            renderer: renderer.getLocalRenderer(),
+            gfm: true,
+            breaks: true,
+            table: true,
+        });
     $('#render-column').replaceWith('<div id="render-column">' + md + '</div>');
 })
+
+onload = () => {
+    let codeMirror = CodeMirror.fromTextArea(document.getElementById('markdown-input'), {
+        lineNumbers: true,
+        //mode: 'htmlmixed',
+        lineWrapping: true,
+        styleActiveLine: true
+    });
+
+    codeMirror.setSize('100%', '100%');
+    codeMirror.on('change', function (instance, obj) {
+        let text = instance.getValue(),
+            md = marked(text, {
+                renderer: renderer.getLocalRenderer(),
+                gfm: true,
+                breaks: true,
+                table: true,
+            });
+        $('#render-column').replaceWith('<div id="render-column">' + md + '</div>');
+    })
+}
