@@ -1,10 +1,10 @@
 const $ = require('jquery');
 const { ipcRenderer } = require('electron');
 const implicitFigures = require('markdown-it-implicit-figures');
-const markdown = require('markdown-it')({
-    html: true
-}).use(implicitFigures);
+const marked = require('marked');
+const renderer = require('../utils/renderer');
 
+renderer.initialize({hr: 5});
 
 ////////// Upload with cookies //////////
 
@@ -39,6 +39,6 @@ ipcRenderer.on('image-uploaded', (event, response) => {
 
 $('#markdown-input').bind('input propertychange', () => {
     let text = $('#markdown-input').val(),
-        md = markdown.render(text);
+        md = marked(text, {renderer: renderer.getLocalRenderer()});
     $('#render-column').replaceWith('<div id="render-column">' + md + '</div>');
 })
