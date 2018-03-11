@@ -4,7 +4,9 @@
   "description": "Transfers markdown to bilibili column passage. Using Electron & Marked.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/Yesterday17/Bilibili-Column-Helper",
   "keywords": [
@@ -26,5 +28,8 @@
     "marked": "~0.3.17",
     "codemirror": "~5.35.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "build": {
+    "appId": "cn.yesterday17.bchelper"
+  }
 }
