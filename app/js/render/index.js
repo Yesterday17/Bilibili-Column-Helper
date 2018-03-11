@@ -10,6 +10,8 @@ renderer.initialize({
     hr: 5
 });
 
+let codeMirror;
+
 ////////// Upload with cookies //////////
 
 /**
@@ -17,6 +19,10 @@ renderer.initialize({
  */
 $('#upcover').click(() => {
     ipcRenderer.send('image-upload');
+})
+
+ipcRenderer.on('paste-image', (event) => {
+    $('#upcover').trigger('click');
 })
 
 /**
@@ -35,8 +41,7 @@ $('#upcover').click(() => {
  */
 ipcRenderer.on('image-uploaded', (event, response) => {
     const original = $('#markdown-input').val();
-    $('#markdown-input').val(original + '\n![](' + response.data.url + ')');
-    $('#markdown-input').trigger('input');
+    codeMirror.setValue(`${codeMirror.getValue()}\n![](${response.data.url})`);
 })
 
 ////////// Upload with cookies //////////
@@ -53,9 +58,8 @@ $('#markdown-input').bind('input propertychange', () => {
 })
 
 onload = () => {
-    let codeMirror = CodeMirror.fromTextArea(document.getElementById('markdown-input'), {
+    codeMirror = CodeMirror.fromTextArea(document.getElementById('markdown-input'), {
         lineNumbers: true,
-        //mode: 'htmlmixed',
         lineWrapping: true,
         styleActiveLine: true
     });
