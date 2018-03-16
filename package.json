@@ -16,7 +16,7 @@
     "column",
     "markdown"
   ],
-  "author": "Yesterday17",
+  "author": "Yesterday17 <t@yesterday17.cn>",
   "license": "MIT",
   "devDependencies": {
     "electron": "^1.8.2",

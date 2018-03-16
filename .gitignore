@@ -60,3 +60,4 @@ typings/
 # Personal works
 tmp/
 .vscode/
+dist/
