@@ -28,11 +28,10 @@
     "markdown-it-implicit-figures": "~0.6.0",
     "marked": "~0.3.17",
     "codemirror": "~5.35.0",
-    "vue": "^2.5.16"
-  },
-  "dependencies": {
+    "vue": "^2.5.16",
     "electron-builder": "^20.3.0"
   },
+  "dependencies": {},
   "build": {
     "appId": "cn.yesterday17.bchelper"
   }
