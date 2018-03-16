@@ -28,7 +28,9 @@
     "marked": "~0.3.17",
     "codemirror": "~5.35.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "electron-builder": "^20.3.0"
+  },
   "build": {
     "appId": "cn.yesterday17.bchelper"
   }
