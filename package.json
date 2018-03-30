@@ -62,8 +62,8 @@
     "bootstrap": "^4.0.0",
     "glob": "^7.1.2",
     "request": "^2.83.0",
-    "marked": "~0.3.17",
-    "codemirror": "~5.35.0"
+    "marked": "^0.3.17",
+    "vue-codemirror": "^4.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -107,6 +107,7 @@
     "vue-template-compiler": "^2.4.2",
     "webpack": "^3.5.2",
     "webpack-dev-server": "^2.7.1",
-    "webpack-hot-middleware": "^2.18.2"
+    "webpack-hot-middleware": "^2.18.2",
+    "codemirror": "^5.35.0"
   }
 }
