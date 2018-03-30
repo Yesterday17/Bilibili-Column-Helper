@@ -57,7 +57,13 @@
     "axios": "^0.16.1",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "popper.js": "^1.12.9",
+    "bootstrap": "^4.0.0",
+    "glob": "^7.1.2",
+    "request": "^2.83.0",
+    "marked": "~0.3.17",
+    "codemirror": "~5.35.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
