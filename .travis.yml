@@ -29,8 +29,7 @@ script:
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
-deploy:
-  provider: releases
-  file: dist/bilibili-column-helper/
-  skip_cleanup: true
-  
+# deploy:
+#   provider: releases
+#   file: dist/bilibili-column-helper/
+#   skip_cleanup: true
