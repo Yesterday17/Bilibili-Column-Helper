@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col" style="min-width:50%">
         <div class="input-group">
-          <code-mirror></code-mirror>
+          <codemirror></codemirror>
         </div>
       </div>
       <div class="col" style="max-width:50%">
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import CodeMirror from './Editor/Codemirror'
+import codemirror from './Editor/Codemirror'
 
 export default {
-  components: { CodeMirror }
+  components: { 'codemirror': codemirror }
 }
 </script>
 
