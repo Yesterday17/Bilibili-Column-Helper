@@ -1,10 +1,10 @@
 <template>
-<div class="container-fluid">
+  <div class="container-fluid">
     <button id="upcover" type="button" class="btn btn-primary">上传文件</button>
     <div class="row">
       <div class="col" style="min-width:50%">
         <div class="input-group">
-          <codemirror></codemirror>
+          <codemirror v-model="code" :options="cmOption"></codemirror>
         </div>
       </div>
       <div class="col" style="max-width:50%">
@@ -15,10 +15,25 @@
 </template>
 
 <script>
-import codemirror from './Editor/Codemirror'
+import { codemirror } from 'vue-codemirror'
+import 'codemirror/mode/markdown/markdown'
+import 'codemirror/addon/selection/active-line'
 
 export default {
-  components: { 'codemirror': codemirror }
+  components: {
+    codemirror
+  },
+  data () {
+    return {
+      code: '1233',
+      cmOption: {
+        lineNumbers: true,
+        lineWrapping: true,
+        styleActiveLine: true,
+        mode: 'markdown'
+      }
+    }
+  }
 }
 </script>
 
