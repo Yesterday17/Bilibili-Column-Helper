@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      code: '1233',
+      code: '',
       cmOption: {
         lineNumbers: true,
         lineWrapping: true,
