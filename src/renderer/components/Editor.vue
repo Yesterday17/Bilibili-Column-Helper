@@ -8,10 +8,13 @@
 </template>
 
 <script>
+// Codemirror
 import { codemirror } from 'vue-codemirror'
-import 'codemirror/theme/material'
+// Mode & Plugins
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
+// Theme
+import 'codemirror/theme/material'
 
 export default {
   components: {
@@ -21,14 +24,16 @@ export default {
     return {
       code: '',
       cmOption: {
-        lineNumbers: true,
-        lineWrapping: true,
-        line: true,
-        styleActiveLine: true,
         mode: 'markdown',
-        theme: 'material'
+        theme: 'material',
+        lineNumbers: true,
+        line: true,
+        styleActiveLine: true
       }
     }
+  },
+  mounted () {
+    // Add code here.
   }
 }
 </script>

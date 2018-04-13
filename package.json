@@ -20,7 +20,7 @@
   },
   "build": {
     "productName": "bilibili-column-helper",
-    "appId": "org.simulatedgreg.electron-vue",
+    "appId": "cn.yesterday17.bilibili-column-helper",
     "directories": {
       "output": "build"
     },
@@ -63,7 +63,7 @@
     "glob": "^7.1.2",
     "request": "^2.83.0",
     "marked": "^0.3.17",
-    "vue-codemirror": "^4.0.4"
+    "vue-codemirror-electron": "^3.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -109,6 +109,7 @@
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2",
     "codemirror": "^5.35.0",
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "vue-codemirror": "^4.0.4"
   }
 }

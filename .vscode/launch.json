@@ -12,7 +12,10 @@
       "runtimeArgs": [
         "dev"
       ],
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "port": 5858,
+      "timeout": 10000
     }
   ]
 }
