@@ -1,21 +1,15 @@
 <template>
-  <div class="container-fluid">
+  <div>
     <button id="upcover" type="button" class="btn btn-primary">上传文件</button>
-    <div class="row">
-      <div class="col" style="min-width:50%">
-        <div class="input-group">
-          <codemirror v-model="code" :options="cmOption"></codemirror>
-        </div>
-      </div>
-      <div class="col" style="max-width:50%">
-        <div id="render-column">render-column</div>
-      </div>
+    <div class="codemirror">
+      <codemirror v-model="code" :options="cmOption"></codemirror>
     </div>
   </div>
 </template>
 
 <script>
 import { codemirror } from 'vue-codemirror'
+import 'codemirror/theme/material'
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
 
@@ -29,8 +23,10 @@ export default {
       cmOption: {
         lineNumbers: true,
         lineWrapping: true,
+        line: true,
         styleActiveLine: true,
-        mode: 'markdown'
+        mode: 'markdown',
+        theme: 'material'
       }
     }
   }
