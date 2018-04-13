@@ -2,7 +2,7 @@
   <div>
     <button id="upcover" type="button" class="btn btn-primary">上传文件</button>
     <div class="codemirror">
-      <codemirror v-model="code" :options="cmOption"></codemirror>
+      <codemirror v-model="code" :options="cmOption" @input="onCmCodeChange"></codemirror>
     </div>
   </div>
 </template>
@@ -32,8 +32,10 @@ export default {
       }
     }
   },
-  mounted () {
-    // Add code here.
+  methods: {
+    onCmCodeChange (newCode) {
+      console.log(newCode)
+    }
   }
 }
 </script>
