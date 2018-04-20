@@ -1,2 +1,31 @@
 {
+  "window.zoomLevel": 1,
+  "git.autofetch": true,
+  "files.autoSave": "onFocusChange",
+  "editor.tabSize": 2,
+      "editor.tabCompletion": true, 
+  "eslint.alwaysShowStatus": true,
+  "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "vue",
+      {
+          "language": "html",
+          "autoFix": true
+      }
+  ],
+  "prettier.eslintIntegration": true,
+  "vetur.format.defaultFormatter.js": "none",
+  "todohighlight.include": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.html",
+      "**/*.php",
+      "**/*.css",
+      "**/*.scss",
+      "**/*.vue"
+  ],
+  "todohighlight.isEnable": true
 }
