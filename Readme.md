@@ -1,6 +1,6 @@
 # Bilibili Column Helper - Bilibili 专栏助手
 
-![Build Status](https://travis-ci.org/Yesterday17/Bilibili-Column-Helper.svg)(https://travis-ci.org/Yesterday17/Bilibili-Column-Helper)
+[![Build Status](https://travis-ci.org/Yesterday17/Bilibili-Column-Helper.svg?branch=master)](https://travis-ci.org/Yesterday17/Bilibili-Column-Helper)
 
 ## 原理
 
