@@ -8,7 +8,6 @@ import router from './router'
 import store from './store'
 
 /* Import css files here  */
-import 'bootstrap/dist/css/bootstrap.min.css'
 import 'codemirror/lib/codemirror.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
