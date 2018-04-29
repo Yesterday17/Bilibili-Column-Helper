@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="12">
       <div class="editor-wrap">
-        <codemirror v-model="code" :options="cmOption" @input="onCmCodeChange">{{code}}</codemirror>
+        <codemirror v-model="code" :options="cmOption" @input="onCmCodeChange" style="height: 100%">{{code}}</codemirror>
       </div>
     </el-col>
     <el-col :span="12">
@@ -15,8 +15,9 @@
 
 <script>
 import { codemirror } from 'vue-codemirror'
-// import marked from 'marked'
-import biliZhuanLanMarkdown from 'bilibili-zhuanlan-markdown-tool'
+import marked from 'marked'
+// import biliZhuanLanMarkdown from 'bilibili-zhuanlan-markdown-tool'
+import renderer from '../utils/renderer'
 
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
@@ -51,12 +52,16 @@ export default {
   },
   computed: {
     rendered: function () {
-      // return marked(this.code)
-      return biliZhuanLanMarkdown.md2Html(this.code)
+      marked.setOptions({
+        renderer: renderer.getLocalRenderer()
+      })
+      return marked(this.code)
+      // return biliZhuanLanMarkdown.md2Html(this.code, renderer.getRemoteRenderer())
     }
   },
   created () {
     this.code = this.$store.state.Passage.passage.text
+    renderer.initialize()
   }
 }
 </script>

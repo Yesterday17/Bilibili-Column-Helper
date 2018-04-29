@@ -1,8 +1,5 @@
-const marked = require('marked')
+import marked from 'marked'
 
-/**
- * Constants here.
- */
 const cutoff = [
   '//i0.hdslb.com/bfs/article/',
   '0117cbba35e51b0bce5f8c2f6a838e8a087e8ee7.png',
@@ -14,7 +11,7 @@ const cutoff = [
 ]
 
 const optionDefault = {
-  hr: 1
+  hr: 3
 }
 
 let renderer = {
@@ -30,16 +27,24 @@ function initialize (option = optionDefault) {
   // hr, the difference is that the local one should be replaced
   renderer.local.hr = function () {
     return `<figure class="img-box" contenteditable="false">
-      <img src="./assets/hr/${cutoff[option.hr]}" class="cut-off-${option.hr}" /></figure>`
+      <img src="static/hr/${cutoff[option.hr]}" class="cut-off-${
+  option.hr
+}" /></figure>`
   }
 
   renderer.remote.hr = function () {
     return `<figure class="img-box" contenteditable="false">
-      <img src="${cutoff[0]}${cutoff[option.hr]}" class="cut-off-${option.hr}" /></figure>`
+      <img src="${cutoff[0]}${cutoff[option.hr]}" class="cut-off-${
+  option.hr
+}" /></figure>`
   }
 
   // Header
-  renderer.local.heading = renderer.remote.heading = function (text, level, raw) {
+  renderer.local.heading = renderer.remote.heading = function (
+    text,
+    level,
+    raw
+  ) {
     return `<h${level}>${text}</h${level}>`
   }
 
@@ -49,8 +54,10 @@ function initialize (option = optionDefault) {
 
     // <hr> replace
     if (html.match('<hr( )*(/)*>')) return renderer.local.hr()
-    // Else
-    else return html
+    else {
+      // Else
+      return html
+    }
   }
 
   // Text
@@ -73,6 +80,8 @@ function getRemoteRenderer () {
   return renderer.remote
 }
 
-exports.getLocalRenderer = getLocalRenderer
-exports.getRemoteRenderer = getRemoteRenderer
-exports.initialize = initialize
+export default {
+  getLocalRenderer,
+  getRemoteRenderer,
+  initialize
+}
