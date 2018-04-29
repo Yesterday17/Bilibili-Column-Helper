@@ -15,7 +15,8 @@
 
 <script>
 import { codemirror } from 'vue-codemirror'
-import marked from 'marked'
+// import marked from 'marked'
+import biliZhuanLanMarkdown from 'bilibili-zhuanlan-markdown-tool'
 
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
@@ -45,16 +46,17 @@ export default {
   },
   methods: {
     onCmCodeChange: function (text) {
-      this.$store.commit('DEL_PASSAGE', {passage: text})
+      this.$store.commit('SET_CONTENT', text)
     }
   },
   computed: {
     rendered: function () {
-      return marked(this.code)
+      // return marked(this.code)
+      return biliZhuanLanMarkdown.md2Html(this.code)
     }
   },
   created () {
-    this.code = this.$store.state.Passage.passage
+    this.code = this.$store.state.Passage.passage.text
   }
 }
 </script>
