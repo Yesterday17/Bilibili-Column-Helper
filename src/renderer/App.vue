@@ -3,7 +3,7 @@
     <el-header style="-webkit-app-region: drag">
       <el-row>
         <el-col :span="8">
-          <img src="./assets/icon.png" />
+          <img v-bind:src="icon" />
         </el-col>
         <el-col :span="8">
           <el-button @click="windowMinimize" type="primary" icon="el-icon-minus"></el-button>
@@ -59,7 +59,8 @@ export default {
         'editor',
         'setting',
         'about'
-      ]
+      ],
+      icon: 'static/icon.png'
     }
   },
   methods: {
