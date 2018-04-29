@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="12">
       <div class="editor-wrap">
-        <codemirror v-model="code" :options="cmOption" @input="onCmCodeChange"></codemirror>
+        <codemirror v-model="code" :options="cmOption" @input="onCmCodeChange">{{code}}</codemirror>
       </div>
     </el-col>
     <el-col :span="12">
@@ -39,14 +39,21 @@ export default {
         lineWrapping: true,
         scrollbarStyle: 'overlay',
         viewportMargin: Infinity
-      },
-      rendered: ''
+      }
     }
   },
   methods: {
-    onCmCodeChange: function (newCode) {
-      this.rendered = newCode
+    onCmCodeChange: function (text) {
+      this.$store.commit('SET_PASSAGE', {passage: text})
     }
+  },
+  computed: {
+    rendered: function () {
+      return this.code
+    }
+  },
+  created () {
+    this.code = this.$store.state.Passage.passage
   }
 }
 </script>
