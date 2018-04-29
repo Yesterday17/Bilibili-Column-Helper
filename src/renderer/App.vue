@@ -16,19 +16,19 @@
     <el-container>
       <el-aside width="20%">
         <el-menu default-active="2" class="el-menu-vertical-demo">
-          <el-menu-item index="1">
+          <el-menu-item index="1" @click="tab(1)">
             <i class="el-icon-document"></i>
             <span slot="title">专栏管理</span>
           </el-menu-item>
-          <el-menu-item index="2">
+          <el-menu-item index="2" @click="tab(2)">
             <i class="el-icon-edit"></i>
             <span slot="title">Markdown 编辑器</span>
           </el-menu-item>
-          <el-menu-item index="3">
+          <el-menu-item index="3" @click="tab(3)">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="4" @click="tab(4)">
             <i class="el-icon-info"></i>
             <span slot="title">关于</span>
           </el-menu-item>
@@ -53,7 +53,13 @@ export default {
   name: 'bilibili-column-helper',
   data () {
     return {
-      // TODO: Add data here.
+      page: 2,
+      pages: [
+        'passage',
+        'editor',
+        'setting',
+        'about'
+      ]
     }
   },
   methods: {
@@ -69,6 +75,12 @@ export default {
     },
     windowClose: function () {
       win.close()
+    },
+    tab: function (i) {
+      if (i !== this.page) {
+        this.$router.push(`/${this.pages[i - 1]}`)
+        this.page = i
+      }
     }
   }
 }

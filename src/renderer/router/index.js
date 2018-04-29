@@ -6,7 +6,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/passage',
+      name: 'passage',
+      component: require('@/components/Passage').default
+    },
+    {
+      path: '/editor',
       name: 'editor',
       component: require('@/components/Editor').default
     },
@@ -16,8 +21,13 @@ export default new Router({
       component: require('@/components/Setting').default
     },
     {
+      path: '/about',
+      name: 'about',
+      component: require('@/components/About').default
+    },
+    {
       path: '*',
-      redirect: '/'
+      redirect: '/editor'
     }
   ]
 })
