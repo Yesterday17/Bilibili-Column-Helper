@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     onCmCodeChange: function (text) {
-      this.$store.commit('SET_PASSAGE', {passage: text})
+      this.$store.commit('DEL_PASSAGE', {passage: text})
     }
   },
   computed: {

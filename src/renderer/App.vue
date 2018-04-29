@@ -15,7 +15,7 @@
 
     <el-container>
       <el-aside width="20%">
-        <el-menu default-active="2" class="el-menu-vertical-demo">
+        <el-menu default-active="2">
           <el-menu-item index="1" @click="tab(1)">
             <i class="el-icon-document"></i>
             <span slot="title">专栏管理</span>
@@ -55,7 +55,7 @@ export default {
     return {
       page: 2,
       pages: [
-        'passage',
+        'passages',
         'editor',
         'setting',
         'about'
@@ -108,6 +108,7 @@ body {
 .el-main {
   height: 100%;
   width: 100%;
+  padding-top: 5px;
 }
 
 .el-header {

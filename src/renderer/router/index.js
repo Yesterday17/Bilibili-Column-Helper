@@ -6,9 +6,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/passage',
-      name: 'passage',
-      component: require('@/components/Passage').default
+      path: '/passages',
+      name: 'passages',
+      component: require('@/components/Passages').default
     },
     {
       path: '/editor',
