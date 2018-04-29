@@ -14,6 +14,9 @@ export default {
     }
   },
   methods: {
+  },
+  created () {
+    console.log(this.$store.state.Config.config)
   }
 }
 </script>

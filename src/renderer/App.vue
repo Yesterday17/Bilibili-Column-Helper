@@ -83,6 +83,10 @@ export default {
         this.page = i
       }
     }
+  },
+  created () {
+    this.$store.commit('LOAD_CONFIG')
+    this.$store.commit('SAVE_CONFIG')
   }
 }
 </script>
