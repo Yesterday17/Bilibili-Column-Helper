@@ -23,7 +23,6 @@ export default {
   methods: {
     login: function () {
       this.$nextTick(() => {
-        console.log(this.$refs)
         this.$refs.webview.addEventListener('will-navigate', () => {
           this.$refs.webview.getWebContents().session.cookies.get({url: 'http://www.bilibili.com'}, (err, cookies) => {
             if (err) {
