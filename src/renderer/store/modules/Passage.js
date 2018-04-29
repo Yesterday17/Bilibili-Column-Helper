@@ -1,13 +1,19 @@
 const state = {
   passages: [],
-  passage: '',
+  passage: {},
   count: 0
 }
 
 const mutations = {
+  // For Editor
   SET_PASSAGE (state, payload) {
     state.passage = payload.passage
   },
+  LOAD_PASSAGE (state, payload) {
+    state.passage = state.passages.indexOf(payload)
+  },
+
+  // Passage Lib
   NEW_PASSAGE (state, payload) {
     state.passages.push({
       cid: state.count,

@@ -7,19 +7,20 @@
     </el-col>
     <el-col :span="12">
       <div class="preview-wrap">
-        <div class="markdown-render">{{ rendered }}</div>
+        <div class="markdown-render" v-html="rendered"></div>
       </div>
     </el-col>
   </el-row>
 </template>
 
 <script>
-// Codemirror
 import { codemirror } from 'vue-codemirror'
-// Mode & Plugins
+import marked from 'marked'
+
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/scroll/simplescrollbars.js'
+
 // Theme
 import 'codemirror/theme/mdn-like'
 
@@ -49,7 +50,7 @@ export default {
   },
   computed: {
     rendered: function () {
-      return this.code
+      return marked(this.code)
     }
   },
   created () {
@@ -63,6 +64,7 @@ export default {
 @import "~codemirror/lib/codemirror.css";
 
 .editor-wrap {
+  margin-top: 20px;
   height: 100%;
   width: 100%;
 }

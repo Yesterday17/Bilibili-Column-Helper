@@ -29,5 +29,9 @@
   ],
   "todohighlight.isEnable": true,
   "vetur.format.defaultFormatter.html": "js-beautify-html",
-  "emmet.triggerExpansionOnTab": true
+  "emmet.triggerExpansionOnTab": true,
+  "files.exclude": {
+    "node_modules/": true,
+    ".electron-vue": true
+  }
 }
