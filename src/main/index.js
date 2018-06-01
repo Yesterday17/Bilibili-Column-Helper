@@ -28,6 +28,12 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
 
+  globalShortcut.register('F8', function () {
+    let win = BrowserWindow.getFocusedWindow()
+    if (!win) return
+    win.webContents.toggleDevTools()
+  })
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -45,12 +51,6 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
-})
-
-globalShortcut.register('F12', function () {
-  let win = BrowserWindow.getFocusedWindow()
-  if (!win) return
-  win.webContents.toggleDevTools()
 })
 
 /**
