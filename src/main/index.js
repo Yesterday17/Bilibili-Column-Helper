@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, globalShortcut } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -45,6 +45,12 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+globalShortcut.register('F12', function () {
+  let win = BrowserWindow.getFocusedWindow()
+  if (!win) return
+  win.webContents.toggleDevTools()
 })
 
 /**
