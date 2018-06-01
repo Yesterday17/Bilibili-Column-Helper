@@ -6,11 +6,11 @@
         新建专栏
       </el-button>
       <el-dialog title="新建专栏" :visible.sync="dialogFormVisible">
-        <el-form :model="form">
-          <el-form-item label="专栏标题（建议30字以内）：" label-width="220px">
+        <el-form :model="form" :rules="rules" ref="newColumn">
+          <el-form-item label="专栏标题（建议30字以内）：" label-width="220px" prop="name">
             <el-input v-model="form.name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="专栏分类：" label-width="220px">
+          <el-form-item label="专栏分类：" label-width="220px" prop="typename">
             <el-select v-model="form.typename" placeholder="请选择专栏分类">
               <el-option label="动画" value="动画"></el-option>
               <el-option label="游戏" value="游戏"></el-option>
@@ -23,8 +23,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false;form = form_blank;">取 消</el-button>
-          <el-button type="primary" @click="newPassage(form)">确 定</el-button>
+          <el-button @click="dialogFormVisible = false;resetForm('newColumn');">取 消</el-button>
+          <el-button type="primary" @click="newPassage('newColumn');">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -52,18 +52,34 @@ export default {
         image: ''
       },
 
-      form_blank: {
-        name: '',
-        typename: '',
-        image: ''
+      rules: {
+        name: [
+          { required: true, message: '请输入标题（建议30字以内）', trigger: 'blur' },
+          { min: 1, max: 100, message: '长度在 1 到 100 个字符之间', trigger: 'blur' }
+        ],
+        typename: [
+          { required: true, message: '请选择专栏分类', trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
     newPassage: function (form) {
-      this.$store.commit('NEW_PASSAGE', form)
-      this.dialogFormVisible = false
-      this.form = {...this.form_blank}
+      console.log(this.$refs[form])
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          this.$store.commit('NEW_PASSAGE', this.form)
+          this.resetForm(form)
+          this.dialogFormVisible = false
+          return true
+        } else {
+          // TODO: Add some suggestion here.
+          return false
+        }
+      })
+    },
+    resetForm: function (form) {
+      this.$refs[form].resetFields()
     }
   },
   created () {
