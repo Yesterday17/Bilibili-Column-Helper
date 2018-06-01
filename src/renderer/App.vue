@@ -1,11 +1,16 @@
 <template>
   <el-container>
     <el-header style="-webkit-app-region: drag">
-      <el-row>
-        <el-col :span="8">
-          <img v-bind:src="icon" />
+      <el-row class="title-row">
+        <el-col :span="15" class="program-logo">
+          <div class="program-icon">
+            <img v-bind:src="icon" />
+          </div>
+          <div class="program-title">
+            <a>哔哩哔哩专栏助手</a>
+          </div>
         </el-col>
-        <el-col :span="8">
+        <el-col class="program-control" :span="9">
           <el-button @click="windowMinimize" type="primary" icon="el-icon-minus"></el-button>
           <el-button @click="windowMaximize" type="primary" icon="el-icon-rank"></el-button>
           <el-button @click="windowClose" type="primary" icon="el-icon-close"></el-button>
@@ -92,6 +97,7 @@ export default {
 </script>
 
 <style>
+
 html {
   height: 100%;
   width: 100%;
@@ -118,22 +124,45 @@ body {
 
 .el-header {
   background-color: #409eff;
-  height: 50px;
-  margin-bottom: 10px;
-  display: flex;
+  height: 40px;
+  padding-right: 0px;
+  padding-top: 10px;
+}
+
+.title-row {
   display: -webkit-flex;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.program-logo {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
 }
 
-.el-header .el-row {
-  display: flex;
-  display: -webkit-flex;
-  align-items: center;
+.program-icon {
+  padding-right: 15px;
 }
 
-.el-header .el-row .el-col {
-  display: flex;
+.program-title {
   display: -webkit-flex;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-size: 18px;
+  color: #f0f1f8;
+}
+
+.program-control {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
   align-items: center;
 }
 
