@@ -174,6 +174,109 @@ export default {
           disabled: false
         }
       ]
+      const life = [
+        {
+          label: '美食',
+          value: '美食',
+          disabled: false
+        },
+        {
+          label: '萌宠',
+          value: '萌宠',
+          disabled: false
+        },
+        {
+          label: '时尚',
+          value: '时尚',
+          disabled: false
+        },
+        {
+          label: '运动',
+          value: '运动',
+          disabled: false
+        },
+        {
+          label: '日常',
+          value: '日常',
+          disabled: false
+        }
+      ]
+      const interest = [
+        {
+          label: '绘画',
+          value: '绘画',
+          disabled: false
+        },
+        {
+          label: '手工',
+          value: '手工',
+          disabled: false
+        },
+        {
+          label: '摄影',
+          value: '摄影',
+          disabled: false
+        },
+        {
+          label: '音乐舞蹈',
+          value: '音乐舞蹈',
+          disabled: false
+        },
+        {
+          label: '模型手办',
+          value: '模型手办',
+          disabled: false
+        }
+      ]
+      const lightnovel = [
+        {
+          label: '原创连载',
+          value: '原创连载',
+          disabled: true
+        },
+        {
+          label: '同人连载',
+          value: '同人连载',
+          disabled: true
+        },
+        {
+          label: '短篇小说',
+          value: '短篇小说',
+          disabled: true
+        },
+        {
+          label: '小说杂谈',
+          value: '小说杂谈',
+          disabled: true
+        }
+      ]
+      const tech = [
+        {
+          label: '人文历史',
+          value: '人文历史',
+          disabled: false
+        },
+        {
+          label: '自然',
+          value: '自然',
+          disabled: false
+        },
+        {
+          label: '数码',
+          value: '数码',
+          disabled: false
+        },
+        {
+          label: '汽车',
+          value: '汽车',
+          disabled: false
+        },
+        {
+          label: '学习',
+          value: '学习',
+          disabled: false
+        }
+      ]
 
       this.form.subtype = ''
       this.subtypeOptions.splice(0, this.subtypeOptions.length)
@@ -187,6 +290,22 @@ export default {
           break
         case '影视':
           this.subtypeOptions.push(...film)
+          break
+        case '生活':
+          this.subtypeOptions.push(...life)
+          break
+        case '兴趣':
+          this.subtypeOptions.push(...interest)
+          break
+        case '轻小说':
+          this.subtypeOptions.push(...lightnovel)
+          alert('轻小说暂不支持！子类别无法选择！')
+          break
+        case '科技':
+          this.subtypeOptions.push(...tech)
+          break
+        default:
+          // TODO: Add logger here to track the exception.
           break
       }
     },
