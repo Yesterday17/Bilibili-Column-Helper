@@ -58,7 +58,7 @@ export default {
   name: 'bilibili-column-helper',
   data () {
     return {
-      page: 2,
+      page: 1,
       pages: [
         'passages',
         'editor',
@@ -135,7 +135,7 @@ body {
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  padding-right: 0px;
+  padding-right: 0px !important;
 }
 
 .title-row {
@@ -167,11 +167,11 @@ body {
 }
 
 .program-control {
-  display: -webkit-flex; /* Safari */
+  display: -webkit-flex;
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
   margin-right: 15px;
 }
 
@@ -183,6 +183,6 @@ body {
 
 .btncontrol {
   -webkit-app-region: no-drag;
-  padding: 10px;
+  padding: 10px !important;
 }
 </style>
