@@ -21,8 +21,10 @@ const winURL =
 function createWindow () {
   mainWindow = new BrowserWindow({
     height: 720,
+    minHeight: 720,
     useContentSize: true,
     width: 1280,
+    minWidth: 1280,
     frame: false
   })
 

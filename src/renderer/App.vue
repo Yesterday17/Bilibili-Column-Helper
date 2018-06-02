@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="main-container">
     <el-header>
       <el-row class="title-row">
         <el-col :span="15" class="program-logo">
@@ -18,9 +18,9 @@
       </el-row>
     </el-header>
 
-    <el-container>
-      <el-aside width="20%">
-        <el-menu default-active="2">
+    <el-container class="main-container">
+      <el-aside width="20%" class="main-aside">
+        <el-menu class="main-container" default-active="1">
           <el-menu-item index="1" @click="tab(1)">
             <i class="el-icon-document"></i>
             <span slot="title">专栏管理</span>
@@ -39,8 +39,8 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-container>
-        <el-main>
+      <el-container class="main-container">
+        <el-main class="main-container">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -114,9 +114,12 @@ body {
   width: 100%;
 }
 
-.el-container {
+.main-container {
   height: 100%;
-  width: 100%;
+}
+
+.main-aside {
+  height: 100%;
 }
 
 .el-main {

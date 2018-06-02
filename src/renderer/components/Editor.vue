@@ -1,11 +1,11 @@
 <template>
-  <el-row>
-    <el-col :span="12">
+  <el-row class="full">
+    <el-col class="full" :span="12">
       <div class="editor-wrap">
-        <codemirror v-model="code" :options="cmOption" @input="onCmCodeChange" style="height: 100%">{{code}}</codemirror>
+        <codemirror class="editor" v-model="code" :options="cmOption" @input="onCmCodeChange">{{code}}</codemirror>
       </div>
     </el-col>
-    <el-col :span="12">
+    <el-col class="full" :span="12">
       <div class="preview-wrap">
         <div class="markdown-render" v-html="rendered"></div>
       </div>
@@ -70,26 +70,42 @@ export default {
 @import "~codemirror/addon/scroll/simplescrollbars.css";
 @import "~codemirror/lib/codemirror.css";
 
+.full {
+  height: 100%;
+}
+
 .editor-wrap {
-  margin-top: 20px;
+  margin-top: 1%;
+  margin-bottom: 1%;
   height: 100%;
   width: 100%;
 }
 
 .preview-wrap {
-  margin-left: 30px;
-  margin-right: 15px;
+  margin-top: 1%;
+  margin-bottom: 1%;
   height: 100%;
+
+  border: 1px solid #ccc;
+  margin-left: 5px;
+
+  max-height: 100%;
+  overflow-x: hidden;
   word-break: break-all;
 }
-.CodeMirror {
+
+.editor {
   border: 1px solid #ccc;
-  height: auto;
-  max-height: 100%;
+  height: 100%;
 }
+
+.CodeMirror {
+  height: 100%;
+}
+
 .CodeMirror-scroll {
-  height: auto;
   overflow-y: hidden;
   overflow-x: auto;
 }
+
 </style>
