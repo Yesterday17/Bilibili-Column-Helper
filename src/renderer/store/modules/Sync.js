@@ -218,10 +218,10 @@ const state = {
 }
 
 const mutations = {
-  LOAD_CONFIG (state) {
+  LOAD_SYNC_CONFIG (state) {
     state.category = sync.get('category', defaults.category)
   },
-  SAVE_CONFIG (state) {
+  SAVE_SYNC_CONFIG (state) {
     sync.set('category', state.category)
   }
 }
