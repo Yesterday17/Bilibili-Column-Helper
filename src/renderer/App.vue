@@ -65,7 +65,7 @@ export default {
         'setting',
         'about'
       ],
-      icon: 'static/icon.png'
+      icon: 'static/logo.png'
     }
   },
   methods: {
