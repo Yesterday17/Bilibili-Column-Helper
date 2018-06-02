@@ -9,7 +9,6 @@ import router from './router'
 import store from './store'
 
 /* Import css files here  */
-import 'codemirror/lib/codemirror.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
