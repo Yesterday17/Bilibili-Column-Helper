@@ -12,21 +12,25 @@
           </el-form-item>
           <el-form-item label="专栏分类：" label-width="220px" required>
             <el-col :span="11">
-              <el-select v-model="form.typename" placeholder="专栏分类" @change="changeSubtype" prop="typename">
-                <el-option label="动画" value="动画"></el-option>
-                <el-option label="游戏" value="游戏"></el-option>
-                <el-option label="影视" value="影视"></el-option>
-                <el-option label="生活" value="生活"></el-option>
-                <el-option label="兴趣" value="兴趣"></el-option>
-                <el-option label="轻小说" value="轻小说"></el-option>
-                <el-option label="科技" value="科技"></el-option>
-              </el-select>
+              <el-form-item prop="typename">
+                <el-select v-model="form.typename" placeholder="专栏分类" @change="changeSubtype">
+                  <el-option label="动画" value="动画"></el-option>
+                  <el-option label="游戏" value="游戏"></el-option>
+                  <el-option label="影视" value="影视"></el-option>
+                  <el-option label="生活" value="生活"></el-option>
+                  <el-option label="兴趣" value="兴趣"></el-option>
+                  <el-option label="轻小说" value="轻小说"></el-option>
+                  <el-option label="科技" value="科技"></el-option>
+                </el-select>
+              </el-form-item>
             </el-col>
             <el-col class="line" :span="2">-</el-col>
             <el-col :span="11">
-              <el-select v-model="form.subtype" placeholder="子分类" prop="subtype" @change="syncLabel" :label="label">
-                <el-option v-for="item in this.subtypeOptions" :key="item.value" :label="item.value" :value="item.value" :disabled="item.disabled"></el-option>
-              </el-select>
+              <el-form-item prop="subtype">
+                <el-select v-model="form.subtype" placeholder="子分类" @change="syncLabel" :label="label">
+                  <el-option v-for="item in this.subtypeOptions" :key="item.value" :label="item.value" :value="item.value" :disabled="item.disabled"></el-option>
+                </el-select>
+              </el-form-item>
             </el-col>
           </el-form-item>
         </el-form>
