@@ -9,11 +9,11 @@
         </el-col>
         <el-col :span="16">
           <div class="passage-info ">
-            <span class="category">{{props.category}}</span>
+            <span class="category">{{$store.state.Sync.categoryMap.get(props.category)}}</span>
             <a class="name">{{props.name}}</a>
           </div>
           <div class="passage-status">
-            <span class="">{{props.pubdate}}</span>
+            <span class="">{{new Date(props.pubdate).toLocaleString("zh-CN", {hour12: false})}}</span>
           </div>
         </el-col>
         <el-col :span="2">

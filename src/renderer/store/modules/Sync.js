@@ -214,12 +214,23 @@ const defaults = {
 }
 
 const state = {
-  category: []
+  category: [],
+  categoryList: [],
+  categoryMap: new Map()
 }
 
 const mutations = {
   LOAD_SYNC_CONFIG (state) {
     state.category = sync.get('category', defaults.category)
+
+    for (const c of state.category) {
+      state.categoryMap.set(c.id, c.name)
+      state.categoryList.push(c.id)
+
+      for (const cd of c.children) {
+        state.categoryMap.set(cd.id, cd.name)
+      }
+    }
   },
   SAVE_SYNC_CONFIG (state) {
     sync.set('category', state.category)

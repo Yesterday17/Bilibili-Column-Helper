@@ -57,7 +57,8 @@ export default {
         name: '',
         category: '',
         subtype: '',
-        image: ''
+        image: '',
+        pubdate: null
       },
 
       rules: {
@@ -79,6 +80,9 @@ export default {
       console.log(this.$refs[form])
       this.$refs[form].validate((valid) => {
         if (valid) {
+          // Use now as pubdate.
+          this.form.pubdate = Date.now()
+
           this.$store.commit('NEW_PASSAGE', this.form)
           this.resetForm(form)
           this.i = 0
@@ -95,12 +99,7 @@ export default {
     },
     changeSubtype: function (selected) {
       this.form.subtype = ''
-      for (let c in this.$store.state.Sync.category) {
-        if (selected === this.$store.state.Sync.category[c].id) {
-          this.i = c
-          break
-        }
-      }
+      this.i = this.$store.state.Sync.categoryList.indexOf(selected)
     }
   }
 }
