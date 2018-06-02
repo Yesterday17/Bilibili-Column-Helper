@@ -22,14 +22,9 @@ const mutations = {
 
     state.config.cookies = s.get('cookies', [])
     state.config.cookie = s.get('cookie', '')
-
-    console.log(state)
   },
   SAVE_CONFIG (state) {
     s.set(state.config)
-
-    // TODO: Remove it before release.
-    s.openInEditor()
   },
   UPDATE_COOKIES (state, cookies) {
     state.config.cookies = cookies
