@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="16">
           <div class="passage-info ">
-            <span class="typename">{{props.typename}}</span>
+            <span class="category">{{props.category}}</span>
             <a class="name">{{props.name}}</a>
           </div>
           <div class="passage-status">
@@ -101,7 +101,7 @@ export default {
   color: #212121;
 }
 
-.typename {
+.category {
   display: inline-block;
   padding: 0 8px;
   border: 1px solid #e5e9ef;
