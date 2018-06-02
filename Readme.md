@@ -1,6 +1,7 @@
 # Bilibili Column Helper - Bilibili 专栏助手
 
 [![Build Status](https://travis-ci.org/Yesterday17/Bilibili-Column-Helper.svg?branch=master)](https://travis-ci.org/Yesterday17/Bilibili-Column-Helper)
+[![codebeat badge](https://codebeat.co/badges/1263b75e-d5e8-4ad0-afe2-9da075ae1cde)](https://codebeat.co/projects/github-com-yesterday17-bilibili-column-helper-master-6e10e5a7-4172-448c-9dee-b3ddf67b0aa4)
 
 ## 原理
 

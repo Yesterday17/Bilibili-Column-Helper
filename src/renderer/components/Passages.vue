@@ -49,7 +49,6 @@ export default {
   },
   data () {
     return {
-      passages: [],
       dialogFormVisible: false,
       label: '',
       i: 0,
@@ -103,9 +102,6 @@ export default {
         }
       }
     }
-  },
-  created () {
-    this.passages = this.$store.state.Passage.passages
   }
 }
 </script>

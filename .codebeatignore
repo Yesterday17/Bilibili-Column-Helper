@@ -1,0 +1,10 @@
+.github/*
+.vscode/*
+build/*
+dist/*
+.electron-vue/*
+test/*
+tests/*
+spec/*
+specs/*
+node_modules/*
