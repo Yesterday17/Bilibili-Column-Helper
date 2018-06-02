@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header style="-webkit-app-region: drag">
+    <el-header>
       <el-row class="title-row">
         <el-col :span="15" class="program-logo">
           <div class="program-icon">
@@ -126,17 +126,20 @@ body {
 }
 
 .el-header {
+  -webkit-app-region: drag;
   background-color: #409eff;
   height: 40px;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-right: 0px;
-  padding-top: 10px;
 }
 
 .title-row {
   display: -webkit-flex;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
+  width: 100%;
 }
 
 .program-logo {
@@ -166,6 +169,7 @@ body {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
+  justify-self: self-end;
   align-items: center;
 }
 
