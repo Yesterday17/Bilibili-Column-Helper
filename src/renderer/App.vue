@@ -11,9 +11,9 @@
           </div>
         </el-col>
         <el-col class="program-control" :span="9">
-          <el-button @click="windowMinimize" type="primary" icon="el-icon-minus"></el-button>
-          <el-button @click="windowMaximize" type="primary" icon="el-icon-rank"></el-button>
-          <el-button @click="windowClose" type="primary" icon="el-icon-close"></el-button>
+          <el-button class="btncontrol" @click="windowMinimize" type="primary" icon="el-icon-minus"></el-button>
+          <el-button class="btncontrol" @click="windowMaximize" type="primary" icon="el-icon-rank"></el-button>
+          <el-button class="btncontrol" @click="windowClose" type="primary" icon="el-icon-close"></el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -131,7 +131,6 @@ body {
   height: 40px;
   display: -webkit-flex;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding-right: 0px;
 }
@@ -169,8 +168,8 @@ body {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  justify-self: self-end;
   align-items: center;
+  margin-right: 15px;
 }
 
 .el-aside {
@@ -179,7 +178,8 @@ body {
   border-right: 1px grey;
 }
 
-button {
+.btncontrol {
   -webkit-app-region: no-drag;
+  padding: 10px;
 }
 </style>
