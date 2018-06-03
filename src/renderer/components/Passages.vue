@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="control">
-      <el-button type="primary" @click="dialogFormVisible = true">
-        <i class="el-icon-edit el-icon--left"></i>
-        新建专栏
-      </el-button>
+      <el-button-group>
+        <el-button type="primary" plain size="medium" @click="dialogFormVisible=true">
+          <i class="el-icon-plus el-icon--left"></i>
+          新建专栏
+        </el-button>
+      </el-button-group>
       <el-dialog title="新建专栏" :visible.sync="dialogFormVisible" @close="resetForm('newColumn')  ">
         <el-form :model="form" :rules="rules" ref="newColumn">
           <el-form-item label="专栏标题（建议30字以内）：" label-width="220px" prop="name">
@@ -34,7 +36,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false;resetForm('newColumn');">取 消</el-button>
+          <el-button @click="dialogFormVisible=false;resetForm('newColumn');">取 消</el-button>
           <el-button type="primary" @click="newPassage('newColumn');">确 定</el-button>
         </div>
       </el-dialog>
@@ -115,6 +117,7 @@ export default {
 <style>
 .control {
   padding-top: 0;
+  margin-top: 10px;
   margin-bottom: 15px;
 }
 
