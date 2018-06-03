@@ -2,12 +2,12 @@
   <div>
     <div class="control">
       <el-button-group>
-        <el-button type="primary" plain size="medium" @click="dialogFormVisible=true">
+        <el-button type="primary" plain size="medium" @click="newColumn">
           <i class="el-icon-plus el-icon--left"></i>
           新建专栏
         </el-button>
       </el-button-group>
-      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible" @close="resetForm('newColumn')  ">
+      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible" @close="resetForm('newColumn')">
         <el-form :model="form" :rules="rules" ref="newColumn">
           <el-form-item label="专栏标题（建议30字以内）：" label-width="220px" prop="name">
             <el-input v-model="form.name" auto-complete="off" placeholder="请输入标题（建议30字以内）"></el-input>
@@ -36,12 +36,12 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible=false;resetForm('newColumn');">取 消</el-button>
-          <el-button type="primary" @click="newPassage('newColumn');">确 定</el-button>
+          <el-button @click="dialogFormVisible=false">取 消</el-button>
+          <el-button type="primary" @click="newPassage('newColumn')">确 定</el-button>
         </div>
       </el-dialog>
     </div>
-    <div class="passages" v-for="item in this.$store.state.Passage.passages" :key="item.cid">
+    <div class="passages" v-for="item in passages" :key="item.cid">
       <column-passsage :props="item"></column-passsage>
     </div>
   </div>
@@ -83,7 +83,24 @@ export default {
       }
     }
   },
+  computed: {
+    passages: function () {
+      let t = [...this.$store.state.Passage.passages]
+      return this.sort(t, 'time')
+    }
+  },
   methods: {
+    newColumn: function () {
+      // Reset Form
+      this.form.name = ''
+      this.form.category = ''
+      this.form.subtype = ''
+      this.form.image = ''
+      this.form.pubdate = null
+      this.form.tags.splice(0, this.form.tags.length)
+
+      this.dialogFormVisible = true
+    },
     newPassage: function (form) {
       console.log(this.$refs[form])
       this.$refs[form].validate((valid) => {
@@ -92,7 +109,6 @@ export default {
           this.form.pubdate = Date.now()
 
           this.$store.commit('NEW_PASSAGE', this.form)
-          this.resetForm(form)
           this.i = 0
           this.dialogFormVisible = false
           return true
@@ -102,13 +118,14 @@ export default {
         }
       })
     },
-    resetForm: function (form) {
-      this.$refs[form].resetFields()
-      this.form.tags.splice(0, this.form.tags.length)
-    },
     changeSubtype: function (selected) {
       this.form.subtype = ''
       this.i = this.$store.state.Sync.categoryList.indexOf(selected)
+    },
+    sort (items, options) {
+      return items.sort((a, b) => {
+        return a.pubdate < b.pubdate
+      })
     }
   }
 }
