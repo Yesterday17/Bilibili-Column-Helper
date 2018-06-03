@@ -24,8 +24,8 @@ about: 报告Bug。
 在这里贴上`Gist`或`pastebin`的地址。（错误日志功能在建中）
 
 **操作系统（请补完下列内容）:**
- - OS: [e.g. iOS]
- - Version [e.g. 22]
+ - OS: [e.g. Windows]
+ - Version [e.g. 1.0.0]
 
 **附加信息**
 在这里增加其他的说明信息。
