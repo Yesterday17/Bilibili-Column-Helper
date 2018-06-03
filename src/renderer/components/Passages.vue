@@ -108,9 +108,9 @@ export default {
           this.form.pubdate = Date.now()
 
           this.$store.commit('NEW_PASSAGE', this.form)
+          this.$store.commit('SAVE_PASSAGES')
           this.i = 0
           this.dialogFormVisible = false
-          this.$store.commit('SAVE_PASSAGES')
           return true
         } else {
           // TODO: Add some suggestion here.

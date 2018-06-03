@@ -53,6 +53,7 @@ export default {
         center: true
       }).then(() => {
         this.$store.commit('DEL_PASSAGE', props)
+        this.$store.commit('SAVE_PASSAGES')
         this.$message({
           type: 'success',
           message: '删除成功!'
