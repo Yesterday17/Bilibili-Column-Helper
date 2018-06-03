@@ -9,14 +9,15 @@
         </el-col>
         <el-col class="passage-details" :span="16">
           <div class="passage-info">
-            <span class="category">{{$store.state.Sync.categoryMap.get(props.category)}}</span>
-            <a class="name">{{props.name}}</a>
+            <span class="category font-passage font-tag">{{$store.state.Sync.categoryMap.get(props.category)}}</span>
+            <a class="font-passage font-title">{{props.name}}</a>
           </div>
-          <div class="passage-tags">
-            <el-tag class="tags" v-for="item in props.tags" :key="item" :label="item" :value="item" size="medium">{{item}}</el-tag>
-          </div>
-          <div class="passage-status">
-            <span class="">{{new Date(props.pubdate).toLocaleString("zh-CN", {hour12: false})}}</span>
+          <div class="passage-fotter">
+            <div>
+              <a class="font-passage font-label">文章标签：</a>
+              <el-tag class="tags" v-for="item in props.tags" :key="item" :label="item" :value="item" size="medium">{{item}}</el-tag>
+            </div>
+            <span class="font-passage font-label">最后修改时间: {{new Date(props.pubdate).toLocaleString("zh-CN", {hour12: false})}}</span>
           </div>
         </el-col>
         <el-col :span="2">
@@ -76,18 +77,13 @@ export default {
 </script>
 
 <style>
-.full {
-  height: 100%;
-}
-
 .el-card {
   margin-bottom: 10px;
-  height: 100%;
+  height: 208px;
 }
 
 .passage {
   padding: 20px;
-  height: 100%;
 }
 
 .passage-cover {
@@ -108,6 +104,14 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  height: 165px;
+}
+
+.passage-fotter {
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .passage-info {
@@ -129,18 +133,29 @@ export default {
   margin-right: 10px;
 }
 
-.name {
-  display: inline-block;
-  max-width: 460px;
-  font-size: 18px;
-  color: #212121;
-}
-
 .tags {
   display: -webkit-inline-flex;
   display: inline-flex;
   align-items: center;
   height: 20px;
+}
+
+/* Font */
+.font-passage {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+.font-title {
+  font-size: 18px;]
+  color: #212121;
+}
+
+.font-tag {
+  font-size: 16px;
+}
+
+.font-label {
+  font-size: 14px;
 }
 
 /* Passage Management */
