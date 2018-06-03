@@ -10,7 +10,9 @@ const state = {
     renderer: '',
 
     cookies: [],
-    cookie: ''
+    cookie: '',
+
+    favoriteTags: []
   }
 }
 
@@ -22,6 +24,8 @@ const mutations = {
 
     state.config.cookies = s.get('cookies', [])
     state.config.cookie = s.get('cookie', '')
+
+    state.config.favoriteTags = s.get('favoriteTags', [1, 2, 3])
   },
   SAVE_CONFIG (state) {
     s.set(state.config)

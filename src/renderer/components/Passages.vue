@@ -27,6 +27,11 @@
               </el-form-item>
             </el-col>
           </el-form-item>
+          <el-form-item label="文章标签：" label-width="220px">
+            <el-select v-model="form.tags" multiple filterable allow-create default-first-option :multiple-limit=10 placeholder="请选择文章标签">
+              <el-option v-for="item in this.$store.state.Config.config.favoriteTags" :key="item" :label="item" :value="item"></el-option>
+            </el-select>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false;resetForm('newColumn');">取 消</el-button>
@@ -58,7 +63,8 @@ export default {
         category: '',
         subtype: '',
         image: '',
-        pubdate: null
+        pubdate: null,
+        tags: []
       },
 
       rules: {

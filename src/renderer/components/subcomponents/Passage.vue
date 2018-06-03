@@ -7,10 +7,13 @@
             <img class="cover" v-bind:src="props.image" />
           </div>
         </el-col>
-        <el-col :span="16">
-          <div class="passage-info ">
+        <el-col class="passage-details" :span="16">
+          <div class="passage-info">
             <span class="category">{{$store.state.Sync.categoryMap.get(props.category)}}</span>
             <a class="name">{{props.name}}</a>
+          </div>
+          <div class="passage-tags">
+            <el-tag class="tags" v-for="item in props.tags" :key="item" :label="item" :value="item" size="medium">{{item}}</el-tag>
           </div>
           <div class="passage-status">
             <span class="">{{new Date(props.pubdate).toLocaleString("zh-CN", {hour12: false})}}</span>
@@ -73,12 +76,18 @@ export default {
 </script>
 
 <style>
+.full {
+  height: 100%;
+}
+
 .el-card {
   margin-bottom: 10px;
+  height: 100%;
 }
 
 .passage {
   padding: 20px;
+  height: 100%;
 }
 
 .passage-cover {
@@ -91,6 +100,14 @@ export default {
 
 .cover {
   width: 90%;
+}
+
+.passage-details {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .passage-info {
@@ -117,6 +134,13 @@ export default {
   max-width: 460px;
   font-size: 18px;
   color: #212121;
+}
+
+.tags {
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
 }
 
 /* Passage Management */
