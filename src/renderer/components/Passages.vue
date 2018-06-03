@@ -5,7 +5,7 @@
         <i class="el-icon-edit el-icon--left"></i>
         新建专栏
       </el-button>
-      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible">
+      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible" @close="resetForm('newColumn')  ">
         <el-form :model="form" :rules="rules" ref="newColumn">
           <el-form-item label="专栏标题（建议30字以内）：" label-width="220px" prop="name">
             <el-input v-model="form.name" auto-complete="off" placeholder="请输入标题（建议30字以内）"></el-input>
@@ -102,6 +102,7 @@ export default {
     },
     resetForm: function (form) {
       this.$refs[form].resetFields()
+      this.form.tags.splice(0, this.form.tags.length)
     },
     changeSubtype: function (selected) {
       this.form.subtype = ''

@@ -146,7 +146,7 @@ export default {
 }
 
 .font-title {
-  font-size: 18px;]
+  font-size: 18px;
   color: #212121;
 }
 
