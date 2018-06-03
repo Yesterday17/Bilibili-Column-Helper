@@ -7,7 +7,7 @@
           新建专栏
         </el-button>
       </el-button-group>
-      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible" @close="resetForm('newColumn')">
+      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible">
         <el-form :model="form" :rules="rules" ref="newColumn">
           <el-form-item label="专栏标题（建议30字以内）：" label-width="220px" prop="name">
             <el-input v-model="form.name" auto-complete="off" placeholder="请输入标题（建议30字以内）"></el-input>
@@ -102,7 +102,6 @@ export default {
       this.dialogFormVisible = true
     },
     newPassage: function (form) {
-      console.log(this.$refs[form])
       this.$refs[form].validate((valid) => {
         if (valid) {
           // Use now as pubdate.
@@ -111,6 +110,7 @@ export default {
           this.$store.commit('NEW_PASSAGE', this.form)
           this.i = 0
           this.dialogFormVisible = false
+          this.$store.commit('SAVE_PASSAGES')
           return true
         } else {
           // TODO: Add some suggestion here.

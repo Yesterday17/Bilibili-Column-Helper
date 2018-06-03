@@ -95,6 +95,9 @@ export default {
 
     this.$store.commit('LOAD_SYNC_CONFIG')
     this.$store.commit('SAVE_SYNC_CONFIG')
+
+    this.$store.commit('LOAD_PASSAGES')
+    this.$store.commit('SAVE_PASSAGES')
   }
 }
 </script>
