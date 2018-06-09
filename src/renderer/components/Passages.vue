@@ -86,6 +86,7 @@ export default {
   computed: {
     passages: function () {
       let t = [...this.$store.state.Passage.passages]
+      // TODO: Sort the list in different ways.
       return this.sort(t, 'time')
     }
   },

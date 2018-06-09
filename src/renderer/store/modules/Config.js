@@ -8,6 +8,7 @@ const state = {
     version: '',
 
     renderer: '',
+    poster: '',
 
     cookies: [],
     cookie: '',
@@ -21,6 +22,7 @@ const mutations = {
     // state.xxx = s.get('')
     state.config.version = s.get('version', '1.0.0')
     state.config.renderer = s.get('renderer', 'marked')
+    state.config.poster = s.get('poster', 'biliZhuanlanMarkdownTool')
 
     state.config.cookies = s.get('cookies', [])
     state.config.cookie = s.get('cookie', '')

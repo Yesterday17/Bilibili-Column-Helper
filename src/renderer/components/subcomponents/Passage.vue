@@ -25,9 +25,14 @@
             <div class="close">
               <el-button icon="el-icon-close" circle @click="del(props)"></el-button>
             </div>
+            <div class="upload">
+              <el-button icon="el-icon-upload2" circle @click="upload(pros)"></el-button>
+            </div>
+            <!--
             <div class="more">
               <el-button icon="el-icon-more" circle></el-button>
             </div>
+            -->
             <div class="edit">
               <el-button icon="el-icon-edit-outline" circle></el-button>
             </div>
@@ -39,6 +44,12 @@
 </template>
 
 <script>
+import { post as biliZhuanlanMarkdownToolPoster } from '../../utils/biliZhuanlanMarkdownToolAdapter'
+
+const uploader = {
+  biliZhuanlanMarkdownTool: biliZhuanlanMarkdownToolPoster
+}
+
 export default {
   name: 'column-passsage',
   props: [
@@ -72,6 +83,9 @@ export default {
           })
         }
       })
+    },
+    upload (props) {
+      uploader[this.$store.state.Config.renderer]()
     }
   }
 }
@@ -171,6 +185,7 @@ export default {
 
 .close,
 .more,
+.upload,
 .edit {
   padding-bottom: 15px;
 }
