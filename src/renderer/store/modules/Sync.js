@@ -216,7 +216,15 @@ const defaults = {
 const state = {
   category: [],
   categoryList: [],
-  categoryMap: new Map()
+  categoryMap: new Map(),
+
+  count: {
+    read: 0,
+    comment: 0,
+    like: 0,
+    favorite: 0,
+    coin: 0
+  }
 }
 
 const mutations = {
