@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { post as biliZhuanlanMarkdownToolPoster } from '../../utils/biliZhuanlanMarkdownToolAdapter'
+import { post as biliZhuanlanMarkdownToolPoster } from '../../utils/bilibiliZhuanlanMarkdownToolAdapter'
 
 const uploader = {
   biliZhuanlanMarkdownTool: biliZhuanlanMarkdownToolPoster
@@ -85,7 +85,8 @@ export default {
       })
     },
     upload (props) {
-      uploader[this.$store.state.Config.renderer]()
+      console.log(uploader)
+      uploader[this.$store.state.Config.config.poster]()
     }
   }
 }

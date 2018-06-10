@@ -43,9 +43,10 @@ function uImage (img) {
 
 function post (md) {
   // TODO: post here.
+  console.log(1)
 }
 
-export default {
+export {
   render,
   uImage,
   post
