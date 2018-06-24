@@ -49,7 +49,6 @@ const mutations = {
   },
   LOAD_PASSAGES (state) {
     state.passages = store.get('passages', [])
-    state.passage = store.get('passage', { text: '' })
     state.count = store.get('count', 0)
   }
 }
