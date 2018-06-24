@@ -15,7 +15,7 @@ const state = {
 const mutations = {
   // For Editor
   SET_PASSAGE (state, payload) {
-    state.passage = payload.passage
+    state.passage = payload
   },
   SET_TITLE (state, title) {
     state.passage.name = title
@@ -24,6 +24,7 @@ const mutations = {
     state.passage.cover = cover
   },
   SET_CONTENT (state, content) {
+    if (!content) return
     state.passage.text = content
   },
   LOAD_PASSAGE (state, payload) {
@@ -48,7 +49,7 @@ const mutations = {
   },
   LOAD_PASSAGES (state) {
     state.passages = store.get('passages', [])
-    state.passage = store.get('passage', {text: ''})
+    state.passage = store.get('passage', { text: '' })
     state.count = store.get('count', 0)
   }
 }

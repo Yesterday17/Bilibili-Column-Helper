@@ -1,16 +1,21 @@
 <template>
-  <el-row class="full">
-    <el-col class="full" :span="12">
-      <div class="editor-wrap">
-        <codemirror class="editor" v-model="code" :options="cmOption" @input="onCmCodeChange">{{code}}</codemirror>
-      </div>
-    </el-col>
-    <el-col class="full" :span="12">
-      <div class="preview-wrap">
-        <div class="markdown-render" v-html="rendered"></div>
-      </div>
-    </el-col>
-  </el-row>
+  <div class="full">
+    <el-row class="title">
+      正在编辑： {{this.$store.state.Passage.passage.name}}
+    </el-row>
+    <el-row class="content">
+      <el-col class="full" :span="12">
+        <div class="editor-wrap">
+          <codemirror class="editor" v-model="code" :options="cmOption" @input="onCmCodeChange">{{code}}</codemirror>
+        </div>
+      </el-col>
+      <el-col class="full" :span="12">
+        <div class="preview-wrap">
+          <div class="markdown-render" v-html="rendered"></div>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -74,6 +79,17 @@ export default {
   height: 100%;
 }
 
+.title {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 14px;
+  height: 3%;
+}
+
+.content {
+  height: 97%;
+}
+
 .editor-wrap {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -107,5 +123,4 @@ export default {
   overflow-y: hidden;
   overflow-x: auto;
 }
-
 </style>

@@ -20,7 +20,7 @@
 
     <el-container class="main-container">
       <el-aside width="20%" class="main-aside">
-        <el-menu class="main-container" default-active="1">
+        <el-menu class="main-container" :default-active="page.toString()">
           <el-menu-item index="1" @click="tab(1)">
             <i class="el-icon-document"></i>
             <span slot="title">专栏管理</span>
@@ -58,7 +58,6 @@ export default {
   name: 'bilibili-column-helper',
   data () {
     return {
-      page: 1,
       pages: [
         'passages',
         'editor',
@@ -66,6 +65,16 @@ export default {
         'about'
       ],
       icon: 'static/logo.png'
+    }
+  },
+  computed: {
+    page: {
+      set (value) {
+        this.$store.commit('SET_PAGE', value)
+      },
+      get () {
+        return this.$store.state.Running.page
+      }
     }
   },
   methods: {
@@ -103,7 +112,6 @@ export default {
 </script>
 
 <style>
-
 html {
   height: 100%;
   width: 100%;
@@ -164,7 +172,8 @@ body {
   flex-wrap: nowrap;
   align-items: center;
 
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 18px;
   color: #f0f1f8;
 }

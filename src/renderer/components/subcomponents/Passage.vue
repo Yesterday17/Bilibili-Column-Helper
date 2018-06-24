@@ -26,7 +26,7 @@
               <el-button icon="el-icon-close" circle @click="del(props)"></el-button>
             </div>
             <div class="upload">
-              <el-button icon="el-icon-upload2" circle @click="upload(pros)"></el-button>
+              <el-button icon="el-icon-upload2" circle @click="upload(props)"></el-button>
             </div>
             <!--
             <div class="more">
@@ -34,7 +34,7 @@
             </div>
             -->
             <div class="edit">
-              <el-button icon="el-icon-edit-outline" circle></el-button>
+              <el-button icon="el-icon-edit-outline" circle @click="edit(props)"></el-button>
             </div>
           </div>
         </el-col>
@@ -87,6 +87,19 @@ export default {
     upload (props) {
       console.log(uploader)
       uploader[this.$store.state.Config.config.poster]()
+    },
+    edit (props) {
+      // TODO: 保存原有内容
+
+      // 覆盖原有内容
+      this.$store.commit('SET_PASSAGE', this.props)
+
+      // 跳转路由
+      this.$router.push('/editor')
+
+      // 更改父组件Tab信息
+      // 使用Vuex
+      this.$store.commit('SET_PAGE', 2)
     }
   }
 }
@@ -158,7 +171,8 @@ export default {
 
 /* Font */
 .font-passage {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
 .font-title {

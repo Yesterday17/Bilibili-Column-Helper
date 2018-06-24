@@ -242,6 +242,13 @@ const mutations = {
   },
   SAVE_SYNC_CONFIG (state) {
     sync.set('category', state.category)
+  },
+  SYNC_CONFIG (state) {
+    // TODO: Sync  category here.
+    // state.category
+
+    // TODO: Sync count here.
+    // State.count
   }
 }
 

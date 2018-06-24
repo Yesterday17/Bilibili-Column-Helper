@@ -66,7 +66,8 @@ export default {
         subtype: '',
         image: '',
         pubdate: null,
-        tags: []
+        tags: [],
+        text: ''
       },
 
       rules: {
@@ -99,6 +100,7 @@ export default {
       this.form.image = ''
       this.form.pubdate = null
       this.form.tags.splice(0, this.form.tags.length)
+      this.form.text = ''
 
       this.dialogFormVisible = true
     },
