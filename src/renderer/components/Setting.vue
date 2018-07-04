@@ -1,8 +1,9 @@
 <template>
   <el-tabs tab-position="right">
-    <el-tab-pane label="登录设置">
+    <el-tab-pane label="登录设置" class="panel">
       <a class="title">登录设置</a>
-      <userinfo></userinfo>
+      <userinfo v-if="logined === true"></userinfo>
+      <login v-else></login>
       <!--
       <el-popover ref="popoverlogin" trigger="click" v-on:show="login">
         <webview ref="webview" :src="src"></webview>
@@ -18,14 +19,26 @@
 
 <script>
 import userinfo from './subcomponents/UserInfo'
+import login from './subcomponents/Login'
+import * as network from '../utils/network'
 
 export default {
   components: {
-    'userinfo': userinfo
+    'userinfo': userinfo,
+    'login': login
   },
   data () {
     return {
       src: 'http://passport.bilibili.com/ajax/miniLogin/minilogin'
+    }
+  },
+  computed: {
+    logined: async function () {
+      if (JSON.parse(await network.gets('https://member.bilibili.com/x/web/article/pre'))['code'] === -101) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   methods: {
@@ -58,8 +71,13 @@ export default {
 }
 
 .title {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 18px;
+}
+
+.panel {
+  margin-right: 12px;
 }
 
 webview {

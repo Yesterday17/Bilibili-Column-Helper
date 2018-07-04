@@ -1,6 +1,6 @@
 <template>
   <div class="full">
-    <el-row class="title">
+    <el-row class="title" :v-if="this.$store.state.Passage.passage.name == ''">
       正在编辑： {{this.$store.state.Passage.passage.name}}
     </el-row>
     <el-row class="content">
