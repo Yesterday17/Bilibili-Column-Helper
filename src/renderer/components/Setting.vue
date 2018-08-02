@@ -1,15 +1,9 @@
 <template>
   <el-tabs tab-position="right">
     <el-tab-pane label="登录设置" class="panel">
-      <a class="title">登录设置</a>
+      <h2 class="title">登录设置</h2>
       <userinfo v-if="logined === true"></userinfo>
       <login v-else></login>
-      <!--
-      <el-popover ref="popoverlogin" trigger="click" v-on:show="login">
-        <webview ref="webview" :src="src"></webview>
-      </el-popover>
-      <el-button type="primary" v-popover:popoverlogin>主要按钮</el-button>
-      -->
     </el-tab-pane>
     <el-tab-pane label="配置管理 ">配置管理</el-tab-pane>
     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
