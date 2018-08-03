@@ -12,13 +12,16 @@ export default {
   },
   methods: {
     login: function () {
-      const loginURL = 'http://passport.bilibili.com/ajax/miniLogin/minilogin'
+      const loginURL = 'https://account.bilibili.com/ajax/miniLogin/minilogin'
+      let _this = this
 
       let loginWindow = new remote.BrowserWindow({
+        parent: remote.BrowserWindow.getFocusedWindow(),
         height: 470,
         width: 434,
         maximizable: false,
-        frame: true
+        frame: true,
+        modal: true
       })
 
       loginWindow.loadURL(loginURL)
@@ -26,6 +29,28 @@ export default {
       loginWindow.on('closed', function () {
         loginWindow = null
       })
+
+      loginWindow.webContents.on('will-navigate', function (event, url) {
+        loginWindow.webContents.session.cookies.get({}, function (err, cookies) {
+          if (err) return
+
+          let result = []
+          for (let cookie of cookies) {
+            if (cookie.domain === '.bilibili.com') {
+              result.push({
+                name: cookie.name,
+                value: cookie.value
+              })
+            }
+          }
+          _this.$store.commit('UPDATE_COOKIES', result)
+          _this.$store.commit('SAVE_CONFIG')
+          loginWindow.hide()
+          loginWindow.destroy()
+        })
+      })
+
+      loginWindow.show()
     }
   }
 }

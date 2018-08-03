@@ -33,13 +33,22 @@ const mutations = {
     s.set(state.config)
   },
   UPDATE_COOKIES (state, cookies) {
-    state.config.cookies = cookies
+    state.config.cookies = JSON.parse(JSON.stringify(cookies))
     state.config.cookie = cookies
       .map(cookie => `${cookie.name}=${cookie.value}`)
       .join(';')
   },
   UPDATE_COOKIE (state, cookie) {
+    // Clear cookies
+    state.config.cookies.splice(1, state.config.cookies.splice.length)
     state.config.cookie = cookie
+    for (let item of cookie.match(/([^=; ]+=[^=; ]+)/g)) {
+      let ans = /([^=]+)=([^=]+)/.exec(item)
+      state.config.cookies.push({
+        name: ans[1],
+        value: ans[2]
+      })
+    }
   },
   RESET_COOKIES (state) {
     state.cookies = []

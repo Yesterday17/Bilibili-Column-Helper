@@ -1,21 +1,7 @@
-import * as https from 'https'
+const request = require('request-promise').defaults({
+  jar: true
+})
 
-export function gets (addr) {
-  return new Promise((resolve, reject) => {
-    https.get(addr, res => {
-      let body = ''
-
-      res.on('data', chunk => {
-        body += chunk
-      })
-
-      res.on('end', () => {
-        resolve(body)
-      })
-
-      res.on('error', err => {
-        reject(err)
-      })
-    })
-  })
+export async function gets (options) {
+  return await request(options)
 }
