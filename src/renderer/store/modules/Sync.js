@@ -1,4 +1,5 @@
 import Store from 'electron-store'
+import * as biliNetwork from '../../utils/biliNetwork'
 
 let sync = new Store({
   name: 'sync'
@@ -219,11 +220,17 @@ const state = {
   categoryMap: new Map(),
 
   count: {
-    read: 0,
-    comment: 0,
+    view: 0,
+    reply: 0,
     like: 0,
-    favorite: 0,
-    coin: 0
+    coin: 0,
+    fav: 0,
+
+    incr_view: 0,
+    incr_reply: 0,
+    incr_like: 0,
+    incr_coin: 0,
+    incr_fav: 0
   }
 }
 
@@ -243,16 +250,40 @@ const mutations = {
   SAVE_SYNC_CONFIG (state) {
     sync.set('category', state.category)
   },
-  SYNC_CONFIG (state) {
+  UPDATE_USERINFO (state, result) {
+    state.count.view = result['view']
+    state.count.reply = result['reply']
+    state.count.like = result['like']
+    state.count.coin = result['coin']
+    state.count.fav = result['fav']
+    state.count.share = result['share']
+
+    state.count.incr_view = result['incr_view']
+    state.count.incr_reply = result['incr_reply']
+    state.count.incr_like = result['incr_like']
+    state.count.incr_coin = result['incr_coin']
+    state.count.incr_fav = result['incr_fav']
+    state.count.incr_share = result['incr_share']
+  }
+}
+
+const actions = {
+  SYNC_CONFIG ({ commit }, cookie) {
     // TODO: Sync  category here.
     // state.category
 
     // TODO: Sync count here.
-    // State.count
+    biliNetwork.getUserInfo(cookie).then(result => {
+      if (result !== undefined) {
+        console.log(result)
+        commit('UPDATE_USERINFO', result)
+      }
+    })
   }
 }
 
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }
