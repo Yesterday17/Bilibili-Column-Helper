@@ -20,9 +20,11 @@
 
 <script>
 import { codemirror } from 'vue-codemirror'
+import { clipboard } from 'electron'
 import marked from 'marked'
 // import biliZhuanLanMarkdown from 'bilibili-zhuanlan-markdown-tool'
 import renderer from '../utils/renderer'
+import * as biliNetwork from '../utils/biliNetwork'
 
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
@@ -38,6 +40,7 @@ export default {
   data () {
     return {
       code: '',
+      cookies: undefined,
       cmOption: {
         mode: 'markdown',
         theme: 'men-like',
@@ -46,7 +49,26 @@ export default {
         styleActiveLine: true,
         lineWrapping: true,
         scrollbarStyle: 'overlay',
-        viewportMargin: Infinity
+        viewportMargin: Infinity,
+        extraKeys: {
+          'Ctrl-V': async (cm) => {
+            let paste, doc = cm.getDoc(), cursor = doc.getCursor()
+            const isImage = clipboard.readImage().getBitmap().byteLength !== 0
+
+            if (isImage) {
+              paste = 'data:image/png;base64,' + clipboard.readImage().toPNG().toString('base64')
+              const result = await biliNetwork.upcover(paste, this.cookies)
+              if (result['code'] !== 0) {
+                paste = ''
+              } else {
+                paste = `![](${result['data']['url']})\n`
+              }
+            } else {
+              paste = clipboard.readText()
+            }
+            doc.replaceRange(paste, cursor)
+          }
+        }
       }
     }
   },
@@ -66,6 +88,7 @@ export default {
   },
   created () {
     this.code = this.$store.state.Passage.passage.text
+    this.cookies = this.$store.state.Config.config.cookie
     renderer.initialize()
   }
 }

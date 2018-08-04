@@ -2,14 +2,29 @@ const request = require('request-promise').defaults({
   jar: true
 })
 
-export async function gets (options) {
+export async function get (options) {
+  return await request(options)
+}
+
+export async function post (options) {
   return await request(options)
 }
 
 export async function getBilibili (uri, cookies) {
-  const options = {
+  const options = getConfig(uri, 'GET', cookies)
+  return JSON.parse(await get(options))
+}
+
+export async function postBilibili (uri, cookies, form) {
+  const options = getConfig(uri, 'POST', cookies)
+  options['form'] = form
+  return JSON.parse(await post(options))
+}
+
+function getConfig (uri, method, cookies) {
+  return {
     uri: uri,
-    method: 'GET',
+    method: method,
     gzip: true,
     headers: {
       'Connection': 'keep-alive',
@@ -22,5 +37,4 @@ export async function getBilibili (uri, cookies) {
       'Cookie': cookies
     }
   }
-  return JSON.parse(await gets(options))
 }
