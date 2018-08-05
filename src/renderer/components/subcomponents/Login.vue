@@ -1,5 +1,5 @@
 <template>
-  <div>您现在还没有登录！请
+  <div class="login">您现在还没有登录！请
     <el-button type="text" @click="login">登录</el-button>！
   </div>
 </template>
@@ -45,6 +45,7 @@ export default {
           }
           _this.$store.commit('UPDATE_COOKIES', result)
           _this.$store.commit('SAVE_CONFIG')
+          _this.$emit('login')
           loginWindow.hide()
           loginWindow.destroy()
         })
@@ -57,4 +58,12 @@ export default {
 </script>
 
 <style>
+.login {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 8px;
+  box-shadow: inset 0 0 2px 0px #454545;
+  border-radius: 5px;
+  text-align: center;
+}
 </style>

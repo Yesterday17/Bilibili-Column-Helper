@@ -51,7 +51,8 @@ const mutations = {
     }
   },
   RESET_COOKIES (state) {
-    state.cookies = []
+    state.config.cookies.splice(0, state.config.cookies.length)
+    state.config.cookie = ''
   }
 }
 
