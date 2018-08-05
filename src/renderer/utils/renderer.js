@@ -10,78 +10,20 @@ const cutoff = [
   '02db465212d3c374a43c60fa2625cc1caeaab796.png'
 ]
 
-const optionDefault = {
+export const defaultOption = {
   hr: 3
 }
 
-let renderer = {
-  local: new marked.Renderer(),
-  remote: new marked.Renderer()
+export let renderer = new marked.Renderer()
+
+export function configure (options) {
+  renderer.hr = function () {
+    return '<figure class="img-box" contenteditable="false">' +
+      `<img src="${cutoff[0]}${cutoff[option.hr]}" class="cut-off-${option.hr}" />` +
+      '</figure>'
+  }
 }
 
-/**
- * initialize marked renderers
- * @param {*} option
- */
-function initialize (option = optionDefault) {
-  // hr, the difference is that the local one should be replaced
-  renderer.local.hr = function () {
-    return `<figure class="img-box" contenteditable="false">
-      <img src="static/hr/${cutoff[option.hr]}" class="cut-off-${
-  option.hr
-}" /></figure>`
-  }
-
-  renderer.remote.hr = function () {
-    return `<figure class="img-box" contenteditable="false">
-      <img src="${cutoff[0]}${cutoff[option.hr]}" class="cut-off-${
-  option.hr
-}" /></figure>`
-  }
-
-  // Header
-  renderer.local.heading = renderer.remote.heading = function (
-    text,
-    level,
-    raw
-  ) {
-    return `<h${level}>${text}</h${level}>`
-  }
-
-  // HTML
-  renderer.local.html = function (html) {
-    console.log(html)
-
-    // <hr> replace
-    if (html.match('<hr( )*(/)*>')) return renderer.local.hr()
-    else {
-      // Else
-      return html
-    }
-  }
-
-  // Text
-  /*
-    renderer.local.text = function(text){
-        return `<p>${text}</p>`;
-    }
-  */
-}
-
-/**
- * Exports
- */
-
-function getLocalRenderer () {
-  return renderer.local
-}
-
-function getRemoteRenderer () {
-  return renderer.remote
-}
-
-export default {
-  getLocalRenderer,
-  getRemoteRenderer,
-  initialize
+export function render (code, renderer) {
+  return marked(code, { renderer: renderer })
 }
