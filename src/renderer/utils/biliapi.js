@@ -1,4 +1,4 @@
-const request = require('request').defaults({
+const request = require('../../../../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/request').defaults({
   jar: true
 })
 const fs = require('fs')

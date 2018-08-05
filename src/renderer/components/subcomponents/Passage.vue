@@ -44,12 +44,6 @@
 </template>
 
 <script>
-import { post as biliZhuanlanMarkdownToolPoster } from '../../utils/bilibiliZhuanlanMarkdownToolAdapter'
-
-const uploader = {
-  biliZhuanlanMarkdownTool: biliZhuanlanMarkdownToolPoster
-}
-
 export default {
   name: 'column-passsage',
   props: [
@@ -85,8 +79,7 @@ export default {
       })
     },
     upload (props) {
-      console.log(uploader)
-      uploader[this.$store.state.Config.config.poster]()
+      // TODO: Add upload here.
     },
     edit (props) {
       // TODO: 保存原有内容

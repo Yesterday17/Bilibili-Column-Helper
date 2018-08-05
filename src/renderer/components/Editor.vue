@@ -21,9 +21,7 @@
 <script>
 import { codemirror } from 'vue-codemirror'
 import { clipboard } from 'electron'
-import marked from 'marked'
-// import biliZhuanLanMarkdown from 'bilibili-zhuanlan-markdown-tool'
-import renderer from '../utils/renderer'
+import * as renderer from '../utils/RendererFactory'
 import * as biliNetwork from '../utils/biliNetwork'
 
 import 'codemirror/mode/markdown/markdown'
@@ -79,17 +77,12 @@ export default {
   },
   computed: {
     rendered: function () {
-      marked.setOptions({
-        renderer: renderer.getLocalRenderer()
-      })
-      return marked(this.code)
-      // return biliZhuanLanMarkdown.md2Html(this.code, renderer.getRemoteRenderer())
+      return renderer.getRenderer({module: this.$store.state.Config.config.renderer})(this.code)
     }
   },
   created () {
     this.code = this.$store.state.Passage.passage.text
     this.cookies = this.$store.state.Config.config.cookie
-    renderer.initialize()
   }
 }
 </script>
@@ -145,5 +138,9 @@ export default {
 .CodeMirror-scroll {
   overflow-y: hidden;
   overflow-x: auto;
+}
+
+.markdown-render {
+  display: inline-block;
 }
 </style>
