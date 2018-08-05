@@ -32,12 +32,6 @@ export default {
       loginStatus: 'pending'
     }
   },
-  asyncComputed: {
-    async logined () {
-      const result = await network.getBilibili('https://member.bilibili.com/x/web/article/pre', this.$store.state.Config.config.cookie)
-      return result['code'] === 0
-    }
-  },
   created () {
     network.getBilibili('https://member.bilibili.com/x/web/article/pre', this.$store.state.Config.config.cookie)
       .then((result) => {
