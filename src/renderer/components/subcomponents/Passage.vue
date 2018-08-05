@@ -79,7 +79,17 @@ export default {
       })
     },
     upload (props) {
-      // TODO: Add upload here.
+      switch (this.$store.state.Running.loginStatus) {
+        case 'true':
+          this.$message.success('TODO: Upload passage here.')
+          break
+        case 'false':
+          this.$message.error('账号未登录！请前往设置页面登录！')
+          break
+        case 'pending':
+          this.$message.error('账号登录状况判定中！请前往设置页面判定！')
+          break
+      }
     },
     edit (props) {
       // TODO: 保存原有内容

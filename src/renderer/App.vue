@@ -41,7 +41,9 @@
       </el-aside>
       <el-container class="main-container">
         <el-main class="main-container">
-          <router-view></router-view>
+          <transition name="fade" mode="out-in">
+            <router-view></router-view>
+          </transition>
         </el-main>
       </el-container>
     </el-container>
@@ -196,5 +198,14 @@ body {
 .btncontrol {
   -webkit-app-region: no-drag;
   padding: 10px !important;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
