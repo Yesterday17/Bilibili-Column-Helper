@@ -11,9 +11,31 @@
         <pending v-else-if="loginStatus === 'pending'" content="正在检查登录状态……"></pending>
       </transition>
     </el-tab-pane>
-    <el-tab-pane label="配置管理 ">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+    <el-tab-pane label="专栏设置">
+      <h2 class="title">专栏设置</h2>
+      <div class="content">
+        <div>
+          渲染器：
+          <el-select v-model="value_renderer" placeholder="请选择">
+            <el-option v-for="item in renderer" :key="item.value" :label="item.prefix + item.label + item.append" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div>
+          推送器：
+          <el-select v-model="value_poster" placeholder="请选择">
+            <el-option v-for="item in poster" :key="item.value" :label="item.prefix + item.label + item.append" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+      </div>
+    </el-tab-pane>
+    <el-tab-pane label="同步设置">
+      <h2 class="title">同步设置</h2>
+    </el-tab-pane>
+    <el-tab-pane label="其他设置">
+      <h2 class="title">其他设置</h2>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -31,12 +53,44 @@ export default {
   },
   data () {
     return {
-      src: 'http://passport.bilibili.com/ajax/miniLogin/minilogin',
+      // Page 1
       /**
        * Login status.
        *   pending | true | false
        */
-      loginStatus: this.$store.state.Running.loginStatus
+      loginStatus: this.$store.state.Running.loginStatus,
+
+      // Page 2
+      value_renderer: this.$store.state.Config.config.renderer,
+      renderer: [
+        {
+          prefix: '',
+          value: 'default',
+          label: '默认',
+          append: ''
+        },
+        {
+          prefix: '',
+          value: 'biliZhuanlanMarkdownTool',
+          label: 'Bilibili zhuanlan Markdown-Tool',
+          append: ''
+        }
+      ],
+      value_poster: this.$store.state.Config.config.poster,
+      poster: [
+        {
+          prefix: '',
+          value: 'default',
+          label: '默认',
+          append: ''
+        },
+        {
+          prefix: '',
+          value: 'biliZhuanlanMarkdownTool',
+          label: 'Bilibili zhuanlan Markdown-Tool',
+          append: ''
+        }
+      ]
     }
   },
   methods: {
@@ -93,11 +147,16 @@ export default {
   margin-right: 12px;
 }
 
+.content {
+  margin-top: 1rem;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
