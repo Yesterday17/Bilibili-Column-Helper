@@ -6,6 +6,7 @@
   "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
+    "dist": "node .electron-vue/build.js && electron-builder --publish onTagOrDraft",
     "build": "node .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
@@ -24,7 +25,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "build": {
-    "productName": "bilibili-column-helper",
+    "productName": "哔哩哔哩专栏助手",
     "appId": "cn.yesterday17.bilibili-column-helper",
     "directories": {
       "output": "build"
@@ -48,13 +49,19 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/icon.icns"
+      "icon": "build/icons/icon.icns",
+      "category": "public.app-category.utilities"
     },
     "win": {
       "icon": "build/icons/icon.png"
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "build/icons",
+      "category": "Utility",
+      "target": [
+        "deb",
+        "AppImage"
+      ]
     }
   },
   "dependencies": {
