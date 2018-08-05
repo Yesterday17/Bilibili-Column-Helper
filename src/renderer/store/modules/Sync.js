@@ -275,7 +275,6 @@ const actions = {
     // TODO: Sync count here.
     biliNetwork.getUserInfo(cookie).then(result => {
       if (result !== undefined) {
-        console.log(result)
         commit('UPDATE_USERINFO', result)
       }
     })

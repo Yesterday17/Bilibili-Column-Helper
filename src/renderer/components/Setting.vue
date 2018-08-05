@@ -35,12 +35,10 @@ export default {
   asyncComputed: {
     async logined () {
       const result = await network.getBilibili('https://member.bilibili.com/x/web/article/pre', this.$store.state.Config.config.cookie)
-      console.log(result)
       return result['code'] === 0
     }
   },
   created () {
-    console.log(this.$store.state.Config.config)
     network.getBilibili('https://member.bilibili.com/x/web/article/pre', this.$store.state.Config.config.cookie)
       .then((result) => {
         this.loginStatus = (result['code'] === 0).toString()
