@@ -15,9 +15,9 @@
 
 ## 合作开发(Contribution)
 
-本工程基于`electron-vue`开发，其有相对完善的[中文文档](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)可供参考  
-前端框架使用的是`Vue.js`，其文档可[点此访问](https://cn.vuejs.org/)  
-UI 使用的是`Element`，其文档可[点此访问](http://element-cn.eleme.io)  
+本工程基于`electron-vue`开发，其有相对完善的[中文文档](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)可供参考。  
+前端框架使用的是`Vue.js`，文档[点此访问](https://cn.vuejs.org/)。  
+UI 使用的是`Element`，文档[点此访问](http://element-cn.eleme.io)。  
 以及`Electron`的文档：[点此访问](https://electronjs.org/)。
 
 ### 构建过程
@@ -27,6 +27,12 @@ UI 使用的是`Element`，其文档可[点此访问](http://element-cn.eleme.io
 ```
 npm install -g yarn
 yarn install
+```
+
+如果在上述过程中遇到 electron 无法下载，可以选择使用`cnpm`或`npm`过渡：
+
+```
+cnpm install
 ```
 
 然后就可以通过以下步骤运行：
@@ -40,3 +46,7 @@ yarn dev
 ```
 yarn run build
 ```
+
+# Credits
+
+[Bilibili zhuanlan Markdown-Tool](https://github.com/zihengCat/bilibili-zhuanlan-markdown-tool)
