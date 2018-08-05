@@ -2,8 +2,9 @@
   <el-tabs tab-position="right">
     <el-tab-pane label="登录设置" class="panel">
       <h2 class="title">登录设置</h2>
-      <userinfo v-if="logined"></userinfo>
-      <login v-else></login>
+      <userinfo v-if="loginStatus === 'true'"></userinfo>
+      <login v-else-if="loginStatus === 'false'"></login>
+      <div v-else-if="loginStatus === 'pending'">正在检查登录状态……</div>
     </el-tab-pane>
     <el-tab-pane label="配置管理 ">配置管理</el-tab-pane>
     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
@@ -23,7 +24,12 @@ export default {
   },
   data () {
     return {
-      src: 'http://passport.bilibili.com/ajax/miniLogin/minilogin'
+      src: 'http://passport.bilibili.com/ajax/miniLogin/minilogin',
+      /**
+       * Login status.
+       *   pending | true | false
+       */
+      loginStatus: 'pending'
     }
   },
   asyncComputed: {
@@ -35,6 +41,10 @@ export default {
   },
   created () {
     console.log(this.$store.state.Config.config)
+    network.getBilibili('https://member.bilibili.com/x/web/article/pre', this.$store.state.Config.config.cookie)
+      .then((result) => {
+        this.loginStatus = (result['code'] === 0).toString()
+      })
   }
 }
 </script>

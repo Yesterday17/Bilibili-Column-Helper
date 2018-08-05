@@ -65,7 +65,6 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "vue": "^2.5.16",
-    "vue-async-computed": "^3.3.1",
     "vue-codemirror-electron": "^3.0.7",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
