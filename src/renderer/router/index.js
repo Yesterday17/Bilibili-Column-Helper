@@ -27,7 +27,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/passages'
+      redirect: '/setting'
     }
   ]
 })
