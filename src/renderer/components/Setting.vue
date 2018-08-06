@@ -47,9 +47,9 @@ import * as network from '../utils/network'
 
 export default {
   components: {
-    'userinfo': userinfo,
-    'login': login,
-    'pending': pending
+    userinfo,
+    login,
+    pending
   },
   data () {
     return {

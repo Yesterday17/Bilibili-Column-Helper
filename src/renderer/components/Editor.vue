@@ -1,10 +1,7 @@
 <template>
-  <div class="full">
-    <el-row class="title" v-if="this.$store.state.Passage.currentPassage.name !== ''">
+  <div class="full" v-if="this.$store.state.Passage.currentPassage.name !== ''">
+    <el-row class="title">
       正在编辑： {{this.$store.state.Passage.currentPassage.name}}
-    </el-row>
-    <el-row class="title" v-else>
-      没有正在编辑的文件！
     </el-row>
     <el-row class="content">
       <el-col class="full" :span="12">
@@ -19,6 +16,7 @@
       </el-col>
     </el-row>
   </div>
+  <pending v-else content="没有正在编辑的专栏！"></pending>
 </template>
 
 <script>
@@ -26,6 +24,7 @@ import { codemirror } from 'vue-codemirror'
 import { clipboard } from 'electron'
 import * as renderer from '../utils/RendererFactory'
 import * as biliNetwork from '../utils/biliNetwork'
+import pending from './subcomponents/Pending'
 
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/addon/selection/active-line'
@@ -36,7 +35,8 @@ import 'codemirror/theme/mdn-like'
 
 export default {
   components: {
-    codemirror
+    codemirror,
+    pending
   },
   data () {
     return {
