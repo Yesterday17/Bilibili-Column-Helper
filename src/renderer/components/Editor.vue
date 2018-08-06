@@ -1,7 +1,7 @@
 <template>
   <div class="full">
-    <el-row class="title" :v-if="this.$store.state.Passage.passage.name == ''">
-      正在编辑： {{this.$store.state.Passage.passage.name}}
+    <el-row class="title" :v-if="this.$store.state.Passage.currentPassage.name == ''">
+      正在编辑： {{this.$store.state.Passage.currentPassage.name}}
     </el-row>
     <el-row class="content">
       <el-col class="full" :span="12">
@@ -81,7 +81,7 @@ export default {
     }
   },
   created () {
-    this.code = this.$store.state.Passage.passage.text
+    this.code = this.$store.state.Passage.currentPassage.text
     this.cookies = this.$store.state.Config.config.cookie
   }
 }

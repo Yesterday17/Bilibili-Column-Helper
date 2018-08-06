@@ -6,9 +6,10 @@ import * as rimraf from 'rimraf'
 const PATH = path.resolve(remote.app.getPath('userData'), 'Passages')
 
 const state = {
-  namelist: [],
-  passages: [],
-  passage: {
+  passageData: new Map(),
+  passageContent: new Map(),
+
+  currentPassage: {
     text: ''
   }
 }
@@ -16,37 +17,58 @@ const state = {
 const mutations = {
   // For Editor
   SET_PASSAGE (state, payload) {
-    state.passage = payload
+    state.currentPassage = payload
+
+    // TODO: Optimize interface
+    state.currentPassage.text = state.passageContent.get(payload.name).local
   },
   SET_TITLE (state, title) {
-    state.passage.name = title
-  },
-  SET_COVER (state, cover) {
-    state.passage.cover = cover
+    state.currentPassage.name = title
   },
   SET_CONTENT (state, content) {
-    if (!content) return
-    state.passage.text = content
+    state.currentPassage.text = content
   },
   LOAD_PASSAGE (state, payload) {
-    state.passage = state.passages.indexOf(payload)
+    state.currentPassage = state.passageData.get(payload.name)
+
+    // TODO: Optimize interface
+    state.currentPassage.text = state.passageContent.get(payload.name).local
+  },
+  RESET_PASSAGE (state) {
+    state.currentPassage = {
+      name: '',
+      text: ''
+    }
   },
 
   // Passage Library
   NEW_PASSAGE (state, payload) {
     const columnPath = path.resolve(PATH, payload.name)
     const imagePath = path.resolve(columnPath, 'images')
+    const documentPath = path.resolve(columnPath, 'document')
     const indexJson = path.resolve(columnPath, 'index.json')
+    const localMDPath = path.resolve(documentPath, 'local.md')
+    const remoteMDPath = path.resolve(documentPath, 'remote.md')
+
     fs.mkdirSync(columnPath)
     fs.mkdirSync(imagePath)
-    fs.writeFileSync(indexJson, JSON.stringify(payload, undefined, 2))
+    fs.mkdirSync(documentPath)
 
-    state.passages.push({
+    fs.writeFileSync(indexJson, JSON.stringify(payload, undefined, 2), {encoding: 'utf-8'})
+    fs.writeFileSync(localMDPath, '', {encoding: 'utf-8'})
+    fs.writeFileSync(remoteMDPath, '', {encoding: 'utf-8'})
+
+    state.passageData.set(payload.name, {
       ...JSON.parse(JSON.stringify(payload))
+    })
+
+    state.passageContent.set(payload.name, {
+      local: '',
+      remote: ''
     })
   },
   DEL_PASSAGE (state, payload) {
-    state.passages.splice(state.passages.indexOf(payload), 1)
+    state.passageData.delete(payload.name)
     rimraf.sync(path.resolve(PATH, payload.name))
   },
 
@@ -59,9 +81,22 @@ const mutations = {
     for (const d of dirStat) {
       const dir = path.resolve(PATH, d)
       if (fs.statSync(dir).isDirectory()) {
-        const passage = JSON.parse(fs.readFileSync(path.resolve(dir, 'index.json')))
-        state.passages.push(passage)
-        state.namelist.push(d)
+        try {
+          const passage = JSON.parse(
+            fs.readFileSync(path.resolve(dir, 'index.json'), {encoding: 'utf-8'})
+          )
+          const documentPath = path.resolve(dir, 'document')
+          const local = fs.readFileSync(path.resolve(documentPath, 'local.md'), {encoding: 'utf-8'})
+          const remote = fs.readFileSync(path.resolve(documentPath, 'remote.md'), {encoding: 'utf-8'})
+
+          state.passageData.set(d, passage)
+          state.passageContent.set(d, {
+            local: local,
+            remote: remote
+          })
+        } catch (e) {
+          console.error(e.message)
+        }
       }
     }
   }

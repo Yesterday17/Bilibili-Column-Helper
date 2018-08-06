@@ -30,7 +30,7 @@
             </el-col>
           </el-form-item>
           <el-form-item label="专栏头图：" label-width="220px" prop="image">
-            <el-upload v-model="form.image" drag :limit=1 :auto-upload=false accept=".jpg, .jpeg, .bmp, .png" action="" :before-upload="beforeImageUpload" :on-change="imageChange">
+            <el-upload ref="upload" v-model="form.image" drag :limit=1 :auto-upload=false accept=".jpg, .jpeg, .bmp, .png" action="" :before-upload="beforeImageUpload" :on-change="imageChange">
               <div class="upload">
                 <i class="el-icon-upload"></i>
                 <!--<a class="upload-description">将文件拖到此处，或点击上传</a>-->
@@ -51,8 +51,8 @@
         </div>
       </el-dialog>
     </div>
-    <div class="passages" v-for="item in passages" :key="item.cid">
-      <column-passsage :props="item"></column-passsage>
+    <div class="passages" v-for="item in columns" :key="item.name">
+      <column-passsage :props="item" v-on:update="forceUpdate"></column-passsage>
     </div>
   </div>
 </template>
@@ -68,6 +68,7 @@ export default {
     return {
       dialogFormVisible: false,
       label: '',
+      columns: [],
       i: 0,
 
       form: {
@@ -76,8 +77,7 @@ export default {
         subtype: '',
         image: '',
         pubdate: null,
-        tags: [],
-        text: ''
+        tags: []
       },
 
       rules: {
@@ -97,13 +97,6 @@ export default {
       }
     }
   },
-  computed: {
-    passages: function () {
-      let t = [...this.$store.state.Passage.passages]
-      // TODO: Sort the list in different ways.
-      return this.sort(t, 'time')
-    }
-  },
   methods: {
     newColumn: function () {
       // Reset Form
@@ -113,7 +106,6 @@ export default {
       this.form.image = ''
       this.form.pubdate = null
       this.form.tags.splice(0, this.form.tags.length)
-      this.form.text = ''
 
       this.dialogFormVisible = true
     },
@@ -121,16 +113,18 @@ export default {
       console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
-          if (this.$store.state.Passage.namelist.indexOf(this.form.name) !== -1) {
+          if (this.$store.state.Passage.passageData.get(this.form.name) !== undefined) {
             this.$message.error('与现有专栏标题重复！')
             return false
           }
           this.form.pubdate = Date.now()
 
           this.$store.commit('NEW_PASSAGE', this.form)
+          this.forceUpdate()
 
           // Reset
           this.i = 0
+          this.$refs.upload.clearFiles()
           this.dialogFormVisible = false
           return true
         } else {
@@ -143,11 +137,6 @@ export default {
       this.form.subtype = ''
       this.i = this.$store.state.Sync.categoryList.indexOf(selected)
     },
-    sort (items, options) {
-      return items.sort((a, b) => {
-        return a.pubdate < b.pubdate
-      })
-    },
     beforeImageUpload (file) {
       const isLt3M = file.size / 1024 / 1024 < 3
 
@@ -159,7 +148,14 @@ export default {
     },
     imageChange (file, filelist) {
       this.form.image = file.raw.path
+    },
+    forceUpdate () {
+      this.columns.splice(0, this.columns.length)
+      Array.prototype.push.apply(this.columns, Array.from(this.$store.state.Passage.passageData.values()))
     }
+  },
+  created () {
+    this.forceUpdate()
   }
 }
 </script>

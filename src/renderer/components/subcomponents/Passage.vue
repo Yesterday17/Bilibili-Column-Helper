@@ -23,10 +23,10 @@
         <el-col :span="2">
           <div class="passage-manage">
             <div class="close-icon">
-              <el-button icon="el-icon-close" circle @click="del(props)"></el-button>
+              <el-button icon="el-icon-close" circle @click="del"></el-button>
             </div>
             <div class="upload-icon">
-              <el-button icon="el-icon-upload2" circle @click="upload(props)"></el-button>
+              <el-button icon="el-icon-upload2" circle @click="upload"></el-button>
             </div>
             <!--
             <div class="more-icon">
@@ -34,7 +34,7 @@
             </div>
             -->
             <div class="edit-icon">
-              <el-button icon="el-icon-edit-outline" circle @click="edit(props)"></el-button>
+              <el-button icon="el-icon-edit-outline" circle @click="edit"></el-button>
             </div>
           </div>
         </el-col>
@@ -50,34 +50,26 @@ export default {
     'props'
   ],
   methods: {
-    del: function (props) {
+    del: function () {
       this.$confirm('此操作将在本地永久删除该专栏, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
         center: true
       }).then(() => {
-        this.$store.commit('DEL_PASSAGE', props)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch((e) => {
+        this.$store.commit('DEL_PASSAGE', this.props)
+        this.$store.commit('RESET_PASSAGE')
+        this.$emit('update')
+        this.$message.success('删除成功')
+      }).catch(() => {
         if (e === 'cancel') {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
+          this.$message.info('已取消删除')
         } else {
-          console.error(e)
-          this.$message({
-            type: 'error',
-            message: e
-          })
+          this.$message.error(e)
         }
       })
     },
-    upload (props) {
+    upload () {
       switch (this.$store.state.Running.loginStatus) {
         case 'true':
           this.$message.success('TODO: Upload passage here.')
@@ -90,9 +82,7 @@ export default {
           break
       }
     },
-    edit (props) {
-      // TODO: 保存原有内容
-
+    edit () {
       // 覆盖原有内容
       this.$store.commit('SET_PASSAGE', this.props)
 
@@ -100,7 +90,6 @@ export default {
       this.$router.push('/editor')
 
       // 更改父组件Tab信息
-      // 使用Vuex
       this.$store.commit('SET_PAGE', 2)
     }
   }
