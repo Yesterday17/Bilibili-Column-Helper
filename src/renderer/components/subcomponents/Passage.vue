@@ -86,6 +86,7 @@ export default {
     },
     edit () {
       // 覆盖原有内容
+      this.$store.commit('RESET_PASSAGE')
       this.$store.commit('SET_PASSAGE', this.props)
 
       // 跳转路由

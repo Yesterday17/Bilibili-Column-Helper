@@ -15,20 +15,11 @@ const state = {
 
 const mutations = {
   // For Editor
-  SET_PASSAGE (state, payload) {
-    state.currentPassage = payload
-
-    // TODO: Optimize interface
-    state.currentPassage.text = state.passageContent.get(payload.name).local
-  },
-  SET_TITLE (state, title) {
-    state.currentPassage.name = title
-  },
   SET_CONTENT (state, content) {
     state.currentPassage.text = content
   },
-  LOAD_PASSAGE (state, payload) {
-    state.currentPassage = state.passageData.get(payload.name)
+  SET_PASSAGE (state, payload) {
+    state.currentPassage.name = payload.name
 
     // TODO: Optimize interface
     state.currentPassage.text = state.passageContent.get(payload.name).local
