@@ -1,7 +1,10 @@
 <template>
   <div class="full">
-    <el-row class="title" :v-if="this.$store.state.Passage.currentPassage.name == ''">
+    <el-row class="title" v-if="this.$store.state.Passage.currentPassage.name !== ''">
       正在编辑： {{this.$store.state.Passage.currentPassage.name}}
+    </el-row>
+    <el-row class="title" v-else>
+      没有正在编辑的文件！
     </el-row>
     <el-row class="content">
       <el-col class="full" :span="12">
@@ -77,6 +80,9 @@ export default {
   },
   computed: {
     rendered: function () {
+      if (this.$store.state.Passage.currentPassage.name !== '') {
+        this.$store.commit('SAVE_PASSAGE', this.code)
+      }
       return renderer.getRenderer({module: this.$store.state.Config.config.renderer})(this.code)
     }
   },

@@ -10,6 +10,7 @@ const state = {
   passageContent: new Map(),
 
   currentPassage: {
+    name: '',
     text: ''
   }
 }
@@ -40,6 +41,15 @@ const mutations = {
       text: ''
     }
   },
+  SAVE_PASSAGE (state, code) {
+    // TODO: Save files differently
+    const columnPath = path.resolve(PATH, state.currentPassage.name)
+    const documentPath = path.resolve(columnPath, 'document')
+    const localMDPath = path.resolve(documentPath, 'local.md')
+    // const remoteMDPath = path.resolve(documentPath, 'remote.md')
+
+    fs.writeFileSync(localMDPath, code, {encoding: 'utf-8'})
+  },
 
   // Passage Library
   NEW_PASSAGE (state, payload) {
@@ -47,6 +57,7 @@ const mutations = {
     const imagePath = path.resolve(columnPath, 'images')
     const documentPath = path.resolve(columnPath, 'document')
     const indexJson = path.resolve(columnPath, 'index.json')
+
     const localMDPath = path.resolve(documentPath, 'local.md')
     const remoteMDPath = path.resolve(documentPath, 'remote.md')
 
