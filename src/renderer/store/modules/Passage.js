@@ -1,15 +1,16 @@
-import Store from 'electron-store'
+import * as fs from 'fs'
+import * as path from 'path'
+import { remote } from 'electron'
+import * as rimraf from 'rimraf'
 
-let store = new Store({
-  name: 'column'
-})
+const PATH = path.resolve(remote.app.getPath('userData'), 'Passages')
 
 const state = {
+  namelist: [],
   passages: [],
   passage: {
     text: ''
-  },
-  count: 0
+  }
 }
 
 const mutations = {
@@ -33,23 +34,36 @@ const mutations = {
 
   // Passage Library
   NEW_PASSAGE (state, payload) {
+    const columnPath = path.resolve(PATH, payload.name)
+    const imagePath = path.resolve(columnPath, 'images')
+    const indexJson = path.resolve(columnPath, 'index.json')
+    fs.mkdirSync(columnPath)
+    fs.mkdirSync(imagePath)
+    fs.writeFileSync(indexJson, JSON.stringify(payload, undefined, 2))
+
     state.passages.push({
-      cid: state.count,
       ...JSON.parse(JSON.stringify(payload))
     })
-    state.count++
   },
   DEL_PASSAGE (state, payload) {
     state.passages.splice(state.passages.indexOf(payload), 1)
+    rimraf.sync(path.resolve(PATH, payload.name))
   },
 
-  // Save / Load Passage
-  SAVE_PASSAGES (state) {
-    store.set(state)
-  },
   LOAD_PASSAGES (state) {
-    state.passages = store.get('passages', [])
-    state.count = store.get('count', 0)
+    if (!fs.existsSync(PATH)) {
+      fs.mkdirSync(PATH)
+    }
+
+    const dirStat = fs.readdirSync(PATH)
+    for (const d of dirStat) {
+      const dir = path.resolve(PATH, d)
+      if (fs.statSync(dir).isDirectory()) {
+        const passage = JSON.parse(fs.readFileSync(path.resolve(dir, 'index.json')))
+        state.passages.push(passage)
+        state.namelist.push(d)
+      }
+    }
   }
 }
 

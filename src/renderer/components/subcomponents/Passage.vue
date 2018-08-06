@@ -22,18 +22,18 @@
         </el-col>
         <el-col :span="2">
           <div class="passage-manage">
-            <div class="close">
+            <div class="close-icon">
               <el-button icon="el-icon-close" circle @click="del(props)"></el-button>
             </div>
-            <div class="upload">
+            <div class="upload-icon">
               <el-button icon="el-icon-upload2" circle @click="upload(props)"></el-button>
             </div>
             <!--
-            <div class="more">
+            <div class="more-icon">
               <el-button icon="el-icon-more" circle></el-button>
             </div>
             -->
-            <div class="edit">
+            <div class="edit-icon">
               <el-button icon="el-icon-edit-outline" circle @click="edit(props)"></el-button>
             </div>
           </div>
@@ -58,7 +58,6 @@ export default {
         center: true
       }).then(() => {
         this.$store.commit('DEL_PASSAGE', props)
-        this.$store.commit('SAVE_PASSAGES')
         this.$message({
           type: 'success',
           message: '删除成功!'
@@ -201,10 +200,10 @@ export default {
   padding-right: 15px;
 }
 
-.close,
-.more,
-.upload,
-.edit {
+.close-icon,
+.more-icon,
+.upload-icon,
+.edit-icon {
   padding-bottom: 15px;
 }
 </style>

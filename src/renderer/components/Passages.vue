@@ -7,7 +7,7 @@
           新建专栏
         </el-button>
       </el-button-group>
-      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible">
+      <el-dialog title="新建专栏" :visible.sync="dialogFormVisible" width="70%">
         <el-form :model="form" :rules="rules" ref="newColumn">
           <el-form-item label="专栏标题（建议30字以内）：" label-width="220px" prop="name">
             <el-input v-model="form.name" auto-complete="off" placeholder="请输入标题（建议30字以内）"></el-input>
@@ -28,6 +28,16 @@
                 </el-select>
               </el-form-item>
             </el-col>
+          </el-form-item>
+          <el-form-item label="专栏头图：" label-width="220px" prop="image">
+            <el-upload v-model="form.image" drag :limit=1 :auto-upload=false accept=".jpg, .jpeg, .bmp, .png" action="" :before-upload="beforeImageUpload" :on-change="imageChange">
+              <div class="upload">
+                <i class="el-icon-upload"></i>
+                <!--<a class="upload-description">将文件拖到此处，或点击上传</a>-->
+                <a class="upload-description">支持3MB内的JPG／JPEG／BMP／PNG格式的高清图片</a>
+                <a class="upload-description">（建议大于960*540像素）</a>
+              </div>
+            </el-upload>
           </el-form-item>
           <el-form-item label="文章标签：" label-width="220px">
             <el-select v-model="form.tags" multiple filterable allow-create default-first-option :multiple-limit=10 placeholder="请选择文章标签">
@@ -80,6 +90,9 @@ export default {
         ],
         subtype: [
           { required: true, message: '请选择专栏子分类', trigger: 'blur' }
+        ],
+        image: [
+          { required: true, message: '请添加专栏头图', trigger: 'blur' }
         ]
       }
     }
@@ -105,13 +118,18 @@ export default {
       this.dialogFormVisible = true
     },
     newPassage: function (form) {
+      console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
-          // Use now as pubdate.
+          if (this.$store.state.Passage.namelist.indexOf(this.form.name) !== -1) {
+            this.$message.error('与现有专栏标题重复！')
+            return false
+          }
           this.form.pubdate = Date.now()
 
           this.$store.commit('NEW_PASSAGE', this.form)
-          this.$store.commit('SAVE_PASSAGES')
+
+          // Reset
           this.i = 0
           this.dialogFormVisible = false
           return true
@@ -129,6 +147,18 @@ export default {
       return items.sort((a, b) => {
         return a.pubdate < b.pubdate
       })
+    },
+    beforeImageUpload (file) {
+      const isLt3M = file.size / 1024 / 1024 < 3
+
+      if (!isLt3M) {
+        this.$message.error('专栏头图大小不能超过 3MB!')
+      }
+
+      return isLt2M
+    },
+    imageChange (file, filelist) {
+      this.form.image = file.raw.path
     }
   }
 }
@@ -145,5 +175,22 @@ export default {
   display: -webkit-flex;
   display: flex;
   justify-content: center;
+}
+
+.upload {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 0px !important;
+}
+.el-upload-dragger {
+  height: auto !important;
+}
+
+.upload-description {
+  font-size: 10px;
+  text-align: center;
+  color: #99a2aa;
 }
 </style>
