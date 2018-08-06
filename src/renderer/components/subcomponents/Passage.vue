@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import * as poster from '../../utils/PosterFactory'
 export default {
   name: 'column-passsage',
   props: [
@@ -72,7 +73,8 @@ export default {
     upload () {
       switch (this.$store.state.Running.loginStatus) {
         case 'true':
-          this.$message.success('TODO: Upload passage here.')
+          poster.getPoster({module: this.$store.state.Config.config.poster})(this.props.name, this.$store.state.Config.config.cookie)
+          this.$message.success('上传成功！请前往草稿箱查看！')
           break
         case 'false':
           this.$message.error('账号未登录！请前往设置页面登录！')

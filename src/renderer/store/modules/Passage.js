@@ -1,9 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { remote } from 'electron'
 import * as rimraf from 'rimraf'
-
-const PATH = path.resolve(remote.app.getPath('userData'), 'Passages')
+import * as constants from '../../utils/constants'
 
 const state = {
   passageData: new Map(),
@@ -43,31 +41,18 @@ const mutations = {
   },
   SAVE_PASSAGE (state, code) {
     // TODO: Save files differently
-    const columnPath = path.resolve(PATH, state.currentPassage.name)
-    const documentPath = path.resolve(columnPath, 'document')
-    const localMDPath = path.resolve(documentPath, 'local.md')
-    // const remoteMDPath = path.resolve(documentPath, 'remote.md')
-
-    fs.writeFileSync(localMDPath, code, {encoding: 'utf-8'})
+    fs.writeFileSync(constants.localMDPath(state.currentPassage.name), code, {encoding: 'utf-8'})
   },
 
   // Passage Library
   NEW_PASSAGE (state, payload) {
-    const columnPath = path.resolve(PATH, payload.name)
-    const imagePath = path.resolve(columnPath, 'images')
-    const documentPath = path.resolve(columnPath, 'document')
-    const indexJson = path.resolve(columnPath, 'index.json')
+    fs.mkdirSync(constants.columnPath(payload.name))
+    fs.mkdirSync(constants.imagePath(payload.name))
+    fs.mkdirSync(constants.documentPath(payload.name))
 
-    const localMDPath = path.resolve(documentPath, 'local.md')
-    const remoteMDPath = path.resolve(documentPath, 'remote.md')
-
-    fs.mkdirSync(columnPath)
-    fs.mkdirSync(imagePath)
-    fs.mkdirSync(documentPath)
-
-    fs.writeFileSync(indexJson, JSON.stringify(payload, undefined, 2), {encoding: 'utf-8'})
-    fs.writeFileSync(localMDPath, '', {encoding: 'utf-8'})
-    fs.writeFileSync(remoteMDPath, '', {encoding: 'utf-8'})
+    fs.writeFileSync(constants.indexJson(payload.name), JSON.stringify(payload, undefined, 2), {encoding: 'utf-8'})
+    fs.writeFileSync(constants.localMDPath(payload.name), '', {encoding: 'utf-8'})
+    fs.writeFileSync(constants.remoteMDPath(payload.name), '', {encoding: 'utf-8'})
 
     state.passageData.set(payload.name, {
       ...JSON.parse(JSON.stringify(payload))
@@ -80,25 +65,23 @@ const mutations = {
   },
   DEL_PASSAGE (state, payload) {
     state.passageData.delete(payload.name)
-    rimraf.sync(path.resolve(PATH, payload.name))
+    rimraf.sync(constants.columnPath(payload.name))
   },
 
   LOAD_PASSAGES (state) {
-    if (!fs.existsSync(PATH)) {
-      fs.mkdirSync(PATH)
+    if (!fs.existsSync(constants.PATH)) {
+      fs.mkdirSync(constants.PATH)
     }
 
-    const dirStat = fs.readdirSync(PATH)
+    const dirStat = fs.readdirSync(constants.PATH)
     for (const d of dirStat) {
-      const dir = path.resolve(PATH, d)
-      if (fs.statSync(dir).isDirectory()) {
+      if (fs.statSync(constants.columnPath(d)).isDirectory()) {
         try {
           const passage = JSON.parse(
-            fs.readFileSync(path.resolve(dir, 'index.json'), {encoding: 'utf-8'})
+            fs.readFileSync(path.resolve(constants.columnPath(d), 'index.json'), {encoding: 'utf-8'})
           )
-          const documentPath = path.resolve(dir, 'document')
-          const local = fs.readFileSync(path.resolve(documentPath, 'local.md'), {encoding: 'utf-8'})
-          const remote = fs.readFileSync(path.resolve(documentPath, 'remote.md'), {encoding: 'utf-8'})
+          const local = fs.readFileSync(constants.localMDPath(d), {encoding: 'utf-8'})
+          const remote = fs.readFileSync(constants.remoteMDPath(d), {encoding: 'utf-8'})
 
           state.passageData.set(d, passage)
           state.passageContent.set(d, {

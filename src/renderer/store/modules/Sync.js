@@ -269,10 +269,9 @@ const mutations = {
 
 const actions = {
   SYNC_CONFIG ({ commit }, cookie) {
-    // TODO: Sync  category here.
+    // TODO: Sync category here.
     // state.category
 
-    // TODO: Sync count here.
     biliNetwork.getUserInfo(cookie).then(result => {
       if (result !== undefined) {
         commit('UPDATE_USERINFO', result)
