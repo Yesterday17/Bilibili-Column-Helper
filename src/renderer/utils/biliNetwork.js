@@ -21,3 +21,26 @@ export async function upcover (image, cookies) {
   })
   return result
 }
+
+export async function addUpdate (passage, cookies, renderer) {
+  if (typeof cookies !== 'string') return
+
+  const result = await network.postBilibili('http://api.bilibili.com/x/article/creative/draft/addupdate', cookies, {
+    title: passage.data.name,
+    banner_url: '',
+    content: renderer(passage.content.local), // TODO: Use Remote instead.
+    summary: '',
+    words: passage.content.local.length, // TODO: Use Remote instead.
+    category: passage.data.subtype,
+    list_id: 0,
+    tid: 4,
+    reprint: 0,
+    tags: passage.data.tags,
+    image_urls: '',
+    origin_image_urls: '',
+    dynamic_intro: '',
+    csrf: cookies.match(/bili_jct=([^;]+)/)[1]
+  })
+  console.log(result)
+  return result
+}

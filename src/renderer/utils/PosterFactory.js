@@ -1,16 +1,17 @@
 import biliZhuanLanMarkdown from 'bilibili-zhuanlan-markdown-tool'
+import * as biliNetwork from './biliNetwork'
 import * as constants from './constants'
 
 export function getPoster (option) {
   switch (option.module) {
     case 'biliZhuanlanMarkdownTool':
-      return (title, cookies) => {
+      return (passage, cookies) => {
         biliZhuanLanMarkdown.initStatus(cookies)
-        biliZhuanLanMarkdown.sendArticle(constants.localMDPath(title))
+        biliZhuanLanMarkdown.sendArticle(constants.localMDPath(passage.data.name))
       }
     case 'default':
-      return (title, cookies) => {
-        // TODO: Implement default behavior
+      return (passage, cookies) => {
+        biliNetwork.addUpdate(passage, cookies, option.renderer)
       }
   }
 }

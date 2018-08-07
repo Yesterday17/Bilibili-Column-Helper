@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import * as renderer from '../../utils/RendererFactory'
 import * as poster from '../../utils/PosterFactory'
 export default {
   name: 'column-passsage',
@@ -73,7 +74,10 @@ export default {
     upload () {
       switch (this.$store.state.Running.loginStatus) {
         case 'true':
-          poster.getPoster({module: this.$store.state.Config.config.poster})(this.props.name, this.$store.state.Config.config.cookie)
+          poster.getPoster({module: this.$store.state.Config.config.poster, renderer: renderer.getRenderer({module: this.$store.state.Config.config.renderer})})({
+            data: this.$store.state.Passage.passageData.get(this.props.name),
+            content: this.$store.state.Passage.passageContent.get(this.props.name)
+          }, this.$store.state.Config.config.cookie)
           this.$message.success('上传成功！请前往草稿箱查看！')
           break
         case 'false':
