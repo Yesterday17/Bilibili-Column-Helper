@@ -6,9 +6,6 @@ export function getRenderer (option) {
     case 'biliZhuanlanMarkdownTool':
       return biliZhuanLanMarkdown.md2Html
     case 'default':
-      return (code) => {
-        defaultRenderer.configure(defaultRenderer.defaultOption)
-        return (code) => defaultRenderer.render(code, defaultRenderer.renderer)
-      }
+      return (code) => defaultRenderer.render(code)
   }
 }

@@ -1,4 +1,8 @@
 import marked from 'marked'
+import Prism from 'prismjs'
+import * as languages from './languages'
+
+// https://github.com/jGleitz/markdown-it-prism/blob/master/index.js
 
 const cutoff = [
   '//i0.hdslb.com/bfs/article/',
@@ -10,20 +14,45 @@ const cutoff = [
   '02db465212d3c374a43c60fa2625cc1caeaab796.png'
 ]
 
-export const defaultOption = {
-  hr: 3
-}
-
-export let renderer = new marked.Renderer()
-
-export function configure (options) {
-  renderer.hr = function () {
-    return '<figure class="img-box" contenteditable="false">' +
-      `<img src="${cutoff[0]}${cutoff[option.hr]}" class="cut-off-${option.hr}" />` +
-      '</figure>'
+function loadPrismLang (lang) {
+  let langObject = Prism.languages[lang]
+  if (langObject === undefined) {
+    try {
+      require('prismjs/components/prism-' + lang)
+      return Prism.languages[lang]
+    } catch (e) {
+    }
   }
+  return langObject
 }
 
-export function render (code, renderer) {
-  return marked(code, { renderer: renderer })
+export function render (code) {
+  const defaultOption = {
+    hr: 3
+  }
+
+  let renderer = new marked.Renderer()
+
+  renderer.hr = function () {
+    return (
+      '<figure class="img-box" contenteditable="false">' +
+      `<img src="${cutoff[0]}${cutoff[defaultOption.hr]}" class="cut-off-${
+        option.hr
+      }" />` +
+      '</figure>'
+    )
+  }
+
+  renderer.code = (code, language, isEscaped) => {
+    let lang = loadPrismLang(language)
+    const rendered = Prism.highlight(code, lang)
+    const dataLang = languages.languagesC.get(language.toUpperCase())
+    return '<figure class="code-box focused" contenteditable="false">' +
+    `<pre class="language-${language}" contenteditable="false" data-lang="${dataLang}"><code class="language-${language}"  contenteditable="false">${rendered}</code></pre>` +
+    '</figure>'
+  }
+
+  return marked(code, {
+    renderer: renderer
+  })
 }
