@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import * as network from './network'
 
 export async function getUserInfo (cookies) {
@@ -22,12 +23,19 @@ export async function upcover (image, cookies) {
   return result
 }
 
+export async function upcoverLocal (imagePath, cookies) {
+  return await upcover('data:image/png;base64,' + fs.readFileSync(imagePath).toString('base64'), cookies)
+}
+
 export async function addUpdate (passage, cookies, renderer) {
   if (typeof cookies !== 'string') return
 
+  const cover = await upcoverLocal(passage.data.image, cookies)
+  console.log(cover)
+
   const result = await network.postBilibili('http://api.bilibili.com/x/article/creative/draft/addupdate', cookies, {
     title: passage.data.name,
-    banner_url: '',
+    banner_url: cover['data']['url'],
     content: renderer(passage.content.local), // TODO: Use Remote instead.
     summary: '',
     words: passage.content.local.length, // TODO: Use Remote instead.

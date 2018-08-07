@@ -4,8 +4,17 @@
       <div class="text-content">
         <h1>Bilibili Column Helper - Bilibili 专栏助手</h1>
         <p>
-          <a href="https://travis-ci.org/Yesterday17/Bilibili-Column-Helper"><img src="https://travis-ci.org/Yesterday17/Bilibili-Column-Helper.svg?branch=master" alt="Build Status"></a>
+          <a href="https://travis-ci.org/Yesterday17/Bilibili-Column-Helper"></a>
         </p>
+        <a href="https://travis-ci.org/Yesterday17/Bilibili-Column-Helper"><img src="https://travis-ci.org/Yesterday17/Bilibili-Column-Helper.svg?branch=master">
+        </a>
+        <a href="https://ci.appveyor.com/project/Yesterday17/bilibili-column-helper">
+          <img src="https://ci.appveyor.com/api/projects/status/ima7q96vi3y5y8r0?svg=true">
+        </a>
+        <a href="https://codebeat.co/projects/github-com-yesterday17-bilibili-column-helper-master-6e10e5a7-4172-448c-9dee-b3ddf67b0aa4">
+          <img src="https://codebeat.co/badges/1263b75e-d5e8-4ad0-afe2-9da075ae1cde">
+        </a>
+        <p></p>
         <h2>原理</h2>
         <p>本程序以 Electron、Vue.js、Marked 以及 CodeMirror 为主要组件编写，旨在以 Markdown 书写目前并不支持 Markdown 的 Bilibili 专栏。<br>从原理来看，本程序将要实现的是将 Bilibili 支持的 HTML 特性以原本的方式渲染；而对于不支持的特性（比如表格等），则进行图片的渲染，以达到相同的显示目的。</p>
         <h3>用户隐私</h3>
@@ -13,11 +22,11 @@
         <h2>合作开发(Contribution)</h2>
         <p>本工程基于
           <code>electron-vue</code>开发，其有相对完善的
-          <a href="https://simulatedgreg.gitbooks.io/electron-vue/content/cn/">中文文档</a>可供参考<br>前端框架使用的是
-          <code>Vue.js</code>，其文档可
-          <a href="https://cn.vuejs.org/">点此访问</a><br>UI 使用的是
-          <code>Element</code>，其文档可
-          <a href="http://element-cn.eleme.io">点此访问</a><br>以及
+          <a href="https://simulatedgreg.gitbooks.io/electron-vue/content/cn/">中文文档</a>可供参考。<br>前端框架使用的是
+          <code>Vue.js</code>，文档
+          <a href="https://cn.vuejs.org/">点此访问</a>。<br>UI 使用的是
+          <code>Element</code>，文档
+          <a href="http://element-cn.eleme.io">点此访问</a>。<br>以及
           <code>Electron</code>的文档：
           <a href="https://electronjs.org/">点此访问</a>。</p>
         <h3>构建过程</h3>
@@ -27,12 +36,25 @@
         <pre><code>npm install -g yarn
 yarn install
 </code></pre>
+        <p>如果在上述过程中遇到 electron 无法下载，可以选择使用
+          <code>cnpm</code>或
+          <code>npm</code>过渡：</p>
+        <pre><code>cnpm install
+</code></pre>
         <p>然后就可以通过以下步骤运行：</p>
         <pre><code>yarn dev
 </code></pre>
         <p>如果需要打包，则需要运行：</p>
         <pre><code>yarn run build
 </code></pre>
+        <h1>Credits</h1>
+        <p>
+          <a href="https://github.com/zihengCat/bilibili-zhuanlan-markdown-tool">Bilibili zhuanlan Markdown-Tool</a>
+        </p>
+        <p>Icons made by
+          <a href="http://www.freepik.com">Freepik</a> from
+          <a href="https://www.flaticon.com/">www.flaticon.com</a> is licensed by
+          <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons BY 3.0</a>.</p>
       </div>
     </el-tab-pane>
     <el-tab-pane label="哔哩哔哩专栏内容上传协议" name="upload-license">

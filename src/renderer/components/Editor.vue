@@ -69,16 +69,20 @@ export default {
               paste = clipboard.readText()
             }
             doc.replaceRange(paste, cursor)
+            this.$store.commit('SET_CONTENT', this.code)
+            this.$store.commit('SAVE_PASSAGE', this.code)
           }
         }
       }
     }
   },
   methods: {
-    onCmCodeChange (text) {
-      this.$store.commit('SET_CONTENT', text)
+    onCmCodeChange () {
+      this.$store.commit('SET_CONTENT', this.code)
+      this.$store.commit('SAVE_PASSAGE', this.code)
     },
     close () {
+      this.$store.commit('SAVE_PASSAGE', this.code)
       this.$store.commit('RESET_PASSAGE')
       // 跳转回专栏管理界面
       this.$router.push('/passages')
@@ -87,9 +91,6 @@ export default {
   },
   computed: {
     rendered: function () {
-      if (this.$store.state.Passage.currentPassage.name !== '') {
-        this.$store.commit('SAVE_PASSAGE', this.code)
-      }
       return renderer.getRenderer({module: this.$store.state.Config.config.renderer})(this.code)
     }
   },

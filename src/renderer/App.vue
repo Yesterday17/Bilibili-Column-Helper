@@ -53,6 +53,7 @@
 <script>
 // Electron
 import { remote } from 'electron'
+import * as network from './utils/network'
 
 let win = remote.getCurrentWindow()
 
@@ -108,6 +109,13 @@ export default {
     this.$store.commit('SAVE_SYNC_CONFIG')
 
     this.$store.commit('LOAD_PASSAGES')
+
+    network.getBilibili('https://member.bilibili.com/x/web/article/pre', this.$store.state.Config.config.cookie)
+      .then((result) => {
+        if (this.loginStatus !== (result['code'] === 0).toString()) {
+          this.$store.commit('UPDATE_LOGIN_STATUS', (result['code'] === 0).toString())
+        }
+      })
   }
 }
 </script>

@@ -32,6 +32,8 @@ const mutations = {
   },
   SAVE_PASSAGE (state, code) {
     // TODO: Save files differently
+    const content = state.passageContent.get(state.currentPassage.name)
+    state.passageContent.set(state.currentPassage.name, {...content, local: code})
     fs.writeFileSync(constants.localMDPath(state.currentPassage.name), code, {encoding: 'utf-8'})
   },
 

@@ -30,7 +30,7 @@
             </el-col>
           </el-form-item>
           <el-form-item label="专栏头图：" label-width="220px" prop="image">
-            <el-upload ref="upload" v-model="form.image" drag :limit=1 :auto-upload=false accept=".jpg, .jpeg, .bmp, .png" action="" :before-upload="beforeImageUpload" :on-change="imageChange">
+            <el-upload ref="upload" v-model="form.image" drag :limit=1 :auto-upload=false accept=".jpg, .jpeg, .bmp, .png" action="" :on-change="imageChange">
               <div class="upload">
                 <i class="el-icon-upload"></i>
                 <!--<a class="upload-description">将文件拖到此处，或点击上传</a>-->
@@ -137,16 +137,18 @@ export default {
       this.form.subtype = ''
       this.i = this.$store.state.Sync.categoryList.indexOf(selected)
     },
-    beforeImageUpload (file) {
+    imageChange (file) {
+      console.log(file)
       const isLt3M = file.size / 1024 / 1024 < 3
+
+      // min: 640*360
 
       if (!isLt3M) {
         this.$message.error('专栏头图大小不能超过 3MB!')
+        this.$refs.upload.clearFiles()
+        return
       }
 
-      return isLt2M
-    },
-    imageChange (file, filelist) {
       this.form.image = file.raw.path
     },
     forceUpdate () {
