@@ -1,8 +1,9 @@
 <template>
   <div class="full" v-if="this.$store.state.Passage.currentPassage.name !== ''">
-    <el-row class="title">
-      正在编辑： {{this.$store.state.Passage.currentPassage.name}}
-    </el-row>
+    <div class="editor-header">
+      <h2 class="title">正在编辑： {{this.$store.state.Passage.currentPassage.name}} </h2>
+      <el-button type="text" @click="close" class="close">关闭编辑器</el-button>
+    </div>
     <el-row class="content">
       <el-col class="full" :span="12">
         <div class="editor-wrap">
@@ -74,8 +75,14 @@ export default {
     }
   },
   methods: {
-    onCmCodeChange: function (text) {
+    onCmCodeChange (text) {
       this.$store.commit('SET_CONTENT', text)
+    },
+    close () {
+      this.$store.commit('RESET_PASSAGE')
+      // 跳转回专栏管理界面
+      this.$router.push('/passages')
+      this.$store.commit('SET_PAGE', 1)
     }
   },
   computed: {
@@ -101,11 +108,24 @@ export default {
   height: 100%;
 }
 
-.title {
+.editor-header {
+  height: 3%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+.title {
+  font-size: 18px;
+}
+
+.close {
   font-size: 14px;
-  height: 3%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .content {
