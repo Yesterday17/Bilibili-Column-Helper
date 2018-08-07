@@ -46,7 +46,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible=false">取 消</el-button>
+          <el-button @click="cancelCreate">取 消</el-button>
           <el-button type="primary" @click="newPassage('newColumn')">确 定</el-button>
         </div>
       </el-dialog>
@@ -98,7 +98,7 @@ export default {
     }
   },
   methods: {
-    newColumn: function () {
+    cancelCreate () {
       // Reset Form
       this.form.name = ''
       this.form.category = ''
@@ -107,9 +107,12 @@ export default {
       this.form.pubdate = null
       this.form.tags.splice(0, this.form.tags.length)
 
+      this.dialogFormVisible = false
+    },
+    newColumn () {
       this.dialogFormVisible = true
     },
-    newPassage: function (form) {
+    newPassage (form) {
       console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
@@ -133,7 +136,7 @@ export default {
         }
       })
     },
-    changeSubtype: function (selected) {
+    changeSubtype (selected) {
       this.form.subtype = ''
       this.i = this.$store.state.Sync.categoryList.indexOf(selected)
     },
