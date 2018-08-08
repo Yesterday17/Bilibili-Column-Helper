@@ -44,9 +44,15 @@ export function render (code) {
   }
 
   renderer.code = (code, language, isEscaped) => {
+    // shell-like problem
+    const dataLang = languages.languagesC.get(language.toUpperCase())
+    if (language.toUpperCase() === 'SHELL') {
+      language = 'bash'
+    }
+
     let lang = loadPrismLang(language)
     const rendered = Prism.highlight(code, lang)
-    const dataLang = languages.languagesC.get(language.toUpperCase())
+
     return '<figure class="code-box focused" contenteditable="false">' +
     `<pre class="language-${language}" contenteditable="false" data-lang="${dataLang}"><code class="language-${language}"  contenteditable="false">${rendered}</code></pre>` +
     '</figure>'
