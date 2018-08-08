@@ -1,6 +1,7 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as languages from './languages'
+import { Exception } from 'handlebars'
 
 // https://github.com/jGleitz/markdown-it-prism/blob/master/index.js
 
@@ -14,15 +15,24 @@ const cutoff = [
   '02db465212d3c374a43c60fa2625cc1caeaab796.png'
 ]
 
-function loadPrismLang (lang) {
+function loadPrismLang (lang, oriLang) {
   let langObject = Prism.languages[lang]
-  if (langObject === undefined) {
-    try {
+  try {
+    if (langObject === undefined) {
+      if (
+        languages.unSupported.indexOf(lang) !== -1 ||
+        (!languages.languagesC.has(lang.toUpperCase()) &&
+          !languages.languagesC.has(oriLang.toUpperCase()))
+      ) {
+        throw new Exception(lang)
+      }
       require('prismjs/components/prism-' + lang)
-      return Prism.languages[lang]
-    } catch (e) {}
+      return { isSupported: true, content: Prism.languages[lang] }
+    }
+    return { isSupported: true, content: langObject }
+  } catch (e) {
+    return { isSupported: false, content: e.message }
   }
-  return langObject
 }
 
 export function render (code) {
@@ -45,13 +55,20 @@ export function render (code) {
   renderer.code = (code, language, isEscaped) => {
     try {
       // shell-like problem
-      const oriLang = language
-      if (language.toUpperCase() === 'SHELL') {
-        language = 'bash'
+      let oriLang = language
+      if (languages.translate.has(language.toUpperCase())) {
+        language = languages.translate.get(language.toUpperCase())
+      } else if (languages.renderName.has(language.toUpperCase())) {
+        oriLang = languages.renderName.get(language.toUpperCase()).render
+        language = languages.renderName.get(language.toUpperCase()).ori
       }
 
-      let lang = loadPrismLang(language)
-      const rendered = Prism.highlight(code, lang)
+      let lang = loadPrismLang(language, oriLang)
+
+      if (!lang.isSupported) {
+        throw new Exception(lang.content)
+      }
+      const rendered = Prism.highlight(code, lang.content)
       const dataLang = languages.languagesC.get(oriLang.toUpperCase())
 
       return (
@@ -59,8 +76,10 @@ export function render (code) {
         `<pre class="language-${oriLang}" contenteditable="false" data-lang="${dataLang}"><code class="language-${oriLang}"  contenteditable="false">${rendered}</code></pre>` +
         '</figure>'
       )
-    } catch (error) {
-      return `<h1>此段代码块出现渲染错误！请检查代码块是否书写正确！</h1>`
+    } catch (e) {
+      return `<h1>此段代码块出现渲染错误！不支持语言：${
+        e.message
+      }！请检查代码块是否书写正确！</h1>`
     }
   }
 
