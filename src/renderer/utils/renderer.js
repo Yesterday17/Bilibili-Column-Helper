@@ -20,8 +20,7 @@ function loadPrismLang (lang) {
     try {
       require('prismjs/components/prism-' + lang)
       return Prism.languages[lang]
-    } catch (e) {
-    }
+    } catch (e) {}
   }
   return langObject
 }
@@ -44,18 +43,25 @@ export function render (code) {
   }
 
   renderer.code = (code, language, isEscaped) => {
-    // shell-like problem
-    const dataLang = languages.languagesC.get(language.toUpperCase())
-    if (language.toUpperCase() === 'SHELL') {
-      language = 'bash'
+    try {
+      // shell-like problem
+      const oriLang = language
+      if (language.toUpperCase() === 'SHELL') {
+        language = 'bash'
+      }
+
+      let lang = loadPrismLang(language)
+      const rendered = Prism.highlight(code, lang)
+      const dataLang = languages.languagesC.get(oriLang.toUpperCase())
+
+      return (
+        '<figure class="code-box focused" contenteditable="false">' +
+        `<pre class="language-${oriLang}" contenteditable="false" data-lang="${dataLang}"><code class="language-${oriLang}"  contenteditable="false">${rendered}</code></pre>` +
+        '</figure>'
+      )
+    } catch (error) {
+      return `<h1>此段代码块出现渲染错误！请检查代码块是否书写正确！</h1>`
     }
-
-    let lang = loadPrismLang(language)
-    const rendered = Prism.highlight(code, lang)
-
-    return '<figure class="code-box focused" contenteditable="false">' +
-    `<pre class="language-${language}" contenteditable="false" data-lang="${dataLang}"><code class="language-${language}"  contenteditable="false">${rendered}</code></pre>` +
-    '</figure>'
   }
 
   return marked(code, {
