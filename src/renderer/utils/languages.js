@@ -357,5 +357,8 @@ export let translate = new Map([
 export let renderName = new Map([
   ['MATLAB', { ori: 'matlab', render: 'octave' }],
   ['JS', { ori: 'javascript', render: 'javascript' }],
-  ['TS', { ori: 'typescript', render: 'typescript' }]
+  ['TS', { ori: 'typescript', render: 'typescript' }],
+  ['PROP', { ori: 'properties', render: 'properties' }],
+  ['MD', { ori: 'markdown', render: 'markdown' }],
+  ['PY', { ori: 'python', render: 'python' }]
 ])
