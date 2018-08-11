@@ -73,6 +73,7 @@ function build () {
 function pack (config) {
   return new Promise((resolve, reject) => {
     webpack(config, (err, stats) => {
+      config.mode = 'production'
       if (err) reject(err.stack || err)
       else if (stats.hasErrors()) {
         let err = ''
@@ -100,6 +101,7 @@ function pack (config) {
 function web () {
   del.sync(['dist/web/*', '!.gitkeep'])
   webpack(webConfig, (err, stats) => {
+    webConfig.mode = 'production'
     if (err || stats.hasErrors()) console.log(err)
 
     console.log(stats.toString({

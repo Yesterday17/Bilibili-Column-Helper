@@ -46,7 +46,7 @@ let mainConfig = {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, '../dist/electron')
   },
-  plugins: [new webpack.NoEmitOnErrorsPlugin()],
+  plugins: [],
   resolve: {
     extensions: ['.js', '.json', '.node']
   },
@@ -69,10 +69,7 @@ if (process.env.NODE_ENV !== 'production') {
  */
 if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
-    new BabiliWebpackPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    })
+    new BabiliWebpackPlugin()
   )
 }
 
