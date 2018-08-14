@@ -56,6 +56,12 @@ export function render (code) {
   }
 
   renderer.code = (code, language, isEscaped) => {
+    // 4-space codeblock
+    if (language === undefined) {
+      return `<p>&nbsp;&nbsp;&nbsp;&nbsp;${code}</p>`
+    }
+
+    // Others
     try {
       // shell-like problem
       let oriLang = language
@@ -87,6 +93,10 @@ export function render (code) {
   }
 
   return marked(code, {
-    renderer: renderer
+    renderer: renderer,
+    gfm: true,
+    breaks: true,
+    mangle: false,
+    silent: true
   })
 }

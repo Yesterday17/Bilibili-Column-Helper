@@ -1,6 +1,6 @@
 {
   "name": "bilibili-column-helper",
-  "version": "0.1.2-180809",
+  "version": "0.1.3-180814",
   "author": "Yesterday17 <t@yesterday17.cn>",
   "description": "Transfers markdown to bilibili column passage. Using Electron & Marked.",
   "license": "MIT",
