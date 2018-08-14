@@ -3,6 +3,7 @@
   "version": "0.1.3-180814",
   "author": "Yesterday17 <t@yesterday17.cn>",
   "description": "Transfers markdown to bilibili column passage. Using Electron & Marked.",
+  "homepage": "https://github.com/Yesterday17/Bilibili-Column-Helper/",
   "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -54,13 +55,20 @@
       "category": "public.app-category.utilities"
     },
     "win": {
-      "icon": "build/icons/icon.png"
+      "icon": "build/icons/icon.png",
+      "target": [
+        "nsis",
+        "portable",
+        "zip"
+      ]
     },
     "linux": {
       "icon": "build/icons",
       "category": "Utility",
       "target": [
         "deb",
+        "rpm",
+        "tar.gz",
         "AppImage"
       ]
     }
