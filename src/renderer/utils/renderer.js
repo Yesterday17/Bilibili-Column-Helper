@@ -1,9 +1,12 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as languages from './languages'
-import { Exception } from 'handlebars'
 
 // https://github.com/jGleitz/markdown-it-prism/blob/master/index.js
+
+function RendererException (message) {
+  this.message = message
+}
 
 const cutoff = [
   '//i0.hdslb.com/bfs/article/',
@@ -24,7 +27,7 @@ function loadPrismLang (lang, oriLang) {
         (!languages.languagesC.has(lang.toUpperCase()) &&
           !languages.languagesC.has(oriLang.toUpperCase()))
       ) {
-        throw new Exception(lang)
+        throw new RendererException(lang)
       }
       require('prismjs/components/prism-' + lang)
       return { isSupported: true, content: Prism.languages[lang] }
@@ -66,7 +69,7 @@ export function render (code) {
       let lang = loadPrismLang(language, oriLang)
 
       if (!lang.isSupported) {
-        throw new Exception(lang.content)
+        throw new RendererException(lang.content)
       }
       const rendered = Prism.highlight(code, lang.content)
       const dataLang = languages.languagesC.get(oriLang.toUpperCase())

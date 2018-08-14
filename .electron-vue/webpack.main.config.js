@@ -12,9 +12,7 @@ let mainConfig = {
   entry: {
     main: path.join(__dirname, '../src/main/index.js')
   },
-  externals: [
-    ...Object.keys(dependencies || {})
-  ],
+  externals: [...Object.keys(dependencies || {})],
   module: {
     rules: [
       {
@@ -48,9 +46,7 @@ let mainConfig = {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, '../dist/electron')
   },
-  plugins: [
-    new webpack.NoEmitOnErrorsPlugin()
-  ],
+  plugins: [],
   resolve: {
     extensions: ['.js', '.json', '.node']
   },
@@ -73,10 +69,7 @@ if (process.env.NODE_ENV !== 'production') {
  */
 if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
-    new BabiliWebpackPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    })
+    new BabiliWebpackPlugin()
   )
 }
 
