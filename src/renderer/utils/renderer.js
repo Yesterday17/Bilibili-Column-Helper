@@ -42,11 +42,11 @@ export function render (code) {
 
   let renderer = new marked.Renderer()
 
-  renderer.hr = function () {
+  renderer.hr = () => {
     return (
       '<figure class="img-box" contenteditable="false">' +
       `<img src="${cutoff[0]}${cutoff[defaultOption.hr]}" class="cut-off-${
-        option.hr
+        defaultOption.hr
       }" />` +
       '</figure>'
     )
