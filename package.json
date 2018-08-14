@@ -115,7 +115,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-standard": "^3.1.0",
     "mini-css-extract-plugin": "0.4.0",
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",
