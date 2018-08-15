@@ -67,7 +67,6 @@
       "category": "Utility",
       "target": [
         "deb",
-        "rpm",
         "tar.gz",
         "AppImage"
       ]
