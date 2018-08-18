@@ -55,6 +55,14 @@ export function render (code) {
     )
   }
 
+  renderer.heading = (text, level, raw) => {
+    console.log(`Text: ${text}\nLevel: ${level}\nRaw: ${raw}`)
+    if (level === 1) {
+      return `<h1>${text}</h1>`
+    }
+    return `<p>${raw}</p>`
+  }
+
   renderer.code = (code, language, isEscaped) => {
     // 4-space codeblock
     if (language === undefined) {
