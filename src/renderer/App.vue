@@ -3,8 +3,7 @@
     <b-navbar id="app-nav" toggleable="sm" fixed="top" sticky>
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand class="bili-nav-header">
-        <img src="static/icon.png">
-        哔哩哔哩专栏助手
+        <img src="static/icon.png"> 哔哩哔哩专栏助手
       </b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
@@ -66,13 +65,15 @@ export default {
       } else {
         win.maximize()
       }
-      this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
     },
     test (src) {
       alert(src)
     }
   },
   created () {
+    win.on('resize', () => {
+      this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
+    })
     this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
   }
 }
@@ -95,12 +96,13 @@ body {
 }
 
 .bili-nav-header {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 1.15rem !important;
   color: #eee;
 }
 
-.bili-nav-header img{
+.bili-nav-header img {
   padding-right: 1vw;
 }
 
