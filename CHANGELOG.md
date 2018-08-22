@@ -1,3 +1,18 @@
+<a name="0.1.4-180822"></a>
+## [0.1.4-180822](https://github.com/Yesterday17/Bilibili-Column-Helper/compare/v0.1.3-180814...v0.1.4-180822) (2018-08-22)
+
+
+### Bug Fixes
+
+* renderer can only render \<h1> now ([3798808](https://github.com/Yesterday17/Bilibili-Column-Helper/commit/3798808))
+
+
+### Features
+
+* save file at a relative path & transform to png format ([0edee84](https://github.com/Yesterday17/Bilibili-Column-Helper/commit/0edee84))
+
+
+
 <a name="0.0.1-SNAPSHOT"></a>
 ## 0.0.1-SNAPSHOT (2018-08-07)
 
