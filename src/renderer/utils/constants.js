@@ -10,3 +10,6 @@ export let indexJson = (name) => path.resolve(columnPath(name), 'index.json')
 
 export let localMDPath = (name) => path.resolve(documentPath(name), 'local.md')
 export let remoteMDPath = (name) => path.resolve(documentPath(name), 'remote.md')
+export let localCoverPath = (name) => path.resolve(imagePath(name), 'cover.png')
+
+export let resolveImagePath = (name, path)

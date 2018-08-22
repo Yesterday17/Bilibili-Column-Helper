@@ -7,6 +7,7 @@
   "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
+    "rebuild": "./node_modules/.bin/electron-rebuild",
     "dist": "node .electron-vue/build.js && electron-builder --publish always",
     "distRelease": "node .electron-vue/build.js && electron-builder --publish onTagOrDraft",
     "build": "node .electron-vue/build.js && electron-builder",
@@ -22,7 +23,7 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "test": "npm run unit && npm run e2e",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": "npm run lint:fix",
+    "postinstall": "npm run lint:fix && electron-builder install-app-deps",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
@@ -81,6 +82,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "rimraf": "^2.6.2",
+    "sharp": "^0.20.7",
     "vue": "^2.5.16",
     "vue-codemirror-electron": "^3.0.7",
     "vue-electron": "^1.0.6",
@@ -114,6 +116,7 @@
     "electron-builder": "^20.27.1",
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.4",
+    "electron-rebuild": "^1.8.2",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^4.0.1",
@@ -123,7 +126,6 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.1.0",
-    "mini-css-extract-plugin": "0.4.0",
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",
     "html-webpack-plugin": "^3.2.0",
@@ -137,6 +139,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.32",
     "karma-webpack": "^3.0.0",
+    "mini-css-extract-plugin": "0.4.0",
     "mocha": "^5.2.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
@@ -154,5 +157,6 @@
     "webpack-dev-server": "^3.1.5",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
-  }
+  },
+  "__npminstall_done": false
 }
