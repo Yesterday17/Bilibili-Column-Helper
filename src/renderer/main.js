@@ -1,20 +1,14 @@
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
-import ElementUI from 'element-ui'
 import axios from 'axios'
 import VueCodemirror from 'vue-codemirror'
-import directive from 'element-ui/packages/popover/src/directive'
 import Octicon from 'vue-octicon/components/Octicon.vue'
 
-/* eslint-disable no-unused-vars */
 import App from './App'
-import AppBootstrap from './AppBootstrap'
 import router from './router'
 import store from './store'
 
 /* Import css files here  */
-import 'element-ui/lib/theme-chalk/index.css'
-import './css/font.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-octicon/icons'
@@ -30,8 +24,8 @@ Vue.directive('popover', directive)
 
 /* eslint-disable no-new */
 new Vue({
-  components: { AppBootstrap },
+  components: { App },
   router,
   store,
-  template: '<AppBootstrap/>'
+  template: '<App/>'
 }).$mount('#app')
