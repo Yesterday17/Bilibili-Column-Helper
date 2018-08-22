@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-height">
     <b-navbar id="app-nav" toggleable="sm" type="light" fixed="top" sticky>
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand href="#">
@@ -16,24 +16,23 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <b-container fluid id="app-body">
-      <div id="sidebar">
-        <div id="sidebar-header">
-          <h3>Header</h3>
-        </div>
-
-        <ul class="sidebar-list">
-          <li>
-            <a href="#">欢迎</a>
+    <b-container fluid id="app-body" class="full-height">
+      <div id="sideButton">
+        <ul>
+          <li v-on:click="test('person')">
+            <octicon name="person" scale=2.2 width=50></octicon>
           </li>
-          <li>
-            <a href="#">专栏管理</a>
+          <li v-on:click="test('book')">
+            <octicon name="book" scale=2.2 width=50></octicon>
           </li>
-          <li>
-            <a href="#">创作中心</a>
+          <li v-on:click="test('pencil')">
+            <octicon name="pencil" scale=2.2 width=50></octicon>
           </li>
-          <li>
-            <a href="#">用户设置</a>
+          <li v-on:click="test('gear')">
+            <octicon name="gear" scale=2.2 width=50></octicon>
+          </li>
+          <li v-on:click="test('question')">
+            <octicon name="question" scale=2.2 width=50></octicon>
           </li>
         </ul>
       </div>
@@ -67,6 +66,9 @@ export default {
         win.maximize()
       }
       this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
+    },
+    test (src) {
+      alert(src)
     }
   },
   created () {
@@ -76,45 +78,48 @@ export default {
 </script>
 
 <style>
+/* Global */
+.full-height {
+  height: 100%;
+}
+
 #app-nav {
-  -webkit-app-region: drag;
+  -webkit-app-region: drag; /* Make navbar dragable */
   background-color: #409eff; /* Bilibili bule */
 }
 
 .btn-window {
-  -webkit-app-region: no-drag;
+  -webkit-app-region: no-drag; /* Make buttons clickable */
 }
 
 #app-body {
-  margin-top: calc(100% - 50.8px);
+  padding-left: 0px;
 }
 
-#sidebar {
-  width: 250px;
-  position: fixed;
-  top: 52px;
-  left: 0;
-  height: 100vh;
-  z-index: 999;
-  transition: all 0.3s;
+/* SideButton */
+#sideButton {
+  height: 100%;
+  width: 50px;
+  background-color: #6c757d;
 }
 
-#sidebar-header {
-  margin: 20px 30px;
+#sideButton ul {
+  padding-left: 0px;
 }
 
-#sidebar ul li {
+#sideButton ul li {
   list-style-type: none;
-  margin-left: -40px;
+  padding-top: 5px;
+  padding-bottom: 10px;
 }
 
-#sidebar ul li a {
-  display: block;
-  padding: 10px;
-  color: black;
+#sideButton ul li svg {
+  color: #fff;
+  cursor: pointer;
 }
 
-#sidebar ul li a:hover {
-  background: lightgrey;
+#sideButton ul li svg:hover {
+  color: #000;
 }
+/*欢迎 专栏管理 创作中心 用户设置*/
 </style>
