@@ -6,28 +6,33 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/passages',
-      name: 'passages',
-      component: require('@/components/Passages').default
+      path: '/welcome',
+      name: 'welcome',
+      component: require('@/components/welcome').default
     },
     {
-      path: '/editor',
-      name: 'editor',
-      component: require('@/components/Editor').default
+      path: '/list',
+      name: 'list',
+      component: require('@/components/passage-list').default
     },
     {
-      path: '/setting',
-      name: 'setting',
-      component: require('@/components/Setting').default
+      path: '/edit/:name',
+      name: 'edit',
+      component: require('@/components/edit/').default
     },
     {
-      path: '/about',
+      path: '/options/:page',
+      name: 'options',
+      component: require('@/components/options').default
+    },
+    {
+      path: '/about/:page',
       name: 'about',
-      component: require('@/components/About').default
+      component: require('@/components/about').default
     },
     {
       path: '*',
-      redirect: '/setting'
+      redirect: '/welcome'
     }
   ]
 })

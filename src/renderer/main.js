@@ -17,10 +17,8 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(VueCodemirror)
-Vue.use(ElementUI)
 Vue.use(BootstrapVue)
 Vue.component('octicon', Octicon)
-Vue.directive('popover', directive)
 
 /* eslint-disable no-new */
 new Vue({

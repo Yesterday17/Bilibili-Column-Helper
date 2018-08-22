@@ -1,5 +1,5 @@
 <template>
-  <div class="full-height">
+  <div>
     <b-navbar id="app-nav" toggleable="sm" type="light" fixed="top" sticky>
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand href="#">
@@ -16,8 +16,8 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <b-container fluid id="app-body" class="full-height">
-      <div id="sideButton">
+    <b-container fluid id="app-body">
+      <div id="sideButton" class="full-height">
         <ul>
           <li title="用户管理(Ctrl+Shift+U)" v-on:click="test('person')">
             <octicon name="person" scale=2.2 width=50></octicon>
@@ -78,14 +78,19 @@ export default {
 </script>
 
 <style>
+body {
+  overflow: hidden;
+}
+
 /* Global */
 .full-height {
-  height: 100%;
+  height:100%;
 }
 
 #app-nav {
   -webkit-app-region: drag; /* Make navbar dragable */
   background-color: #409eff; /* Bilibili bule */
+  height: 58px; /* Specified height */
 }
 
 .btn-window {
@@ -94,11 +99,11 @@ export default {
 
 #app-body {
   padding-left: 0px;
+  height: calc(100vh - 58px); /* Calculate the proper height */
 }
 
 /* SideButton */
 #sideButton {
-  height: 100%;
   width: 50px;
   background-color: #6c757d;
 }
