@@ -80,6 +80,8 @@ export default {
 </script>
 
 <style lang="scss">
+$base-color: #555555;
+
 body {
   overflow: hidden;
 }
@@ -91,7 +93,7 @@ body {
 
 #app-nav {
   -webkit-app-region: drag; /* Make navbar dragable */
-  background-color: #666666;
+  background-color: lighten($base-color, 1%);
   height: 58px; /* Specified height */
 }
 
@@ -113,7 +115,7 @@ body {
   &:hover,
   &:active {
     box-shadow: 0 0 0 0;
-    background-color: #555555 !important;
+    background-color: $base-color !important;
     border-color: transparent !important;
   }
 }

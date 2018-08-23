@@ -1,0 +1,67 @@
+@startuml running
+
+partition  初始化 {
+  (*) --> if "检测环境" then
+  --> [dev]开发环境
+  partition 开发环境 {
+    note left: node .electron-vue/dev-runner.js
+    -->欢迎
+    note right: greeting()
+    -->===Promise===
+    -->对渲染线程进行打包
+    note bottom: startRenderer()
+    -->===PromiseEnd===
+
+    ===Promise===-->对主线程进行打包
+    note top: startRenderer()
+    -->===PromiseEnd===
+    -->启动electron
+    note left: startElectron()
+  }
+  else
+  -> [build]生产环境
+  partition 生产环境 {
+    note right: node .electron-vue/build.js && electron-builder
+    --> if "process.env.BUILD_TARGET" then
+    --> [clean]清理构建
+    partition 清理构建 {
+      --> ===CleanStart===
+      --> "删除 'build/*'"
+      --> ===CleanEnd===
+      ===CleanStart=== --> "保留 '!build/icons'"
+      --> ===CleanEnd===
+      ===CleanStart===--> "保留 '!build/icons/icon.*'"
+      --> ===CleanEnd===
+      -->(*)
+    }
+    else
+    -> if "web" then
+    --> [web] web构建
+    partition web构建 {
+      --> "删除 'dist/web/*'"
+      --> "通过 webConfig 进行打包"
+      --> (*)
+    }
+    else
+    -> [else] 通常构建
+    partition 通常构建 {
+      --> "输出欢迎信息"
+      note left: "greeting()"
+      --> "删除 'dist/electron/*'"
+      --> ===packStart===
+      --> "打包主线程"
+      --> ===packEnd===
+      ===packStart=== --> "打包渲染线程"
+      --> ===packEnd===
+      -->(*)
+    }
+    
+    endif
+
+    endif
+  }
+
+  endif
+}
+
+@enduml
