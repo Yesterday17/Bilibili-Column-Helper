@@ -100,24 +100,22 @@ body {
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 1.15rem !important;
   color: #eee !important;
-}
-
-.bili-nav-header img {
-  padding-right: 1vw;
+  img {
+    padding-right: 1vw;
+  }
 }
 
 .btn-window {
   -webkit-app-region: no-drag; /* Make buttons clickable */
   color: transparent !important;
   border-color: transparent !important;
-}
-
-.btn-window:focus,
-.btn-window:hover,
-.btn-window:active {
-  box-shadow: 0 0 0 0;
-  background-color: #555555 !important;
-  border-color: transparent !important;
+  &:focus,
+  &:hover,
+  &:active {
+    box-shadow: 0 0 0 0;
+    background-color: #555555 !important;
+    border-color: transparent !important;
+  }
 }
 
 #app-body {
@@ -129,24 +127,20 @@ body {
 #sideButton {
   width: 50px;
   background-color: #404040;
-}
-
-#sideButton ul {
-  padding-left: 0px;
-}
-
-#sideButton ul li {
-  list-style-type: none;
-  padding-top: 12px;
-  padding-bottom: 6px;
-}
-
-#sideButton ul li svg {
-  color: #bbbbbb;
-  cursor: pointer;
-}
-
-#sideButton ul li svg:hover {
-  color: #fff;
+  ul {
+    padding-left: 0px;
+    li {
+      list-style-type: none;
+      padding-top: 12px;
+      padding-bottom: 6px;
+      svg {
+        color: #bbbbbb;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
 }
 </style>
