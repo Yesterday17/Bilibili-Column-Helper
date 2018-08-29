@@ -38,6 +38,8 @@
       </div>
       <div id="sidePanel" class="full-height hide-panel">
       </div>
+      <div id="sideBody" class="full-height">
+      </div>
     </b-container>
   </div>
 </template> 
@@ -132,6 +134,7 @@ body {
 
 #app-body {
   padding-left: 0px;
+  padding-right: 0px;
   height: calc(100vh - 58px); /* Calculate the proper height */
   display: inline-flex;
 }
@@ -140,7 +143,7 @@ body {
 #sideButton {
   width: 50px;
   margin: 0px;
-  background-color: #404040;
+  background-color: #515151;
   ul {
     padding-left: 0px;
     li {
@@ -160,14 +163,18 @@ body {
 
 #sidePanel {
   &.full-panel {
-    width: 230px;
+    width: 220px;
     opacity: 100;
   }
   &.hide-panel {
     width: 0px;
     opacity: 0;
   }
-  display: block;
-  background-color: darken($base-color, 10%);
+  background-color: #252526;
+}
+
+#sideBody {
+  flex: 1;
+  background-color: #1E1E1E;
 }
 </style>
