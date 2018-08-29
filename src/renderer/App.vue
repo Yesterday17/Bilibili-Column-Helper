@@ -11,7 +11,7 @@
           <b-button-group size="sm">
             <b-btn class="btn-window" variant="outline-secondary" @click="minimizeWindow"><img src="static/window/min-32.png"></b-btn>
             <b-btn class="btn-window" variant="outline-secondary" @click="reformWindow"><img :src="reformIcon"></b-btn>
-            <b-btn class="btn-window" variant="outline-secondary  " @click="closeWindow"><img src="static/window/close-32.png"></b-btn>
+            <b-btn class="btn-window" variant="outline-secondary" @click="closeWindow"><img src="static/window/close-32.png"></b-btn>
           </b-button-group>
         </b-navbar-nav>
       </b-collapse>
@@ -19,22 +19,24 @@
     <b-container fluid id="app-body">
       <div id="sideButton" class="full-height">
         <ul>
-          <li title="用户管理(Ctrl+Shift+U)" v-on:click="test('person')">
+          <li title="用户管理(Ctrl+Shift+U)" v-on:click="panel('person')">
             <octicon name="person" scale=2 width=50></octicon>
           </li>
-          <li title="专栏管理(Ctrl+Shift+E)" v-on:click="test('book')">
+          <li title="专栏管理(Ctrl+Shift+E)" v-on:click="panel('book')">
             <octicon name="book" scale=2 width=50></octicon>
           </li>
-          <li title="创作中心(Ctrl+Shift+C)" v-on:click="test('pencil')">
+          <li title="创作中心(Ctrl+Shift+C)" v-on:click="panel('pencil')">
             <octicon name="pencil" scale=2 width=50></octicon>
           </li>
-          <li title="用户设置(Ctrl+Shift+P)" v-on:click="test('gear')">
+          <li title="用户设置(Ctrl+Shift+P)" v-on:click="panel('gear')">
             <octicon name="gear" scale=2 width=50></octicon>
           </li>
-          <li title="关于我们(Ctrl+Shift+A)" v-on:click="test('question')">
+          <li title="关于我们(Ctrl+Shift+A)" v-on:click="panel('question')">
             <octicon name="question" scale=2 width=50></octicon>
           </li>
         </ul>
+      </div>
+      <div id="sidePanel" class="full-height hide-panel">
       </div>
     </b-container>
   </div>
@@ -48,7 +50,7 @@ export default {
   name: 'bilibili-column-helper',
   data () {
     return {
-      reformIcon: ''
+      reformIcon: 'static/window/max-32.png'
     }
   },
   computed: {},
@@ -66,15 +68,23 @@ export default {
         win.maximize()
       }
     },
-    test (src) {
-      alert(src)
+    panel (src) {
+      const panel = document.querySelector('#sidePanel')
+      const hidden = panel.classList.contains('hide-panel')
+
+      if (hidden) {
+        panel.classList.remove('hide-panel')
+        panel.classList.add('full-panel')
+      } else {
+        panel.classList.remove('full-panel')
+        panel.classList.add('hide-panel')
+      }
     }
   },
   created () {
     win.on('resize', () => {
       this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
     })
-    this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
   }
 }
 </script>
@@ -123,11 +133,13 @@ body {
 #app-body {
   padding-left: 0px;
   height: calc(100vh - 58px); /* Calculate the proper height */
+  display: inline-flex;
 }
 
 /* SideButton */
 #sideButton {
   width: 50px;
+  margin: 0px;
   background-color: #404040;
   ul {
     padding-left: 0px;
@@ -144,5 +156,18 @@ body {
       }
     }
   }
+}
+
+#sidePanel {
+  &.full-panel {
+    width: 230px;
+    opacity: 100;
+  }
+  &.hide-panel {
+    width: 0px;
+    opacity: 0;
+  }
+  display: block;
+  background-color: darken($base-color, 10%);
 }
 </style>
