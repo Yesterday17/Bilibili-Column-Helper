@@ -19,20 +19,8 @@
     <b-container fluid id="app-body">
       <div id="sideButton" class="full-height">
         <ul>
-          <li title="用户管理(Ctrl+Shift+U)" v-on:click="panel('person')">
-            <octicon name="person" scale=2 width=50></octicon>
-          </li>
-          <li title="专栏管理(Ctrl+Shift+E)" v-on:click="panel('book')">
-            <octicon name="book" scale=2 width=50></octicon>
-          </li>
-          <li title="创作中心(Ctrl+Shift+C)" v-on:click="panel('pencil')">
-            <octicon name="pencil" scale=2 width=50></octicon>
-          </li>
-          <li title="用户设置(Ctrl+Shift+P)" v-on:click="panel('gear')">
-            <octicon name="gear" scale=2 width=50></octicon>
-          </li>
-          <li title="关于我们(Ctrl+Shift+A)" v-on:click="panel('question')">
-            <octicon name="question" scale=2 width=50></octicon>
+          <li v-for="side in sideSelection" :key="side.name" :title="`${side.title}(${side.shortCut})`" v-on:click="panel(side)">
+            <octicon :name="side.name" scale=2 width=50></octicon>
           </li>
         </ul>
       </div>
@@ -52,7 +40,49 @@ export default {
   name: 'bilibili-column-helper',
   data () {
     return {
-      reformIcon: 'static/window/max-32.png'
+      reformIcon: 'static/window/max-32.png',
+      sideSelection: [
+        {
+          name: 'person',
+          title: '用户管理',
+          shortCut: 'Ctrl+Shift+U',
+          panel: {
+            available: false
+          }
+        },
+        {
+          name: 'book',
+          title: '专栏管理',
+          shortCut: 'Ctrl+Shift+U',
+          panel: {
+            available: true
+          }
+        },
+        {
+          name: 'pencil',
+          title: '创作中心',
+          shortCut: 'Ctrl+Shift+C',
+          panel: {
+            available: false
+          }
+        },
+        {
+          name: 'gear',
+          title: '用户设置',
+          shortCut: 'Ctrl+Shift+P',
+          panel: {
+            available: false
+          }
+        },
+        {
+          name: 'question',
+          title: '关于我们',
+          shortCut: 'Ctrl+Shift+A',
+          panel: {
+            available: false
+          }
+        }
+      ]
     }
   },
   computed: {},
@@ -70,11 +100,11 @@ export default {
         win.maximize()
       }
     },
-    panel (src) {
+    panel (side) {
       const panel = document.querySelector('#sidePanel')
       const hidden = panel.classList.contains('hide-panel')
 
-      if (hidden) {
+      if (hidden && side.panel.available) {
         panel.classList.remove('hide-panel')
         panel.classList.add('full-panel')
       } else {
@@ -175,6 +205,6 @@ body {
 
 #sideBody {
   flex: 1;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
 }
 </style>
