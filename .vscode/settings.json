@@ -9,12 +9,11 @@
     "javascriptreact",
     "vue",
     {
-      "language": "html",
+      "language": "vue",
       "autoFix": true
     }
   ],
   "prettier.eslintIntegration": true,
-  "vetur.format.defaultFormatter.js": "none",
   "todohighlight.include": [
     "**/*.js",
     "**/*.jsx",
@@ -27,10 +26,15 @@
     "**/*.vue"
   ],
   "todohighlight.isEnable": true,
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
   "emmet.triggerExpansionOnTab": true,
   "files.exclude": {
     "node_modules/": true,
     ".electron-vue": true
+  },
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "auto"
+    }
   }
 }

@@ -5,16 +5,15 @@
       <b-navbar-brand class="bili-nav-header">
         <img src="static/icon.png"> 哔哩哔哩专栏助手
       </b-navbar-brand>
-
-      <b-collapse is-nav id="nav_collapse">
-        <b-navbar-nav class="ml-auto">
-          <b-button-group size="sm">
-            <b-btn class="btn-window" variant="outline-secondary" @click="minimizeWindow"><img src="static/window/min-32.png"></b-btn>
-            <b-btn class="btn-window" variant="outline-secondary" @click="reformWindow"><img :src="reformIcon"></b-btn>
-            <b-btn class="btn-window" variant="outline-secondary" @click="closeWindow"><img src="static/window/close-32.png"></b-btn>
-          </b-button-group>
-        </b-navbar-nav>
-      </b-collapse>
+        <b-collapse is-nav id="nav_collapse">
+          <b-navbar-nav class="ml-auto">
+            <b-button-group size="sm">
+              <b-btn class="btn-window" variant="outline-secondary" @click="minimizeWindow"><img src="static/window/min-32.png"></b-btn>
+                <b-btn class="btn-window" variant="outline-secondary" @click="reformWindow"><img :src="reformIcon"></b-btn>
+                  <b-btn class="btn-window" variant="outline-secondary" @click="closeWindow"><img src="static/window/close-32.png"></b-btn>
+            </b-button-group>
+          </b-navbar-nav>
+        </b-collapse>
     </b-navbar>
     <b-container fluid id="app-body">
       <div id="sideButton" class="full-height">
@@ -25,6 +24,17 @@
         </ul>
       </div>
       <div id="sidePanel" class="full-height hide-panel">
+        <div v-if="activePanel==='book'">
+          <b-list-group>
+            <!--TODO: Support column list-->
+            <b-list-group-item variant="dark" button>文集</b-list-group-item>
+          </b-list-group>
+        </div>
+        <div v-else-if="activePanel==='pencil'">
+          <b-list-group>
+            <b-list-group-item variant="dark" button>创作内容选择</b-list-group-item>
+          </b-list-group>
+        </div>
       </div>
       <div id="sideBody" class="full-height">
       </div>
@@ -41,6 +51,7 @@ export default {
   data () {
     return {
       reformIcon: 'static/window/max-32.png',
+      activePanel: '',
       sideSelection: [
         {
           name: 'person',
@@ -63,7 +74,7 @@ export default {
           title: '创作中心',
           shortCut: 'Ctrl+Shift+C',
           panel: {
-            available: false
+            available: true
           }
         },
         {
@@ -102,14 +113,18 @@ export default {
     },
     panel (side) {
       const panel = document.querySelector('#sidePanel')
-      const hidden = panel.classList.contains('hide-panel')
+      const hidden = this.activePanel === ''
 
-      if (hidden && side.panel.available) {
-        panel.classList.remove('hide-panel')
-        panel.classList.add('full-panel')
+      if (side.panel.available) {
+        if (hidden) {
+          panel.classList.remove('hide-panel')
+          panel.classList.add('full-panel')
+        }
+        this.activePanel = side.name
       } else {
         panel.classList.remove('full-panel')
         panel.classList.add('hide-panel')
+        this.activePanel = ''
       }
     }
   },
@@ -126,6 +141,21 @@ $base-color: #555555;
 
 body {
   overflow: hidden;
+}
+
+/* Use Yahei by default */
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif !important;
 }
 
 /* Global */
