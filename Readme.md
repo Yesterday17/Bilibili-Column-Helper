@@ -15,39 +15,33 @@
 
 ## 合作开发(Contribution)
 
-本工程基于`electron-vue`开发，其有相对完善的[中文文档](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)可供参考。  
-前端框架使用的是`Vue.js`，文档[点此访问](https://cn.vuejs.org/)。  
-UI 使用的是`Element`，文档[点此访问](http://element-cn.eleme.io)。  
-以及`Electron`的文档：[点此访问](https://electronjs.org/)。
+### 项目与文档
+本项目主要基于的开源项目如下表所示：
+
+|ID|项目名称|项目地址|文档地址|
+|--|-------|-------|--------|
+|01|Electron|https://electronjs.org/|https://electronjs.org/docs|
+|02|Vue.js|https://cn.vuejs.org/|https://cn.vuejs.org/v2/guide/|
+|03|electron-vue|https://github.com/SimulatedGREG/electron-vue|https://simulatedgreg.gitbooks.io/electron-vue/content/cn/|
+|04|bootstrap-vue|https://bootstrap-vue.js.org/|https://bootstrap-vue.js.org/docs|
 
 ### 构建过程
 
 构建基于 yarn，如果没有安装 yarn 的话就需要执行第一步。在部分系统下（如 Ubuntu 等）使用`npm install -g`时需要带上`sudo`。
 
 ```
+// 安装
 npm install -g yarn
 yarn install
-```
 
-如果在上述过程中遇到 electron 无法下载，可以选择使用`cnpm`或`npm`过渡：
-
-```
-cnpm install
-```
-
-然后就可以通过以下步骤运行：
-
-```
+// 运行
 yarn dev
-```
 
-如果需要打包，则需要运行：
-
-```
+// 打包
 yarn run build
 ```
 
-# Credits
+# 鸣谢
 
 [Bilibili zhuanlan Markdown-Tool](https://github.com/zihengCat/bilibili-zhuanlan-markdown-tool)
 
