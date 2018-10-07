@@ -43,15 +43,17 @@
         </div>
         <div v-else-if="activePanel==='pencil'">
           <b-list-group>
-            <b-list-group-item variant="dark" button v-b-modal.new_column>创作内容选择</b-list-group-item>
+            <b-list-group-item
+              variant="dark"
+              button
+              @click="showNewPassage = !showNewPassage"
+            >创作内容选择</b-list-group-item>
           </b-list-group>
         </div>
       </div>
       <div id="sideBody" class="full-height"></div>
-      <b-modal id="new_column" title="新建专栏">
-        <new-column></new-column>
-      </b-modal>
     </b-container>
+    <new-column :show="this.showNewPassage" :hidden="hide_new_passage"></new-column>
   </div>
 </template> 
 
@@ -70,6 +72,7 @@ export default {
     return {
       reformIcon: 'static/window/max-32.png',
       activePanel: '',
+      showNewPassage: false,
       sideSelection: [
         {
           name: 'person',
@@ -144,6 +147,9 @@ export default {
         panel.classList.add('hide-panel')
         this.activePanel = ''
       }
+    },
+    hide_new_passage () {
+      this.showNewPassage = !this.showNewPassage
     }
   },
   created () {

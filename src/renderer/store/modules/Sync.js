@@ -239,11 +239,10 @@ const mutations = {
     state.category = sync.get('category', defaults.category)
 
     for (const c of state.category) {
-      state.categoryMap.set(c.id, c.name)
-      state.categoryList.push(c.id)
+      state.categoryMap.set(c.id, c)
 
       for (const cd of c.children) {
-        state.categoryMap.set(cd.id, cd.name)
+        state.categoryMap.set(cd.id, cd)
       }
     }
   },
