@@ -31,10 +31,11 @@
     "node_modules/": true,
     ".electron-vue": true
   },
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatter.html": "prettyhtml",
   "vetur.format.defaultFormatterOptions": {
-    "js-beautify-html": {
-      "wrap_attributes": "force-aligned"
+    "prettyhtml": {
+      "printWidth": 100, // No line exceeds 100 characters
+      "singleQuote": false
     }
   }
 }

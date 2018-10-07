@@ -3,23 +3,34 @@
     <b-navbar id="app-nav" toggleable="sm" fixed="top" sticky>
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand class="bili-nav-header">
-        <img src="static/icon.png"> 哔哩哔哩专栏助手
+        <img src="static/icon.png">哔哩哔哩专栏助手
       </b-navbar-brand>
-        <b-collapse is-nav id="nav_collapse">
-          <b-navbar-nav class="ml-auto">
-            <b-button-group size="sm">
-              <b-btn class="btn-window" variant="outline-secondary" @click="minimizeWindow"><img src="static/window/min-32.png"></b-btn>
-                <b-btn class="btn-window" variant="outline-secondary" @click="reformWindow"><img :src="reformIcon"></b-btn>
-                  <b-btn class="btn-window" variant="outline-secondary" @click="closeWindow"><img src="static/window/close-32.png"></b-btn>
-            </b-button-group>
-          </b-navbar-nav>
-        </b-collapse>
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav class="ml-auto">
+          <b-button-group size="sm">
+            <b-btn class="btn-window" variant="outline-secondary" @click="minimizeWindow">
+              <img src="static/window/min-32.png">
+            </b-btn>
+            <b-btn class="btn-window" variant="outline-secondary" @click="reformWindow">
+              <img :src="reformIcon">
+            </b-btn>
+            <b-btn class="btn-window" variant="outline-secondary" @click="closeWindow">
+              <img src="static/window/close-32.png">
+            </b-btn>
+          </b-button-group>
+        </b-navbar-nav>
+      </b-collapse>
     </b-navbar>
     <b-container fluid id="app-body">
       <div id="sideButton" class="full-height">
         <ul>
-          <li v-for="side in sideSelection" :key="side.name" :title="`${side.title}(${side.shortCut})`" v-on:click="panel(side)">
-            <octicon :name="side.name" scale=2 width=50></octicon>
+          <li
+            v-for="side in sideSelection"
+            :key="side.name"
+            :title="`${side.title}(${side.shortCut})`"
+            v-on:click="panel(side)"
+          >
+            <octicon :name="side.name" scale="2" width="50"></octicon>
           </li>
         </ul>
       </div>
@@ -32,22 +43,29 @@
         </div>
         <div v-else-if="activePanel==='pencil'">
           <b-list-group>
-            <b-list-group-item variant="dark" button>创作内容选择</b-list-group-item>
+            <b-list-group-item variant="dark" button v-b-modal.new_column>创作内容选择</b-list-group-item>
           </b-list-group>
         </div>
       </div>
-      <div id="sideBody" class="full-height">
-      </div>
+      <div id="sideBody" class="full-height"></div>
+      <b-modal id="new_column" title="新建专栏">
+        <new-column></new-column>
+      </b-modal>
     </b-container>
   </div>
 </template> 
 
 <script>
 import { remote } from 'electron'
+import newColumn from './components/newColumn'
+
 const win = remote.getCurrentWindow()
 
 export default {
   name: 'bilibili-column-helper',
+  components: {
+    'newColumn': newColumn
+  },
   data () {
     return {
       reformIcon: 'static/window/max-32.png',
@@ -129,9 +147,13 @@ export default {
     }
   },
   created () {
+    // Resize
     win.on('resize', () => {
       this.reformIcon = win.isMaximized() ? 'static/window/back-32.png' : 'static/window/max-32.png'
     })
+
+    // Load config
+    this.$store.commit('LOAD_SYNC_CONFIG')
   }
 }
 </script>
