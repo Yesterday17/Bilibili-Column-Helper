@@ -24,7 +24,6 @@
     "test": "yarn unit && yarn e2e",
     "unit": "karma start test/unit/karma.conf.js",
     "postinstall": "yarn lint:fix && yarn rebuild",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "build": {
@@ -71,6 +70,11 @@
         "tar.gz",
         "AppImage"
       ]
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
