@@ -1,17 +1,14 @@
 {
-  "git.autofetch": true,
-  "files.autoSave": "onFocusChange",
   "editor.tabSize": 2,
-  "editor.tabCompletion": true,
+  "editor.tabCompletion": "on",
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
     "javascript",
-    "javascriptreact",
     "vue",
     {
       "language": "vue",
       "autoFix": true
-    }
+    },{}
   ],
   "prettier.eslintIntegration": true,
   "todohighlight.include": [
@@ -28,8 +25,7 @@
   "todohighlight.isEnable": true,
   "emmet.triggerExpansionOnTab": true,
   "files.exclude": {
-    "node_modules/": true,
-    ".electron-vue": true
+    "node_modules/": true
   },
   "vetur.format.defaultFormatter.html": "prettyhtml",
   "vetur.format.defaultFormatterOptions": {
