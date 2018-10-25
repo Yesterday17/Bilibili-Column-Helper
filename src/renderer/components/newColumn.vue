@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="new_column" title="新建专栏" v-model="show" @hidden="hidden" variant="dark" busy>
+  <b-modal id="new_column" title="新建专栏" v-model="showModel" @hidden="hidden" variant="dark" busy>
     <div>
       <b-form>
         <b-container>
@@ -59,6 +59,9 @@
         </b-container>
       </b-form>
     </div>
+    <div slot="modal-footer">
+      <colorful-button contentText="提交"></colorful-button>
+    </div>
   </b-modal>
 </template>
 
@@ -71,7 +74,13 @@ export default {
         title: '',
         category: null,
         sub_category: null
-      }
+      },
+      showModel: false
+    }
+  },
+  watch: {
+    show (val) {
+      this.showModel = val
     }
   },
   methods: {

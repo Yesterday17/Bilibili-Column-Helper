@@ -4,13 +4,15 @@ import axios from 'axios'
 import VueCodemirror from 'vue-codemirror'
 import Octicon from 'vue-octicon/components/Octicon.vue'
 
+// Extensions for bootstrap-vue
+import colorfulButton from './components/colorful-button.vue'
+
 import App from './App'
 import router from './router'
 import store from './store'
 
 /* Import css files here  */
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './styles/custom.scss'
 import 'vue-octicon/icons'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
@@ -19,6 +21,7 @@ Vue.config.productionTip = false
 Vue.use(VueCodemirror)
 Vue.use(BootstrapVue)
 Vue.component('octicon', Octicon)
+Vue.component('colorful-button', colorfulButton)
 
 /* eslint-disable no-new */
 new Vue({

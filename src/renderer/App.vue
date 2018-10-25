@@ -1,20 +1,20 @@
 <template>
   <div>
-    <b-navbar id="app-nav" toggleable="sm" fixed="top" sticky>
+    <b-navbar id="app-nav" toggleable="sm" fixed="top" sticky variant="primary" type="dark">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand class="bili-nav-header">
+      <b-navbar-brand class="bili-nav-header ">
         <img src="static/icon.png">哔哩哔哩专栏助手
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="ml-auto">
           <b-button-group size="sm">
-            <b-btn class="btn-window" variant="outline-secondary" @click="minimizeWindow">
+            <b-btn class="btn-window" variant="outline-primary" @click="minimizeWindow">
               <img src="static/window/min-32.png">
             </b-btn>
-            <b-btn class="btn-window" variant="outline-secondary" @click="reformWindow">
+            <b-btn class="btn-window" variant="outline-primary" @click="reformWindow">
               <img :src="reformIcon">
             </b-btn>
-            <b-btn class="btn-window" variant="outline-secondary" @click="closeWindow">
+            <b-btn class="btn-window" variant="outline-primary" @click="closeWindow">
               <img src="static/window/close-32.png">
             </b-btn>
           </b-button-group>
@@ -22,7 +22,7 @@
       </b-collapse>
     </b-navbar>
     <b-container fluid id="app-body">
-      <div id="sideButton" class="full-height">
+      <div id="sideBar" class="full-height">
         <ul>
           <li
             v-for="side in sideSelection"
@@ -165,13 +165,9 @@ export default {
 </script>
 
 <style lang="scss">
-$base-color: #555555;
+@import "./styles/colors.scss";
 
-body {
-  overflow: hidden;
-}
-
-/* Use Yahei by default */
+// Use Yahei by default
 body,
 button,
 input,
@@ -186,52 +182,41 @@ h6 {
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif !important;
 }
 
-/* Global */
+// Global
 .full-height {
   height: 100%;
 }
 
 #app-nav {
-  -webkit-app-region: drag; /* Make navbar dragable */
-  background-color: lighten($base-color, 1%);
-  height: 58px; /* Specified height */
+  -webkit-app-region: drag;  // Make navbar dragable
+  height: 58px; // Specified height
 }
 
 .bili-nav-header {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 1.15rem !important;
-  color: #eee !important;
   img {
     padding-right: 1vw;
   }
 }
 
 .btn-window {
-  -webkit-app-region: no-drag; /* Make buttons clickable */
-  color: transparent !important;
-  border-color: transparent !important;
-  &:focus,
-  &:hover,
-  &:active {
-    box-shadow: 0 0 0 0;
-    background-color: $base-color !important;
-    border-color: transparent !important;
-  }
+  -webkit-app-region: no-drag; // Make buttons clickable
 }
 
 #app-body {
   padding-left: 0px;
   padding-right: 0px;
-  height: calc(100vh - 58px); /* Calculate the proper height */
+  height: calc(100vh - 58px); // Calculate the proper height
   display: inline-flex;
 }
 
-/* SideButton */
-#sideButton {
+// sideBar
+#sideBar {
   width: 50px;
   margin: 0px;
-  background-color: #515151;
+  background-color: $inactive-color;
   ul {
     padding-left: 0px;
     li {
@@ -239,10 +224,10 @@ h6 {
       padding-top: 12px;
       padding-bottom: 6px;
       svg {
-        color: #bbbbbb;
+        color: $svg-inactive;
         cursor: pointer;
         &:hover {
-          color: #fff;
+          color: $active-color;
         }
       }
     }
@@ -258,11 +243,11 @@ h6 {
     width: 0px;
     opacity: 0;
   }
-  background-color: #252526;
+  background-color: $base-color-d1;
 }
 
 #sideBody {
   flex: 1;
-  background-color: #1e1e1e;
+  background-color: $base-color-d2;
 }
 </style>

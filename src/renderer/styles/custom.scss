@@ -1,0 +1,9 @@
+@import "./colors.scss";
+
+$theme-colors: (
+  "primary": $base-color,
+  "primary-lighter": $base-color-l1
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap-vue/dist/bootstrap-vue.css";
