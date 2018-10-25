@@ -2,7 +2,7 @@
   <div>
     <b-navbar id="app-nav" toggleable="sm" fixed="top" sticky variant="primary" type="dark">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand class="bili-nav-header ">
+      <b-navbar-brand class="bili-nav-header">
         <img src="static/icon.png">哔哩哔哩专栏助手
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
@@ -42,12 +42,30 @@
           </b-list-group>
         </div>
         <div v-else-if="activePanel==='pencil'">
+          <b-button-group id="pencil-toolbar" size="sm">
+            <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">New</b-button>
+            <b-button variant="primary-l1">Delete</b-button>
+          </b-button-group>
           <b-list-group>
             <b-list-group-item
-              variant="dark"
+              v-if="this.$store.state.Passage.passages.length == 0"
               button
-              @click="showNewPassage = !showNewPassage"
-            >创作内容选择</b-list-group-item>
+              active
+              class="flex-column align-items-start"
+            >
+              <h5>无本地专栏！</h5>
+            </b-list-group-item>
+            <b-list-group-item
+              v-for="item in this.$store.state.Passage.passages"
+              button
+              active
+              class="flex-column align-items-start"
+            >
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{item.name}}</h5>
+              </div>
+              <p class="mb-1">{{item.passage}}</p>
+            </b-list-group-item>
           </b-list-group>
         </div>
       </div>
@@ -59,14 +77,14 @@
 
 <script>
 import { remote } from 'electron'
-import newColumn from './components/newColumn'
+import newColumn from './components/new-column'
 
 const win = remote.getCurrentWindow()
 
 export default {
   name: 'bilibili-column-helper',
   components: {
-    'newColumn': newColumn
+    newColumn
   },
   data () {
     return {
@@ -159,6 +177,7 @@ export default {
     })
 
     // Load config
+    this.$store.commit('LOAD_CONFIG')
     this.$store.commit('LOAD_SYNC_CONFIG')
   }
 }
@@ -188,7 +207,7 @@ h6 {
 }
 
 #app-nav {
-  -webkit-app-region: drag;  // Make navbar dragable
+  -webkit-app-region: drag; // Make navbar dragable
   height: 58px; // Specified height
 }
 
@@ -236,7 +255,7 @@ h6 {
 
 #sidePanel {
   &.full-panel {
-    width: 220px;
+    width: 250px;
     opacity: 100;
   }
   &.hide-panel {
@@ -244,6 +263,22 @@ h6 {
     opacity: 0;
   }
   background-color: $base-color-d1;
+
+  #pencil-toolbar {
+    padding-bottom: 10px;
+    button {
+      padding: 2px;
+    }
+  }
+
+  .list-group-item {
+    width: auto;
+    border: 0px;
+    border-radius: 0px;
+    padding: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
 }
 
 #sideBody {

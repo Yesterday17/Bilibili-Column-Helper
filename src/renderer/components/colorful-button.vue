@@ -1,5 +1,5 @@
 <template>
-  <b-button variant="primary-lighter">{{contentText}}</b-button>
+  <b-button :variant="varient">{{contentText}}</b-button>
 </template>
 
 <script>
@@ -15,6 +15,11 @@ export default {
       type: String,
       required: false,
       default: 'OK'
+    },
+    varient: {
+      type: String,
+      required: false,
+      default: 'primary'
     }
   },
   data () {

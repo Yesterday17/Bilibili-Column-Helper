@@ -7,6 +7,7 @@ import * as constants from '../../utils/constants'
 const state = {
   passageData: new Map(),
   passageContent: new Map(),
+  passages: [],
 
   currentPassage: {
     name: '',
@@ -124,6 +125,9 @@ const mutations = {
             local: local,
             remote: remote
           })
+
+          // Add to Array
+          state.passages.push({ name: d, passage: local })
         } catch (e) {
           console.error(e.message)
         }

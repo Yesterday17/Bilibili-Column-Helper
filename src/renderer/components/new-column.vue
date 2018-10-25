@@ -1,5 +1,12 @@
 <template>
-  <b-modal id="new_column" title="新建专栏" v-model="showModel" @hidden="hidden" variant="dark" busy>
+  <b-modal
+    id="new_column"
+    title="新建专栏"
+    v-model="showModel"
+    @hidden="hidden"
+    variant="dark"
+    busy
+  >
     <div>
       <b-form>
         <b-container>
@@ -67,6 +74,7 @@
 
 <script>
 export default {
+  name: 'new-column',
   props: ['show', 'hidden'],
   data () {
     return {
@@ -137,8 +145,9 @@ export default {
 </script>
 
 <style lang="scss">
-/* Select */
+// Select
 select[required="required"] {
   margin-bottom: 4px !important;
 }
+
 </style>
