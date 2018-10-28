@@ -175,19 +175,29 @@ export default {
         win.maximize()
       }
     },
-    panel (side) {
+    showPanel () {
       const panel = document.querySelector('#sidePanel')
+      panel.classList.remove('hide-panel')
+      panel.classList.add('full-panel')
+    },
+    hidePanel () {
+      const panel = document.querySelector('#sidePanel')
+      panel.classList.remove('full-panel')
+      panel.classList.add('hide-panel')
+    },
+    panel (side) {
       const hidden = this.activePanel === ''
 
       if (side.hasPanel) {
         if (hidden) {
-          panel.classList.remove('hide-panel')
-          panel.classList.add('full-panel')
+          this.showPanel()
+          this.activePanel = side.name
+        } else {
+          this.hidePanel()
+          this.activePanel = ''
         }
-        this.activePanel = side.name
       } else {
-        panel.classList.remove('full-panel')
-        panel.classList.add('hide-panel')
+        this.hidePanel()
         this.activePanel = ''
       }
     },
