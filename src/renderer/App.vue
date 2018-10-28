@@ -30,9 +30,7 @@
             :title="`${side.title}(${side.shortCut})`"
             @click="panel(side)"
           >
-            <router-link :to="'/' + side.route">
-              <octicon :name="side.icon" scale="2" width="50"></octicon>
-            </router-link>
+            <octicon :name="side.icon" scale="2" width="50"></octicon>
           </li>
         </ul>
       </div>
@@ -193,8 +191,10 @@ export default {
     panel (side) {
       if (side.hasPanel) {
         if (this.activePanel !== side.name) {
-          this.activePanel = side.name
           this.showPanel()
+          this.$router.push({
+            path: `/${side.route}`
+          })
         } else if (!this.panelShown) {
           this.showPanel()
         } else {
@@ -202,8 +202,11 @@ export default {
         }
       } else {
         this.hidePanel()
-        this.activePanel = ''
+        this.$router.push({
+          path: `/${side.route}`
+        })
       }
+      this.activePanel = side.name
     },
     hide_new_passage () {
       this.showNewPassage = !this.showNewPassage
@@ -222,6 +225,9 @@ export default {
     },
     edit_passage (name) {
       alert('Edit: ' + name)
+      this.$router.push({
+        path: `/edit/${name}`
+      })
       this.hidePanel()
     }
   },

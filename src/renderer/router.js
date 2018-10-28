@@ -16,7 +16,7 @@ export default new Router({
       component: require('@/components/passage-list').default
     },
     {
-      path: '/edit',
+      path: '/edit/:name?',
       name: 'edit',
       component: require('@/components/edit/').default
     },
