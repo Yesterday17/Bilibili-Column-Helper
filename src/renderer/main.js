@@ -4,9 +4,6 @@ import axios from 'axios'
 import VueCodemirror from 'vue-codemirror'
 import Octicon from 'vue-octicon/components/Octicon.vue'
 
-// Extensions for bootstrap-vue
-import colorfulButton from './components/colorful-button.vue'
-
 import App from './App'
 import router from './router.js'
 import store from './store'
@@ -21,7 +18,6 @@ Vue.config.productionTip = false
 Vue.use(VueCodemirror)
 Vue.use(BootstrapVue)
 Vue.component('octicon', Octicon)
-Vue.component('colorful-button', colorfulButton)
 
 /* eslint-disable no-new */
 new Vue({
