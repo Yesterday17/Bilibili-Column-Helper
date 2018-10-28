@@ -18,7 +18,17 @@ export default new Router({
     {
       path: '/edit/:name?',
       name: 'edit',
-      component: require('@/components/edit/').default
+      component: require('@/components/edit').default,
+      children: [
+        {
+          path: 'preview',
+          component: require('@/components/edit/preview').default
+        },
+        {
+          path: 'double',
+          component: require('@/components/edit/double-editor').default
+        }
+      ]
     },
     {
       path: '/options',

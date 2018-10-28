@@ -215,7 +215,10 @@ export default {
       alert(name)
     },
     preview_passage (name) {
-      alert(name)
+      this.$router.push({
+        path: `/edit/${name}/preview`
+      })
+      this.hidePanel()
     },
     upload_passage (name) {
       alert(name)
@@ -226,7 +229,7 @@ export default {
     edit_passage (name) {
       alert('Edit: ' + name)
       this.$router.push({
-        path: `/edit/${name}`
+        path: `/edit/${name}/double`
       })
       this.hidePanel()
     }
