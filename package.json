@@ -24,6 +24,7 @@
     "test": "yarn unit && yarn e2e",
     "unit": "karma start test/unit/karma.conf.js",
     "postinstall": "yarn lint:fix && yarn rebuild && electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "build": {
