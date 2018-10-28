@@ -1,9 +1,10 @@
-
 // Base colors here
 $base-color: #555555;
 $inactive-color: #515151;
 $svg-inactive: #bbbbbb;
 $active-color: #fff;
+
+$secondary: #6c757d;
 
 @function lighterBase($degree) {
   @return lighten($base-color, $degree);

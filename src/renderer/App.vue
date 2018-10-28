@@ -35,13 +35,13 @@
         </ul>
       </div>
       <div id="sidePanel" class="full-height hide-panel">
-        <div v-if="activePanel==='book'">
+        <div id="manage" v-if="activePanel==='book'">
           <b-list-group>
             <!--TODO: Support column list-->
             <b-list-group-item variant="dark" button>文集</b-list-group-item>
           </b-list-group>
         </div>
-        <div v-else-if="activePanel==='pencil'">
+        <div id="write" v-else-if="activePanel==='pencil'">
           <b-button-group id="pencil-toolbar" size="sm">
             <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">New</b-button>
             <b-button variant="primary-l1">Delete</b-button>
@@ -56,15 +56,37 @@
               <h5>无本地专栏！</h5>
             </b-list-group-item>
             <b-list-group-item
+              :id="'list-group-item' + item.name"
               v-for="item in this.$store.state.Passage.passages"
-              button
-              active
-              class="flex-column align-items-start"
+              v-bind:key="item.name"
+              class="flex-column align-items-start list-group-item-action list-group-item-column"
             >
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{item.name}}</h5>
+                <h5 class="mb-1 column-list-item-name">{{item.name}}</h5>
+                <octicon name="three-bars" :id="'column-list-item-badge-' + item.name"></octicon>
+                <b-popover
+                  :target="'column-list-item-badge-' + item.name"
+                  :container="'list-group-item' + item.name"
+                  triggers="click"
+                  placement="rightbottom"
+                >
+                  <b-button-group vertical>
+                    <b-button>
+                      <octicon name="link-external" scale="1" width="16"></octicon>
+                    </b-button>
+                    <b-button>
+                      <octicon name="eye" scale="1" width="16"></octicon>
+                    </b-button>
+                    <b-button>
+                      <octicon name="cloud-upload" scale="1" width="16"></octicon>
+                    </b-button>
+                    <b-button>
+                      <octicon name="trashcan" scale="1" width="16"></octicon>
+                    </b-button>
+                  </b-button-group>
+                </b-popover>
               </div>
-              <p class="mb-1">{{item.passage}}</p>
+              <p class="mb-1 column-list-item-content">{{item.passage.substr(0, 10)}}</p>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -179,6 +201,8 @@ export default {
     // Load config
     this.$store.commit('LOAD_CONFIG')
     this.$store.commit('LOAD_SYNC_CONFIG')
+    this.$store.commit('LOAD_PASSAGES')
+    console.log(this.$store.state.Passage.passages)
   }
 }
 </script>
@@ -265,24 +289,71 @@ h6 {
   background-color: $base-color-d1;
 
   #pencil-toolbar {
-    padding-bottom: 10px;
+    margin-left: 5px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     button {
+      border-radius: 2;
       padding: 2px;
     }
   }
 
-  .list-group-item {
-    width: auto;
-    border: 0px;
-    border-radius: 0px;
-    padding: 12px;
-    margin-left: 2px;
-    margin-right: 2px;
+  #write {
+    border-bottom: 1px solid $base-color-l1;
+
+    .list-group-item {
+      width: auto;
+      margin: 0px;
+      border: 1px solid transparent;
+      border-top: 1px solid $base-color-l1;
+      border-radius: 0px;
+      padding: 12px;
+    }
   }
 }
 
 #sideBody {
   flex: 1;
   background-color: $base-color-d2;
+}
+
+.list-group-item-column {
+  background-color: $base-color !important;
+
+  .column-list-item-name {
+    color: #fff;
+  }
+
+  .column-list-item-content {
+    color: $svg-inactive;
+  }
+
+  svg {
+    color: $svg-inactive;
+    cursor: pointer;
+    &:hover {
+      color: $active-color;
+    }
+  }
+
+  .popover-body {
+    margin: -1px;
+    padding: 0px;
+
+    button {
+      font-size: 0.9rem;
+      padding: 0.375rem 0.6rem;
+    }
+  }
+
+  .popover .arrow {
+    &::before {
+      border-right-color: transparent;
+    }
+
+    &::after {
+      border-right-color: $secondary;
+    }
+  }
 }
 </style>
