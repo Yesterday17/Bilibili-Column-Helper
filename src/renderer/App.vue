@@ -35,20 +35,20 @@
         </ul>
       </div>
       <div id="sidePanel" class="full-height hide-panel">
-        <div id="manage" v-if="activePanel==='book'">
+        <div id="manage" class="full-height" v-if="activePanel==='book'">
           <b-list-group>
             <!--TODO: Support column list-->
             <b-list-group-item variant="dark" button>文集</b-list-group-item>
           </b-list-group>
         </div>
-        <div id="write" v-else-if="activePanel==='pencil'">
+        <div id="write" class="full-height" v-else-if="activePanel==='pencil'">
           <div id="write-toolbar">
             <b-button-group size="sm">
               <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">New</b-button>
               <b-button variant="primary-l1">Delete</b-button>
             </b-button-group>
           </div>
-          <b-list-group id="write-column-list">
+          <b-list-group id="write-column-list" class="full-height">
             <b-list-group-item
               v-if="this.$store.state.Passage.passages.length == 0"
               button
@@ -58,17 +58,17 @@
               <h5>无本地专栏！</h5>
             </b-list-group-item>
             <b-list-group-item
-              :id="'list-group-item' + item.name"
+              :id="'list-group-item-' + item.name"
               v-for="item in this.$store.state.Passage.passages"
               v-bind:key="item.name"
-              class="flex-column align-items-start list-group-item-action list-group-item-column"
+              class="flex-column align-items-start list-group-item-action"
             >
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1 column-list-item-name">{{item.name}}</h5>
                 <octicon name="three-bars" :id="'column-list-item-badge-' + item.name"></octicon>
                 <b-popover
                   :target="'column-list-item-badge-' + item.name"
-                  :container="'list-group-item' + item.name"
+                  :container="'list-group-item-' + item.name"
                   triggers="focus"
                   placement="leftbottom"
                 >
@@ -352,6 +352,37 @@ h6 {
         border-bottom: 1px solid $base-color-l1;
         border-radius: 0px;
         padding: 12px;
+        background-color: $base-color;
+
+        &:hover {
+          background-color: $base-color-l1;
+        }
+
+        .column-list-item-name {
+          color: #fff;
+        }
+
+        .column-list-item-content {
+          color: $svg-inactive;
+        }
+
+        svg {
+          color: $svg-inactive;
+          cursor: pointer;
+          &:hover {
+            color: $active-color;
+          }
+        }
+
+        .popover-body {
+          margin: -1px;
+          padding: 0px;
+
+          button {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.6rem;
+          }
+        }
       }
     }
   }
@@ -360,45 +391,5 @@ h6 {
 #sideBody {
   flex: 1;
   background-color: $base-color-d2;
-}
-
-.list-group-item-column {
-  background-color: $base-color !important;
-
-  .column-list-item-name {
-    color: #fff;
-  }
-
-  .column-list-item-content {
-    color: $svg-inactive;
-  }
-
-  svg {
-    color: $svg-inactive;
-    cursor: pointer;
-    &:hover {
-      color: $active-color;
-    }
-  }
-
-  .popover-body {
-    margin: -1px;
-    padding: 0px;
-
-    button {
-      font-size: 0.9rem;
-      padding: 0.375rem 0.6rem;
-    }
-  }
-
-  .popover .arrow {
-    &::before {
-      border-right-color: transparent;
-    }
-
-    &::after {
-      border-right-color: $secondary;
-    }
-  }
 }
 </style>
