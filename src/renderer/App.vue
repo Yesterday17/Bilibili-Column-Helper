@@ -63,7 +63,10 @@
               class="flex-column align-items-start list-group-item-action"
             >
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 column-list-item-name">{{item.name}}</h5>
+                <div class="list-group-column-info" @click="edit_passage(item.name)">
+                  <h5 class="mb-1 column-list-item-name">{{item.name}}</h5>
+                  <p class="mb-1 column-list-item-content">{{item.passage.substr(0, 10)}}</p>
+                </div>
                 <octicon name="three-bars" :id="'column-list-item-badge-' + item.name"></octicon>
                 <b-popover
                   :target="'column-list-item-badge-' + item.name"
@@ -87,7 +90,6 @@
                   </b-button-group>
                 </b-popover>
               </div>
-              <p class="mb-1 column-list-item-content">{{item.passage.substr(0, 10)}}</p>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -115,6 +117,7 @@ export default {
     return {
       reformIcon: 'static/window/max-32.png',
       activePanel: '',
+      panelShown: false,
       showNewPassage: false,
       sideSelection: [
         {
@@ -179,22 +182,23 @@ export default {
       const panel = document.querySelector('#sidePanel')
       panel.classList.remove('hide-panel')
       panel.classList.add('full-panel')
+      this.panelShown = true
     },
     hidePanel () {
       const panel = document.querySelector('#sidePanel')
       panel.classList.remove('full-panel')
       panel.classList.add('hide-panel')
+      this.panelShown = false
     },
     panel (side) {
-      const hidden = this.activePanel === ''
-
       if (side.hasPanel) {
-        if (hidden) {
-          this.showPanel()
+        if (this.activePanel !== side.name) {
           this.activePanel = side.name
+          this.showPanel()
+        } else if (!this.panelShown) {
+          this.showPanel()
         } else {
           this.hidePanel()
-          this.activePanel = ''
         }
       } else {
         this.hidePanel()
@@ -215,6 +219,10 @@ export default {
     },
     delete_passage (name) {
       alert(name)
+    },
+    edit_passage (name) {
+      alert('Edit: ' + name)
+      this.hidePanel()
     }
   },
   created () {
@@ -348,6 +356,10 @@ h6 {
     #edit-column-list {
       display: block;
       overflow: auto;
+
+      .list-group-column-info {
+        width: 90%;
+      }
 
       &::-webkit-scrollbar {
         width: 5px;
