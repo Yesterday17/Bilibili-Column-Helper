@@ -16,14 +16,15 @@
 ## 合作开发(Contribution)
 
 ### 项目与文档
+
 本项目主要基于的开源项目如下表所示：
 
-|ID|项目名称|项目地址|文档地址|
-|--|-------|-------|--------|
-|01|Electron|https://electronjs.org/|https://electronjs.org/docs|
-|02|Vue.js|https://cn.vuejs.org/|https://cn.vuejs.org/v2/guide/|
-|03|electron-vue|https://github.com/SimulatedGREG/electron-vue|https://simulatedgreg.gitbooks.io/electron-vue/content/cn/|
-|04|bootstrap-vue|https://bootstrap-vue.js.org/|https://bootstrap-vue.js.org/docs|
+| ID  | 项目名称      | 项目地址                                      | 文档地址                                                   |
+| --- | ------------- | --------------------------------------------- | ---------------------------------------------------------- |
+| 01  | Electron      | https://electronjs.org/                       | https://electronjs.org/docs                                |
+| 02  | Vue.js        | https://cn.vuejs.org/                         | https://cn.vuejs.org/v2/guide/                             |
+| 03  | electron-vue  | https://github.com/SimulatedGREG/electron-vue | https://simulatedgreg.gitbooks.io/electron-vue/content/cn/ |
+| 04  | bootstrap-vue | https://bootstrap-vue.js.org/                 | https://bootstrap-vue.js.org/docs                          |
 
 ### 构建过程
 
