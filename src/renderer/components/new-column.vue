@@ -67,7 +67,7 @@
       </b-form>
     </div>
     <div slot="modal-footer">
-      <colorful-button contentText="提交"></colorful-button>
+      <!--<colorful-button contentText="提交"></colorful-button>-->
     </div>
   </b-modal>
 </template>

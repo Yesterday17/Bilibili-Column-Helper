@@ -227,7 +227,6 @@ export default {
       alert(name)
     },
     edit_passage (name) {
-      alert('Edit: ' + name)
       this.$router.push({
         path: `/edit/${name}/double`
       })
