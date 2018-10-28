@@ -43,10 +43,7 @@
         </div>
         <div id="write" class="full-height" v-else-if="activePanel==='pencil'">
           <div id="write-toolbar">
-            <b-button-group size="sm">
-              <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">New</b-button>
-              <b-button variant="primary-l1">Delete</b-button>
-            </b-button-group>
+            <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">新建专栏</b-button>
           </div>
           <b-list-group id="write-column-list" class="full-height">
             <b-list-group-item
@@ -318,14 +315,16 @@ h6 {
       position: sticky;
       top: 0px;
       z-index: 2;
+      text-align: center;
 
       background-color: $base-color-d1;
-      padding: 6px 0 6px 5px;
+      padding: 6px 0 6px 0;
       border-bottom: 1px solid $base-color-l1;
 
       button {
-        border-radius: 2;
-        padding: 2px;
+        padding: 3px 50px 3px 50px;
+        border-radius: 0px;
+        font-size: 0.8rem;
       }
     }
 
