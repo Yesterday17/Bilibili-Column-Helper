@@ -28,7 +28,7 @@
             v-for="side in sideSelection"
             :key="side.name"
             :title="`${side.title}(${side.shortCut})`"
-            v-on:click="panel(side)"
+            @click="panel(side)"
           >
             <octicon :name="side.name" scale="2" width="50"></octicon>
           </li>
@@ -42,11 +42,13 @@
           </b-list-group>
         </div>
         <div id="write" v-else-if="activePanel==='pencil'">
-          <b-button-group id="pencil-toolbar" size="sm">
-            <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">New</b-button>
-            <b-button variant="primary-l1">Delete</b-button>
-          </b-button-group>
-          <b-list-group>
+          <div id="write-toolbar">
+            <b-button-group size="sm">
+              <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">New</b-button>
+              <b-button variant="primary-l1">Delete</b-button>
+            </b-button-group>
+          </div>
+          <b-list-group id="write-column-list">
             <b-list-group-item
               v-if="this.$store.state.Passage.passages.length == 0"
               button
@@ -67,20 +69,20 @@
                 <b-popover
                   :target="'column-list-item-badge-' + item.name"
                   :container="'list-group-item' + item.name"
-                  triggers="click"
-                  placement="rightbottom"
+                  triggers="focus"
+                  placement="leftbottom"
                 >
                   <b-button-group vertical>
-                    <b-button>
+                    <b-button @click="share_passage(item.name)">
                       <octicon name="link-external" scale="1" width="16"></octicon>
                     </b-button>
-                    <b-button>
+                    <b-button @click="preview_passage(item.name)">
                       <octicon name="eye" scale="1" width="16"></octicon>
                     </b-button>
-                    <b-button>
+                    <b-button @click="upload_passage(item.name)">
                       <octicon name="cloud-upload" scale="1" width="16"></octicon>
                     </b-button>
-                    <b-button>
+                    <b-button @click="delete_passage(item.name)">
                       <octicon name="trashcan" scale="1" width="16"></octicon>
                     </b-button>
                   </b-button-group>
@@ -190,6 +192,18 @@ export default {
     },
     hide_new_passage () {
       this.showNewPassage = !this.showNewPassage
+    },
+    share_passage (name) {
+      alert(name)
+    },
+    preview_passage (name) {
+      alert(name)
+    },
+    upload_passage (name) {
+      alert(name)
+    },
+    delete_passage (name) {
+      alert(name)
     }
   },
   created () {
@@ -278,36 +292,67 @@ h6 {
 }
 
 #sidePanel {
+  background-color: $base-color-d1;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
   &.full-panel {
     width: 250px;
     opacity: 100;
   }
+
   &.hide-panel {
     width: 0px;
     opacity: 0;
   }
-  background-color: $base-color-d1;
-
-  #pencil-toolbar {
-    margin-left: 5px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    button {
-      border-radius: 2;
-      padding: 2px;
-    }
-  }
 
   #write {
-    border-bottom: 1px solid $base-color-l1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
-    .list-group-item {
-      width: auto;
-      margin: 0px;
-      border: 1px solid transparent;
-      border-top: 1px solid $base-color-l1;
-      border-radius: 0px;
-      padding: 12px;
+    #write-toolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0px;
+      z-index: 2;
+
+      background-color: $base-color-d1;
+      padding: 6px 0 6px 5px;
+      border-bottom: 1px solid $base-color-l1;
+
+      button {
+        border-radius: 2;
+        padding: 2px;
+      }
+    }
+
+    #write-column-list {
+      display: block;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $base-color-d1;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $base-color-l1;
+      }
+
+      .list-group-item {
+        width: auto;
+        margin: 0px;
+        border: 1px solid transparent;
+        border-bottom: 1px solid $base-color-l1;
+        border-radius: 0px;
+        padding: 12px;
+      }
     }
   }
 }
