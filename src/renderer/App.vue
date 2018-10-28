@@ -30,22 +30,24 @@
             :title="`${side.title}(${side.shortCut})`"
             @click="panel(side)"
           >
-            <octicon :name="side.name" scale="2" width="50"></octicon>
+            <router-link :to="'/' + side.route">
+              <octicon :name="side.icon" scale="2" width="50"></octicon>
+            </router-link>
           </li>
         </ul>
       </div>
       <div id="sidePanel" class="full-height hide-panel">
-        <div id="manage" class="full-height" v-if="activePanel==='book'">
+        <div id="manage" class="full-height" v-if="activePanel==='manage'">
           <b-list-group>
             <!--TODO: Support column list-->
             <b-list-group-item variant="dark" button>文集</b-list-group-item>
           </b-list-group>
         </div>
-        <div id="write" class="full-height" v-else-if="activePanel==='pencil'">
-          <div id="write-toolbar">
+        <div id="edit" class="full-height" v-else-if="activePanel==='edit'">
+          <div id="edit-toolbar">
             <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">新建专栏</b-button>
           </div>
-          <b-list-group id="write-column-list" class="full-height">
+          <b-list-group id="edit-column-list" class="full-height">
             <b-list-group-item
               v-if="this.$store.state.Passage.passages.length == 0"
               button
@@ -90,7 +92,9 @@
           </b-list-group>
         </div>
       </div>
-      <div id="sideBody" class="full-height"></div>
+      <div id="sideBody" class="full-height">
+        <router-view></router-view>
+      </div>
     </b-container>
     <new-column :show="this.showNewPassage" :hidden="hide_new_passage"></new-column>
   </div>
@@ -114,44 +118,44 @@ export default {
       showNewPassage: false,
       sideSelection: [
         {
-          name: 'person',
+          name: 'user',
+          icon: 'person',
           title: '用户管理',
+          route: 'welcome',
           shortCut: 'Ctrl+Shift+U',
-          panel: {
-            available: false
-          }
+          hasPanel: false
         },
         {
-          name: 'book',
+          name: 'manage',
+          icon: 'book',
           title: '专栏管理',
+          route: 'list',
           shortCut: 'Ctrl+Shift+U',
-          panel: {
-            available: true
-          }
+          hasPanel: true
         },
         {
-          name: 'pencil',
+          name: 'edit',
+          icon: 'pencil',
           title: '创作中心',
+          route: 'edit',
           shortCut: 'Ctrl+Shift+C',
-          panel: {
-            available: true
-          }
+          hasPanel: true
         },
         {
-          name: 'gear',
+          name: 'options',
+          icon: 'gear',
           title: '用户设置',
+          route: 'options',
           shortCut: 'Ctrl+Shift+P',
-          panel: {
-            available: false
-          }
+          hasPanel: false
         },
         {
-          name: 'question',
+          name: 'about',
+          icon: 'question',
           title: '关于我们',
+          route: 'about',
           shortCut: 'Ctrl+Shift+A',
-          panel: {
-            available: false
-          }
+          hasPanel: false
         }
       ]
     }
@@ -175,7 +179,7 @@ export default {
       const panel = document.querySelector('#sidePanel')
       const hidden = this.activePanel === ''
 
-      if (side.panel.available) {
+      if (side.hasPanel) {
         if (hidden) {
           panel.classList.remove('hide-panel')
           panel.classList.add('full-panel')
@@ -213,7 +217,10 @@ export default {
     this.$store.commit('LOAD_CONFIG')
     this.$store.commit('LOAD_SYNC_CONFIG')
     this.$store.commit('LOAD_PASSAGES')
-    console.log(this.$store.state.Passage.passages)
+
+    // Save config
+    this.$store.commit('SAVE_CONFIG')
+    this.$store.commit('SAVE_SYNC_CONFIG')
   }
 }
 </script>
@@ -305,12 +312,12 @@ h6 {
     opacity: 0;
   }
 
-  #write {
+  #edit {
     overflow: hidden;
     display: flex;
     flex-direction: column;
 
-    #write-toolbar {
+    #edit-toolbar {
       position: -webkit-sticky;
       position: sticky;
       top: 0px;
@@ -328,7 +335,7 @@ h6 {
       }
     }
 
-    #write-column-list {
+    #edit-column-list {
       display: block;
       overflow: auto;
 
@@ -390,5 +397,6 @@ h6 {
 #sideBody {
   flex: 1;
   background-color: $base-color-d2;
+  color: white;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  
+  <h1>Passage-List!</h1>
 </template>
 <script>
 export default {

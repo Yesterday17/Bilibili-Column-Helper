@@ -8,7 +8,7 @@ import Octicon from 'vue-octicon/components/Octicon.vue'
 import colorfulButton from './components/colorful-button.vue'
 
 import App from './App'
-import router from './router'
+import router from './router.js'
 import store from './store'
 
 /* Import css files here  */

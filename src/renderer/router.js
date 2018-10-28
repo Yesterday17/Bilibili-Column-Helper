@@ -16,17 +16,17 @@ export default new Router({
       component: require('@/components/passage-list').default
     },
     {
-      path: '/edit/:name',
+      path: '/edit',
       name: 'edit',
       component: require('@/components/edit/').default
     },
     {
-      path: '/options/:page',
+      path: '/options',
       name: 'options',
       component: require('@/components/options').default
     },
     {
-      path: '/about/:page',
+      path: '/about',
       name: 'about',
       component: require('@/components/about').default
     },
