@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     saveChange (instance, changes) {
-      console.log(this.$route)
       this.$emit('update-text', this.code)
       this.$store.commit('SAVE_PASSAGE', {
         name: this.$route.params.name,
