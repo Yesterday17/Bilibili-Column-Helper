@@ -24,47 +24,47 @@ const mutations = {
   },
 
   // Passage Library
-  NEW_PASSAGE (state, payload) {
-    fs.mkdirSync(constants.columnPath(payload.name))
-    fs.mkdirSync(constants.imagePath(payload.name))
-    fs.mkdirSync(constants.documentPath(payload.name))
+  NEW_PASSAGE (state, passage) {
+    fs.mkdirSync(constants.columnPath(passage.name))
+    fs.mkdirSync(constants.imagePath(passage.name))
+    fs.mkdirSync(constants.documentPath(passage.name))
 
     // Save File
     fs.writeFileSync(
-      constants.indexJson(payload.name),
-      JSON.stringify(payload, undefined, 2),
+      constants.indexJson(passage.name),
+      JSON.stringify(passage, undefined, 2),
       { encoding: 'utf-8' }
     )
     // Set local empty
-    fs.writeFileSync(constants.localMDPath(payload.name), '', {
+    fs.writeFileSync(constants.localMDPath(passage.name), '', {
       encoding: 'utf-8'
     })
 
     // Set remote empty
-    fs.writeFileSync(constants.remoteMDPath(payload.name), '', {
+    fs.writeFileSync(constants.remoteMDPath(passage.name), '', {
       encoding: 'utf-8'
     })
 
     // Copy cover to relative path
-    sharp(payload.image).toFile(constants.localCoverPath(payload.name))
-    payload.image = './images/cover.png'
+    sharp(passage.image).toFile(constants.localCoverPath(passage.name))
+    passage.image = './images/cover.png'
 
     // Resolve relative path
-    payload.image = constants.localCoverPath(payload.name)
+    passage.image = constants.localCoverPath(passage.name)
 
-    state.passageData.set(payload.name, {
-      // Deep copy payload and add to map
-      ...JSON.parse(JSON.stringify(payload))
+    state.passageData.set(passage.name, {
+      // Deep copy passage and add to map
+      ...JSON.parse(JSON.stringify(passage))
     })
 
-    state.passageContent.set(payload.name, {
+    state.passageContent.set(passage.name, {
       local: '',
       remote: ''
     })
   },
-  DEL_PASSAGE (state, payload) {
-    state.passageData.delete(payload.name)
-    rimraf.sync(constants.columnPath(payload.name))
+  DEL_PASSAGE (state, passage) {
+    state.passageData.delete(passage.name)
+    rimraf.sync(constants.columnPath(passage.name))
   },
 
   LOAD_PASSAGES (state) {

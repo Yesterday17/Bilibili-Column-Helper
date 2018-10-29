@@ -224,7 +224,10 @@ export default {
       alert(name)
     },
     delete_passage (name) {
-      alert(name)
+      this.$store.commit('DEL_PASSAGE', {
+        name
+      })
+      // TODO: alert to show it's okay
     },
     edit_passage (name) {
       this.$router.push({
