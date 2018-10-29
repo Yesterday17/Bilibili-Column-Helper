@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-preview-html" v-html="previewHTML"></div>
+  <div id="edit-preview-html" v-html="html"></div>
 </template>
 
 <script>
@@ -7,22 +7,19 @@ import * as renderer from '../../utils/RendererFactory'
 
 export default {
   name: 'preview',
+  props: ['text'],
   data () {
     return {
-      previewHTML: ''
     }
   },
   methods: {
-    render (passage) {
-      return renderer.getRenderer({ module: this.$store.state.Config.config.renderer })(this.$store.state.Passage.passageContent.get(passage).local)
+    render (text) {
+      return renderer.getRenderer({ module: this.$store.state.Config.config.renderer })(text)
     }
   },
-  created () {
-    this.previewHTML = this.render(this.$route.params.name)
-  },
-  watch: {
-    '$route' (to, from) {
-      this.previewHTML = this.render(to.params.name)
+  computed: {
+    html () {
+      return this.render(this.$route.matched[1].components.default.name === 'double-editor' ? this.text : this.$store.state.Passage.passageContent.get(this.$route.params.name).local)
     }
   }
 }

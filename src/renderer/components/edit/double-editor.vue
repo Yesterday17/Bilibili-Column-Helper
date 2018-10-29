@@ -1,10 +1,10 @@
 <template>
   <div id="edit-double-body">
     <div id="edit-double-editor">
-      <editor></editor>
+      <editor v-bind:text="text" v-on:update-text="updateText"></editor>
     </div>
     <div id="edit-double-preview">
-      <preview></preview>
+      <preview v-bind:text="text"></preview>
     </div>
   </div>
 </template>
@@ -19,7 +19,25 @@ export default {
     editor, preview
   },
   data () {
-    return {}
+    return {
+      text: ''
+    }
+  },
+  methods: {
+    updateText (src) {
+      this.text = src
+    },
+    refreshText (name) {
+      this.text = this.$store.state.Passage.passageContent.get(name).local
+    }
+  },
+  created () {
+    this.refreshText(this.$route.params.name)
+  },
+  watch: {
+    '$route' (to, from) {
+      this.refreshText(to.params.name)
+    }
   }
 }
 </script>

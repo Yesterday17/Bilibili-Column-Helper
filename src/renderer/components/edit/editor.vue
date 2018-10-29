@@ -1,6 +1,6 @@
 <template>
   <div id="edit-editor-codemirror" class="full-height">
-    <codemirror :v-model="code" :options="editorOptions"></codemirror>
+    <codemirror v-model="code" :options="editorOptions" @changes="saveChange"></codemirror>
   </div>
 </template>
 
@@ -11,6 +11,7 @@ import 'codemirror/theme/lesser-dark.css'
 
 export default {
   name: 'editor',
+  props: ['text'],
   data () {
     return {
       code: '',
@@ -27,6 +28,24 @@ export default {
         theme: 'lesser-dark',
         scrollbarStyle: 'simple'
       }
+    }
+  },
+  methods: {
+    saveChange (instance, changes) {
+      console.log(this.$route)
+      this.$emit('update-text', this.code)
+      this.$store.commit('SAVE_PASSAGE', {
+        name: this.$route.params.name,
+        text: this.code
+      })
+    }
+  },
+  created () {
+    this.code = this.text
+  },
+  watch: {
+    'text' (to, from) {
+      this.code = this.text
     }
   }
 }
