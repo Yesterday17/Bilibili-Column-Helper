@@ -216,7 +216,7 @@ export default {
     },
     preview_passage (name) {
       this.$router.push({
-        path: `/edit/${name}/preview`
+        path: `/edit/${name}/preview?time=${Date.now()}`
       })
       this.hidePanel()
     },
@@ -228,7 +228,7 @@ export default {
     },
     edit_passage (name) {
       this.$router.push({
-        path: `/edit/${name}/double`
+        path: `/edit/${name}/double?time=${Date.now()}`
       })
       this.hidePanel()
     }
