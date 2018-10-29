@@ -31,5 +31,10 @@ export default {
     justify-content: center;
     color: white;
   }
+
+  #edit-editor {
+    width: 100%;
+    display: flex;
+  }
 }
 </style>

@@ -25,6 +25,10 @@ export default new Router({
           component: require('@/components/edit/preview').default
         },
         {
+          path: 'editor',
+          component: require('@/components/edit/editor').default
+        },
+        {
           path: 'double',
           component: require('@/components/edit/double-editor').default
         }

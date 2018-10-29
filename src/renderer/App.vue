@@ -255,17 +255,7 @@ export default {
 @import "./styles/colors.scss";
 
 // Use Yahei by default
-body,
-button,
-input,
-select,
-textarea,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+* {
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif !important;
 }
 
@@ -426,6 +416,7 @@ h6 {
 
 #sideBody {
   flex: 1;
+  overflow: hidden;
   background-color: $base-color-d2;
   color: white;
 }
