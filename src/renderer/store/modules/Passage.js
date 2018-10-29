@@ -7,39 +7,18 @@ import * as constants from '../../utils/constants'
 const state = {
   passageData: new Map(),
   passageContent: new Map(),
-  passages: [],
-
-  currentPassage: {
-    name: '',
-    text: ''
-  }
+  passages: []
 }
 
 const mutations = {
-  // For Editor
-  SET_CONTENT (state, content) {
-    state.currentPassage.text = content
-  },
-  SET_PASSAGE (state, payload) {
-    state.currentPassage.name = payload.name
-
-    // TODO: Optimize interface
-    state.currentPassage.text = state.passageContent.get(payload.name).local
-  },
-  RESET_PASSAGE (state) {
-    state.currentPassage = {
-      name: '',
-      text: ''
-    }
-  },
-  SAVE_PASSAGE (state, text) {
+  SAVE_PASSAGE (state, passage) {
     // TODO: Save files differently
-    const content = state.passageContent.get(state.currentPassage.name)
-    state.passageContent.set(state.currentPassage.name, {
+    const content = state.passageContent.get(passage.name)
+    state.passageContent.set(passage.name, {
       ...content,
-      local: text
+      local: passage.text
     })
-    fs.writeFileSync(constants.localMDPath(state.currentPassage.name), text, {
+    fs.writeFileSync(constants.localMDPath(passage.name), passage.text, {
       encoding: 'utf-8'
     })
   },

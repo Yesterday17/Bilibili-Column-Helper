@@ -56,7 +56,6 @@ export function render (code) {
   }
 
   renderer.heading = (text, level, raw) => {
-    console.log(`Text: ${text}\nLevel: ${level}\nRaw: ${raw}`)
     if (level === 1) {
       return `<h1>${text}</h1>`
     }
