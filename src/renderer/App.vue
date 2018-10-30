@@ -47,7 +47,7 @@
           </div>
           <b-list-group id="edit-column-list" class="full-height">
             <b-list-group-item
-              v-if="this.$store.state.Passage.passages.length == 0"
+              v-if="this.$store.state.columns.columnData.size === 0"
               button
               active
               class="flex-column align-items-start"
@@ -55,34 +55,37 @@
               <h5>无本地专栏！</h5>
             </b-list-group-item>
             <b-list-group-item
-              :id="'list-group-item-' + item.name"
-              v-for="item in this.$store.state.Passage.passages"
-              v-bind:key="item.name"
+              v-else
+              v-for="(list, key) in Array.from(this.$store.state.columns.columnData)"
+              v-bind:key="key"
+              :id="'list-group-item-' + key"
               class="flex-column align-items-start list-group-item-action"
             >
               <div class="d-flex w-100 justify-content-between">
-                <div class="list-group-column-info" @click="edit_passage(item.name)">
-                  <h5 class="mb-1 column-list-item-name">{{item.name}}</h5>
-                  <p class="mb-1 column-list-item-content">{{item.passage.substr(0, 10)}}</p>
+                <div class="list-group-column-info" @click="edit_column(list[0])">
+                  <h5 class="mb-1 column-list-item-name">{{list[0]}}</h5>
+                  <p
+                    class="mb-1 column-list-item-content"
+                  >{{`最后修改：${new Date(list[1].pubdate).toLocaleString()}`}}</p>
                 </div>
-                <octicon name="three-bars" :id="'column-list-item-badge-' + item.name"></octicon>
+                <octicon name="three-bars" :id="'column-list-item-badge-' + key"></octicon>
                 <b-popover
-                  :target="'column-list-item-badge-' + item.name"
-                  :container="'list-group-item-' + item.name"
+                  :target="'column-list-item-badge-' + key"
+                  :container="'list-group-item-' + key"
                   triggers="focus"
                   placement="leftbottom"
                 >
                   <b-button-group vertical>
-                    <b-button @click="share_passage(item.name)">
+                    <b-button @click="share_column(list[0])">
                       <octicon name="link-external" scale="1" width="16"></octicon>
                     </b-button>
-                    <b-button @click="preview_passage(item.name)">
+                    <b-button @click="preview_column(list[0])">
                       <octicon name="eye" scale="1" width="16"></octicon>
                     </b-button>
-                    <b-button @click="upload_passage(item.name)">
+                    <b-button @click="upload_column(list[0])">
                       <octicon name="cloud-upload" scale="1" width="16"></octicon>
                     </b-button>
-                    <b-button @click="delete_passage(item.name)">
+                    <b-button @click="delete_column(list[0])">
                       <octicon name="trashcan" scale="1" width="16"></octicon>
                     </b-button>
                   </b-button-group>
@@ -96,7 +99,7 @@
         <router-view></router-view>
       </div>
     </b-container>
-    <new-column :show="this.showNewPassage" :hidden="hide_new_passage"></new-column>
+    <new-column :show="this.showNewPassage" :hidden="hide_new_column"></new-column>
   </div>
 </template> 
 
@@ -208,28 +211,29 @@ export default {
       }
       this.activePanel = side.name
     },
-    hide_new_passage () {
+    hide_new_column () {
       this.showNewPassage = !this.showNewPassage
     },
-    share_passage (name) {
+    share_column (name) {
       alert(name)
     },
-    preview_passage (name) {
+    preview_column (name) {
       this.$router.push({
         path: `/edit/${name}/preview?time=${Date.now()}`
       })
       this.hidePanel()
     },
-    upload_passage (name) {
+    upload_column (name) {
       alert(name)
     },
-    delete_passage (name) {
-      this.$store.commit('DEL_PASSAGE', {
+    delete_column (name) {
+      this.$store.commit('DEL_COLUMN', {
         name
       })
-      // TODO: alert to show it's okay
+      this.$forceUpdate()
+      alert('专栏删除成功！')
     },
-    edit_passage (name) {
+    edit_column (name) {
       this.$router.push({
         path: `/edit/${name}/double?time=${Date.now()}`
       })
@@ -244,12 +248,12 @@ export default {
 
     // Load config
     this.$store.commit('LOAD_CONFIG')
-    this.$store.commit('LOAD_SYNC_CONFIG')
-    this.$store.commit('LOAD_PASSAGES')
+    this.$store.commit('LOAD_REMOTE_CONFIG')
+    this.$store.commit('LOAD_COLUMNS')
 
     // Save config
     this.$store.commit('SAVE_CONFIG')
-    this.$store.commit('SAVE_SYNC_CONFIG')
+    this.$store.commit('SAVE_REMOTE_CONFIG')
   }
 }
 </script>
@@ -322,7 +326,7 @@ export default {
   flex-direction: column;
 
   &.full-panel {
-    width: 250px;
+    width: 20%;
     opacity: 100;
   }
 
@@ -393,6 +397,7 @@ export default {
 
         .column-list-item-content {
           color: $svg-inactive;
+          font-size: 0.8rem;
         }
 
         svg {

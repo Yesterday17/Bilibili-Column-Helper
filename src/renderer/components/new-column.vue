@@ -99,7 +99,7 @@ export default {
   computed: {
     category () {
       const options = []
-      for (let ca of this.$store.state.Sync.category) {
+      for (let ca of this.$store.state.remote.category) {
         options.push({
           value: ca.id,
           text: ca.name
@@ -110,7 +110,7 @@ export default {
     sub_category () {
       const options = []
       if (this.form.category !== null) {
-        const sub = this.$store.state.Sync.categoryMap.get(this.form.category)
+        const sub = this.$store.state.remote.categoryMap.get(this.form.category)
 
         for (let ca of sub.children) {
           options.push({

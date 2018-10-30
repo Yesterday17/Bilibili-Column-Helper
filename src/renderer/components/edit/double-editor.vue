@@ -28,7 +28,7 @@ export default {
       this.text = src
     },
     refreshText (name) {
-      this.text = this.$store.state.Passage.passageContent.get(name).local
+      this.text = this.$store.state.columns.columnContent.get(name).local
     }
   },
   created () {

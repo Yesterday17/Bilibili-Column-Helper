@@ -33,7 +33,7 @@ export default {
   methods: {
     saveChange (instance, changes) {
       this.$emit('update-text', this.code)
-      this.$store.commit('SAVE_PASSAGE', {
+      this.$store.commit('SAVE_COLUMN', {
         name: this.$route.params.name,
         text: this.code
       })

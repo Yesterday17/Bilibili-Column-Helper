@@ -14,12 +14,12 @@ export default {
   },
   methods: {
     render (text) {
-      return renderer.getRenderer({ module: this.$store.state.Config.config.renderer })(text)
+      return renderer.getRenderer({ module: this.$store.state.config.renderer })(text)
     }
   },
   computed: {
     html () {
-      return this.render(this.$route.matched[1].components.default.name === 'double-editor' ? this.text : this.$store.state.Passage.passageContent.get(this.$route.params.name).local)
+      return this.render(this.$route.matched[1].components.default.name === 'double-editor' ? this.text : this.$store.state.columns.columnContent.get(this.$route.params.name).local)
     }
   }
 }

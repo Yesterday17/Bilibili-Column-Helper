@@ -25,9 +25,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import modules from './modules'
-
 Vue.use(Vuex)
+
+const files = require.context('./modules', false, /\.js$/)
+const modules = {}
+
+files.keys().forEach(key => {
+  modules[key.replace(/(\.\/|modules\/|\.js)/g, '')] = files(key).default
+})
 
 export default new Vuex.Store({
   modules,

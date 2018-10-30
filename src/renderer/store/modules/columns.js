@@ -29,69 +29,68 @@ import * as sharp from 'sharp'
 import * as constants from '../../utils/constants'
 
 const state = {
-  passageData: new Map(),
-  passageContent: new Map(),
-  passages: []
+  columnData: new Map(),
+  columnContent: new Map()
 }
 
 const mutations = {
-  SAVE_PASSAGE (state, passage) {
+  SAVE_COLUMN (state, column) {
     // TODO: Save files differently
-    const content = state.passageContent.get(passage.name)
-    state.passageContent.set(passage.name, {
+    const content = state.columnContent.get(column.name)
+    state.columnContent.set(column.name, {
       ...content,
-      local: passage.text
+      local: column.text
     })
-    fs.writeFileSync(constants.localMDPath(passage.name), passage.text, {
+    fs.writeFileSync(constants.localMDPath(column.name), column.text, {
       encoding: 'utf-8'
     })
   },
 
   // Passage Library
-  NEW_PASSAGE (state, passage) {
-    fs.mkdirSync(constants.columnPath(passage.name))
-    fs.mkdirSync(constants.imagePath(passage.name))
-    fs.mkdirSync(constants.documentPath(passage.name))
+  NEW_COLUMN (state, column) {
+    fs.mkdirSync(constants.columnPath(column.name))
+    fs.mkdirSync(constants.imagePath(column.name))
+    fs.mkdirSync(constants.documentPath(column.name))
 
     // Save File
     fs.writeFileSync(
-      constants.indexJson(passage.name),
-      JSON.stringify(passage, undefined, 2),
+      constants.indexJson(column.name),
+      JSON.stringify(column, undefined, 2),
       { encoding: 'utf-8' }
     )
     // Set local empty
-    fs.writeFileSync(constants.localMDPath(passage.name), '', {
+    fs.writeFileSync(constants.localMDPath(column.name), '', {
       encoding: 'utf-8'
     })
 
     // Set remote empty
-    fs.writeFileSync(constants.remoteMDPath(passage.name), '', {
+    fs.writeFileSync(constants.remoteMDPath(column.name), '', {
       encoding: 'utf-8'
     })
 
     // Copy cover to relative path
-    sharp(passage.image).toFile(constants.localCoverPath(passage.name))
-    passage.image = './images/cover.png'
+    sharp(column.image).toFile(constants.localCoverPath(column.name))
+    column.image = './images/cover.png'
 
     // Resolve relative path
-    passage.image = constants.localCoverPath(passage.name)
+    column.image = constants.localCoverPath(column.name)
 
-    state.passageData.set(passage.name, {
-      // Deep copy passage and add to map
-      ...JSON.parse(JSON.stringify(passage))
+    state.columnData.set(column.name, {
+      // Deep copy column and add to map
+      ...JSON.parse(JSON.stringify(column))
     })
 
-    state.passageContent.set(passage.name, {
+    state.columnContent.set(column.name, {
       local: '',
       remote: ''
     })
   },
-  DEL_PASSAGE (state, passage) {
-    state.passageData.delete(passage.name)
-    rimraf.sync(constants.columnPath(passage.name))
+  DEL_COLUMN (state, column) {
+    state.columnData.delete(column.name)
+    rimraf.sync(constants.columnPath(column.name))
   },
 
-  LOAD_PASSAGES (state) {
+  LOAD_COLUMNS (state) {
     if (!fs.existsSync(constants.PATH)) {
       fs.mkdirSync(constants.PATH)
       return
@@ -102,35 +101,32 @@ const mutations = {
       if (fs.statSync(constants.columnPath(d)).isDirectory()) {
         try {
           // Load config
-          const passage = JSON.parse(
+          const column = JSON.parse(
             fs.readFileSync(
               path.resolve(constants.columnPath(d), 'index.json'),
               { encoding: 'utf-8' }
             )
           )
-          // Load local passage
+          // Load local column
           const local = fs.readFileSync(constants.localMDPath(d), {
             encoding: 'utf-8'
           })
-          // Load remote passage
+          // Load remote column
           const remote = fs.readFileSync(constants.remoteMDPath(d), {
             encoding: 'utf-8'
           })
           // Load cover
-          passage.image =
-            passage.image[0] === '.'
-              ? constants.localCoverPath(passage.name)
-              : passage.image
+          column.image =
+            column.image[0] === '.'
+              ? constants.localCoverPath(column.name)
+              : column.image
 
           // Add to map
-          state.passageData.set(d, passage)
-          state.passageContent.set(d, {
+          state.columnData.set(d, column)
+          state.columnContent.set(d, {
             local: local,
             remote: remote
           })
-
-          // Add to Array
-          state.passages.push({ name: d, passage: local })
         } catch (e) {
           console.error(e.message)
         }
