@@ -3,11 +3,12 @@
     id="about-carousel"
     style="text-shadow: 1px 1px 2px #333;"
     indicators
-    :interval="4000"
   >
     <b-carousel-slide img-src="static/icon.png">
-      <p>本程序以 Electron、Vue.js、Marked 以及 CodeMirror 为主要组件编写，旨在以 Markdown 书写目前并不支持 Markdown 的 Bilibili 专栏。</p>
-      <p>从原理来看，本程序将要实现的是将 Bilibili 支持的 HTML 特性以原本的方式渲染；而对于不支持的特性（比如表格等），则进行图片的渲染，以达到相同的显示目的。</p>
+      <p>本程序以Electron、Vue.js以及CodeMirror为主要组件编写，旨在以Markdown书写目前并不支持Markdown的Bilibili专栏。</p>
+      <p>从原理来看，本程序将要实现的是将Bilibili支持的HTML特性以原本的方式渲染；
+        <br>而对于不支持的特性，则进行图片的渲染，以达到相同的显示目的。
+      </p>
       <h3>专栏助手简介</h3>
     </b-carousel-slide>
     <b-carousel-slide
@@ -78,19 +79,22 @@ $count: 4;
       }
     }
   }
+  .carousel-item-next.carousel-item-left,
+  .carousel-item-prev.carousel-item-right {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 
   .carousel-item-next,
   .active.carousel-item-right {
-    @supports (transform-style: preserve-3d) {
-      transform: translate3d(0, 100%, 0);
-    }
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100% 0);
   }
 
   .carousel-item-prev,
   .active.carousel-item-left {
-    @supports (transform-style: preserve-3d) {
-      transform: translate3d(0, -100%, 0);
-    }
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 }
 </style>
