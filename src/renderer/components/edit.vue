@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../styles/colors.scss";
+
 #edit-body {
   #edit-no-passage {
     display: flex;

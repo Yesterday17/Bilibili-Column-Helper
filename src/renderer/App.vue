@@ -48,11 +48,10 @@
           <b-list-group id="edit-column-list" class="full-height">
             <b-list-group-item
               v-if="this.$store.state.columns.columnData.size === 0"
-              button
+              id="edit-column-list-empty"
               active
-              class="flex-column align-items-start"
             >
-              <h5>无本地专栏！</h5>
+              <p>无本地专栏！</p>
             </b-list-group-item>
             <b-list-group-item
               v-else
@@ -231,6 +230,9 @@ export default {
         name
       })
       this.$forceUpdate()
+      this.$router.push({
+        path: `/${edit}`
+      })
       alert('专栏删除成功！')
     },
     edit_column (name) {
@@ -352,7 +354,7 @@ export default {
       border-bottom: 1px solid $base-color-l1;
 
       button {
-        padding: 3px 50px 3px 50px;
+        padding: 3px 25% 3px 25%;
         border-radius: 0px;
         font-size: 0.8rem;
       }
@@ -376,6 +378,18 @@ export default {
 
       &::-webkit-scrollbar-thumb {
         background: $base-color-l1;
+      }
+
+      #edit-column-list-empty {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          margin: 0px;
+        }
       }
 
       .list-group-item {
