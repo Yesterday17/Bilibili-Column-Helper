@@ -5,7 +5,6 @@
     title="新建专栏"
     ok-title="新建专栏"
     cancel-title="取消"
-    v-model="showModel"
     @ok="submitForm"
     @cancel="resetForm"
   >
@@ -58,11 +57,21 @@
       <b-row>
         <b-col>
           <b-form-group label="专栏头图（选填）">
-            <b-button variant="outline-primary" block v-b-toggle.collapse1>选择专栏头图</b-button>
+            <b-button
+              variant="outline-primary"
+              block
+              v-b-toggle.collapse1
+              @click="selectFile"
+            >选择专栏头图</b-button>
+            <input id="columnHeadImage" accept="image/*" type="file" @change="fileChange" hidden>
             <b-collapse id="collapse1" class="mt-2">
               <b-card>
                 <!-- min: 640*360; recommend: > 960*540 -->
-                <cropper ref="cropper" img="https://i0.hdslb.com/bfs/archive/04db8cc2f0305c7f34314680d866f02f20b1a4ab.png"></cropper>
+                <cropper
+                  ref="cropper"
+                  :img="img_selected"
+                  v-model="form.title_image"
+                ></cropper>
               </b-card>
             </b-collapse>
           </b-form-group>
@@ -85,8 +94,10 @@ export default {
       form: {
         title: '',
         category: null,
-        sub_category: null
-      }
+        sub_category: null,
+        title_image: ''
+      },
+      img_selected: ''
     }
   },
   methods: {
@@ -98,6 +109,13 @@ export default {
     },
     category_change () {
       this.form.sub_category = null
+    },
+    selectFile () {
+      document.getElementById('columnHeadImage').click()
+    },
+    fileChange () {
+      const file = document.getElementById('columnHeadImage').files[0]
+      console.log(file)
     },
     submitForm (event) {
       event.preventDefault()

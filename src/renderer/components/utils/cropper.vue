@@ -1,20 +1,18 @@
 <template>
-  <div id="cropper" class="w-100">
-    <img class="ori-img" :src="this.img" alt="" draggable="false">
+  <div id="cropper" class="w-100" :style="`background-image: url('${this.img}')`">
     <div class="shadow-box w-100 h-100"></div>
     <div
       id="cropper-dragger"
       @mousemove="onDrag"
       @mouseup="updateImage"
-      :style="`left: ${this.x}px;top: ${this.y}px;width: ${this.width}px;height: ${this.height}px;`"
+      :style="`left: ${this.x}px;top: ${this.y}px;`"
     >
       <div class="crop-box w-100 h-100">
         <img
           class="shadow-img"
-          :src="this.img"
           alt=""
           draggable="false"
-          :style="`left: -${this.x}px;top: -${this.y}px;`"
+          :style="`left: -${this.x}px;top: -${this.y}px;background-image: url('${this.img}')`"
         >
       </div>
     </div>
@@ -25,7 +23,7 @@
 <script>
 export default {
   name: 'cropper',
-  props: ['img', 'output'],
+  props: ['img', 'value'],
   data () {
     return {
       width: 288,
@@ -33,7 +31,12 @@ export default {
       x: 0,
       y: 0,
 
-      src: ''
+      selected: ''
+    }
+  },
+  watch: {
+    'selected' () {
+      this.$emit('input', this.selected)
     }
   },
   methods: {
@@ -56,8 +59,7 @@ export default {
       image.src = this['img']
       image.onload = () => {
         ctx.drawImage(image, -this.x, -this.y)
-        this.output = canvas.toDataURL()
-        console.log(this.output)
+        this.selected = canvas.toDataURL()
       }
     }
   }
@@ -68,9 +70,13 @@ export default {
 @import "../../styles/colors.scss";
 
 #cropper {
-  height: 247.5px;
+  height: 238.5px;
   position: relative;
   overflow: hidden;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   .shadow-box {
     position: absolute;
@@ -81,6 +87,8 @@ export default {
   }
 
   #cropper-dragger {
+    width: 288px;
+    height: 162px;
     position: absolute;
     cursor: move;
 
@@ -92,6 +100,12 @@ export default {
 
       .shadow-img {
         position: absolute;
+        width: 424px;
+        height: 238.5px;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
       }
     }
   }
