@@ -1,9 +1,9 @@
 <template>
-  <div id="edit-body" class="full-height">
-    <div id="edit-no-passage" class="full-height" v-if="this.passage === undefined">
+  <div id="edit-body" class="h-100">
+    <div id="edit-no-passage" class="h-100" v-if="this.passage === undefined">
       <h5>请于侧边栏选择要编辑的专栏或新建专栏！</h5>
     </div>
-    <div id="edit-editor" class="full-height" v-else>
+    <div id="edit-editor" class="h-100 w-100" v-else>
       <router-view></router-view>
     </div>
   </div>
@@ -35,7 +35,6 @@ export default {
   }
 
   #edit-editor {
-    width: 100%;
     display: flex;
   }
 }

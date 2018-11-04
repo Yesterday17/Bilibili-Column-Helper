@@ -22,7 +22,7 @@
       </b-collapse>
     </b-navbar>
     <b-container fluid id="app-body">
-      <div id="sideBar" class="full-height">
+      <div id="sideBar" class="h-100">
         <ul>
           <li
             v-for="side in sideSelection"
@@ -34,21 +34,22 @@
           </li>
         </ul>
       </div>
-      <div id="sidePanel" class="full-height hide-panel">
-        <div id="manage" class="full-height" v-if="activePanel==='manage'">
+      <div id="sidePanel" class="h-100 hide-panel">
+        <div id="manage" class="h-100" v-if="activePanel==='manage'">
           <b-list-group>
             <!--TODO: Support column list-->
             <b-list-group-item variant="dark" button>文集</b-list-group-item>
           </b-list-group>
         </div>
-        <div id="edit" class="full-height" v-else-if="activePanel==='edit'">
+        <div id="edit" class="h-100" v-else-if="activePanel==='edit'">
           <div id="edit-toolbar">
             <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">新建专栏</b-button>
           </div>
-          <b-list-group id="edit-column-list" class="full-height">
+          <b-list-group id="edit-column-list" class="h-100">
             <b-list-group-item
               v-if="this.$store.state.columns.columnData.size === 0"
               id="edit-column-list-empty"
+              class="w-100 h-100"
               active
             >
               <p>无本地专栏！</p>
@@ -94,7 +95,7 @@
           </b-list-group>
         </div>
       </div>
-      <div id="sideBody" class="full-height">
+      <div id="sideBody" class="h-100">
         <router-view></router-view>
       </div>
     </b-container>
@@ -268,11 +269,6 @@ export default {
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif !important;
 }
 
-// Global
-.full-height {
-  height: 100%;
-}
-
 #app-nav {
   -webkit-app-region: drag; // Make navbar dragable
   height: 58px; // Specified height
@@ -381,8 +377,6 @@ export default {
       }
 
       #edit-column-list-empty {
-        height: 100%;
-        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;

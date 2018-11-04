@@ -1,9 +1,5 @@
 <template>
-  <b-carousel
-    id="about-carousel"
-    style="text-shadow: 1px 1px 2px #333;"
-    indicators
-  >
+  <b-carousel id="about-carousel" class="w-100 h-100" style="text-shadow: 1px 1px 2px #333;" indicators>
     <b-carousel-slide img-src="static/icon.png">
       <p>本程序以Electron、Vue.js以及CodeMirror为主要组件编写，旨在以Markdown书写目前并不支持Markdown的Bilibili专栏。</p>
       <p>从原理来看，本程序将要实现的是将Bilibili支持的HTML特性以原本的方式渲染；
@@ -11,18 +7,11 @@
       </p>
       <h3>专栏助手简介</h3>
     </b-carousel-slide>
-    <b-carousel-slide
-      caption="Second"
-      text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-    ></b-carousel-slide>
-    <b-carousel-slide
-      caption="Third"
-      text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-    ></b-carousel-slide>
-    <b-carousel-slide
-      caption="Support"
-      text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-    ></b-carousel-slide>
+    <b-carousel-slide></b-carousel-slide>
+    <b-carousel-slide></b-carousel-slide>
+    <b-carousel-slide>
+      <h3>鸣谢</h3>
+    </b-carousel-slide>
   </b-carousel>
 </template>
 <script>
@@ -40,9 +29,6 @@ export default {
 $count: 4;
 
 #about-carousel {
-  height: 100%;
-  width: 100%;
-
   .carousel-inner {
     height: 100%;
   }

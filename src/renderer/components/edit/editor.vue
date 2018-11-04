@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-editor-codemirror" class="full-height">
+  <div id="edit-editor-codemirror" class="h-100 w-100">
     <codemirror v-model="code" :options="editorOptions" @changes="saveChange"></codemirror>
   </div>
 </template>
@@ -57,8 +57,6 @@ export default {
 
 #edit-editor-codemirror {
   padding: 5px 10px 5px 5px;
-  width: 100%;
-  height: 100%;
 
   .vue-codemirror {
     width: 100%;

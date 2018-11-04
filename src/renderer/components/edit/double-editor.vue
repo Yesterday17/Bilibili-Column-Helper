@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-double-body">
+  <div id="edit-double-body" class="w-100">
     <div id="edit-double-editor">
       <editor v-bind:text="text" v-on:update-text="updateText"></editor>
     </div>
@@ -46,7 +46,6 @@ export default {
 @import "../../styles/colors.scss";
 
 #edit-double-body {
-  width: 100%;
   display: flex;
   padding: 20px;
 
