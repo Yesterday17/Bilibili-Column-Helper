@@ -43,7 +43,7 @@
         </div>
         <div id="edit" class="h-100" v-else-if="activePanel==='edit'">
           <div id="edit-toolbar">
-            <b-button variant="primary-l1" @click="showNewPassage = !showNewPassage">新建专栏</b-button>
+            <b-button variant="primary-l1" @click="showNewPassage">新建专栏</b-button>
           </div>
           <b-list-group id="edit-column-list" class="h-100">
             <b-list-group-item
@@ -99,7 +99,7 @@
         <router-view></router-view>
       </div>
     </b-container>
-    <new-column :show="this.showNewPassage" :hidden="hide_new_column"></new-column>
+    <new-column ref="newColumn"></new-column>
   </div>
 </template> 
 
@@ -119,7 +119,6 @@ export default {
       reformIcon: 'static/window/max-32.png',
       activePanel: '',
       panelShown: false,
-      showNewPassage: false,
       sideSelection: [
         {
           name: 'user',
@@ -179,6 +178,9 @@ export default {
         win.maximize()
       }
     },
+    showNewPassage () {
+      this.$refs.newColumn.show()
+    },
     showPanel () {
       const panel = document.querySelector('#sidePanel')
       panel.classList.remove('hide-panel')
@@ -210,9 +212,6 @@ export default {
         })
       }
       this.activePanel = side.name
-    },
-    hide_new_column () {
-      this.showNewPassage = !this.showNewPassage
     },
     share_column (name) {
       alert(name)
