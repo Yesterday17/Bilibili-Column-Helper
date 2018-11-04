@@ -67,11 +67,7 @@
             <b-collapse id="collapse1" class="mt-2">
               <b-card>
                 <!-- min: 640*360; recommend: > 960*540 -->
-                <cropper
-                  ref="cropper"
-                  :img="img_selected"
-                  v-model="form.title_image"
-                ></cropper>
+                <cropper ref="cropper" :img="img_selected" v-model="form.title_image"></cropper>
               </b-card>
             </b-collapse>
           </b-form-group>
@@ -83,6 +79,7 @@
 
 <script>
 import cropper from './utils/cropper'
+import * as fs from 'fs'
 
 export default {
   name: 'new-column',
@@ -114,8 +111,12 @@ export default {
       document.getElementById('columnHeadImage').click()
     },
     fileChange () {
+      // TODO: Make it internal for global usage and performance optimize
       const file = document.getElementById('columnHeadImage').files[0]
-      console.log(file)
+      if (!file) return
+
+      const img = fs.readFileSync(file.path)
+      this.img_selected = `data:${file.type};base64,${Buffer.from(img.buffer).toString('base64')}`
     },
     submitForm (event) {
       event.preventDefault()
