@@ -28,8 +28,6 @@ let s = new Store({
   name: 'config'
 })
 const state = {
-  version: '',
-
   renderer: '',
   poster: '',
 

@@ -24,7 +24,7 @@
 
 'use strict'
 
-import { app, BrowserWindow, globalShortcut } from 'electron'
+import { app, BrowserWindow, BrowserView, ipcMain } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV !== 'development') {
     .replace(/\\/g, '\\\\')
 }
 
-let mainWindow
+let mainWindow, loginView
 const winURL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:9080`
@@ -52,20 +52,33 @@ function createWindow () {
     frame: false,
     webPreferences: {
       webSecurity: false
-    }
+    },
+    show: false
   })
 
   mainWindow.loadURL(winURL)
 
-  globalShortcut.register('F8', function () {
-    let win = BrowserWindow.getFocusedWindow()
-    if (!win) return
-    win.webContents.toggleDevTools()
-  })
-
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
+}
+
+function createLoginView () {
+  loginView = new BrowserView()
+  loginView.setAutoResize({ width: true, height: true })
+  loginView.setBounds({
+    x: 0,
+    y: 0,
+    width: mainWindow.getSize()[0],
+    height: mainWindow.getSize()[1]
+  })
+  loginView.webContents.loadURL(
+    'https://passport.bilibili.com/ajax/miniLogin/minilogin'
+  )
 }
 
 app.on('ready', createWindow)
@@ -79,6 +92,31 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
+  }
+})
+
+ipcMain.on('show-login-view', () => {
+  createLoginView()
+  // loginView.webContents.toggleDevTools()
+  loginView.webContents.executeJavaScript(
+    `let hide = function (event) {
+      const ipcRenderer = require('electron').ipcRenderer
+      ipcRenderer.send('hide-login-view')
+    }
+    let stop = function (event) {
+      event.stopPropagation()
+    }
+    $('body').click(hide)
+    $('#content').click(stop)
+    $('#close').click(hide)`
+  )
+  mainWindow.setBrowserView(loginView)
+})
+
+ipcMain.on('hide-login-view', () => {
+  if (mainWindow.getBrowserView()) {
+    mainWindow.setBrowserView(null)
+    loginView.destroy()
   }
 })
 
