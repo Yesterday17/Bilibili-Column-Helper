@@ -79,6 +79,23 @@ function createLoginView () {
   loginView.webContents.loadURL(
     'https://passport.bilibili.com/ajax/miniLogin/minilogin'
   )
+
+  loginView.webContents.on('will-navigate', function (event, url) {
+    loginView.webContents.session.cookies.get({}, function (err, cookies) {
+      if (err) return
+
+      let result = []
+      for (let cookie of cookies) {
+        if (cookie.domain === '.bilibili.com') {
+          result.push({
+            name: cookie.name,
+            value: cookie.value
+          })
+        }
+      }
+      this.$store.commit('UPDATE_COOKIES', result)
+    })
+  })
 }
 
 app.on('ready', createWindow)

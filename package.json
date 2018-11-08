@@ -87,7 +87,6 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "rimraf": "^2.6.2",
-    "sharp": "^0.21.0",
     "vue": "^2.5.16",
     "vue-codemirror-electron": "^3.0.7",
     "vue-electron": "^1.0.6",

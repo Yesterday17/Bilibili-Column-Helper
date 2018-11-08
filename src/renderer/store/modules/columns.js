@@ -25,7 +25,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as rimraf from 'rimraf'
-import * as sharp from 'sharp'
 import * as constants from '../../utils/constants'
 
 const state = {
@@ -69,8 +68,8 @@ const mutations = {
     })
 
     // Copy cover to relative path
-    sharp(column.image).toFile(constants.localCoverPath(column.name))
-    column.image = './images/cover.png'
+    // sharp(column.image).toFile(constants.localCoverPath(column.name))
+    // column.image = './images/cover.png'
 
     // Resolve relative path
     column.image = constants.localCoverPath(column.name)

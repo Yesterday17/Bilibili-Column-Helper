@@ -106,6 +106,7 @@
 <script>
 import { remote } from 'electron'
 import newColumn from './components/new-column'
+import * as network from './utils/network'
 
 const win = remote.getCurrentWindow()
 
@@ -256,6 +257,9 @@ export default {
     // Save config
     this.$store.commit('SAVE_CONFIG')
     this.$store.commit('SAVE_REMOTE_CONFIG')
+
+    // Update login status
+    Reflect.apply(network.updateLoginStatus, this, [])
   }
 }
 </script>

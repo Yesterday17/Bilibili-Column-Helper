@@ -23,12 +23,12 @@
 */
 
 const state = {
-  loginStatus: 'pending'
+  login: 'pending'
 }
 
 const mutations = {
   UPDATE_LOGIN_STATUS: function (state, status) {
-    state.loginStatus = status
+    state.login = status
   }
 }
 

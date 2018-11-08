@@ -1,8 +1,18 @@
 <template>
   <div class="h-100 w-100 d-flex justify-content-center align-items-center">
-    <h5 id="login">欢迎使用哔哩哔哩专栏助手！请
+    <h5 v-if="this.$store.state.status.login === 'false'" id="login">
+      <!-- Not logined -->
+      欢迎使用哔哩哔哩专栏助手！请
       <b-link @click="login">登录</b-link>！
     </h5>
+    <div v-else-if="this.$store.state.status.login === 'true'">
+      Logined
+      <!-- Logined -->
+    </div>
+    <div v-else>
+      <!-- Pending login status -->
+      Pending...
+    </div>
   </div>
 </template>
 <script>
