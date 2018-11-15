@@ -1,0 +1,39 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.tabCompletion": "on",
+    "eslint.validate": [
+      "javascript",
+      "vue",
+      {
+        "language": "vue",
+        "autoFix": true
+      },
+      {}
+    ],
+    "prettier.eslintIntegration": true,
+    "files.exclude": {
+      "node_modules/": true
+    },
+    "eslint.alwaysShowStatus": true,
+    "todohighlight.include": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.html",
+      "**/*.php",
+      "**/*.css",
+      "**/*.scss",
+      "**/*.vue"
+    ],
+    "todohighlight.isEnable": true,
+    "emmet.triggerExpansionOnTab": true,
+    "vetur.format.defaultFormatter.html": "prettyhtml"
+  }
+}
